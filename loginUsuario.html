@@ -1,0 +1,70 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="STYLESHEET" type="text/css" href="estiloLogin"></link>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- web responsive para el zoom -->
+
+<div id="navbar">
+
+<span class="inbar">
+
+<ul>
+
+<li class="navhome"><a href="#"><span>Inicio</span></a></li>
+
+
+
+<li><a href="#"><span>Admin</span></a></li>
+
+<li><a href="#"><span>Contactanos</span></a></li>
+
+</ul>
+
+</span>
+
+</div>
+
+
+
+<div align="center" >
+    <form id="test-form" class="" action='' method='post'>
+
+    <div class="row">
+   
+ <div class="col-md-4"></div>
+ <div class="col-md-4">
+  
+ <br>
+     
+    <form id="test-form" class="" action='?action=post_producto' method='post'>
+
+
+       <input type="hidden" name="id" id="id" value=""  >
+      Usuario:<br>  
+      <input type="text" name="usuario" id="usuario" value=""  required>
+      <br> <br>
+      Contraseña:<br>
+      <input type="text" name="contraseña" id="contraseña" required>
+      <br> <br>
+     
+  
+  <br> <br>
+  <br><br>
+  
+  <input type="reset"  value="Cancelar" class="btncancelar" onClick="location.href=www.yoursite.com" >
+  <input type="submit" value="Aceptar" class="btnAlta"> <!--  id="myButton" Si llamo a la funcion no chequeo required redirige de una, consultar-->
+  
+</form>
+
+</div>
+
+<div id="footer">
+<footer>
+  
+<h2>Proyecto de Software 2017 - Hospital Dr. Ricardo Gutierrez </h2> 
+</footer>
+</div>
+<!-- Script para redirigir al aceptar click en myButton -->
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "home";
+    };
+</script>
