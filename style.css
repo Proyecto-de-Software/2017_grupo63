@@ -1,3 +1,16 @@
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.white {
+    color: white;
+}
+
+
 section {
     height: 550px;
 }
@@ -24,11 +37,17 @@ footer{
         background-color: #333;
 }
 
+@media () {
 
-header{
+
+}
+
+
+nav{
     margin: 0;
     padding: 0;
     background-color: #333;
+    height: 70px;
 }
 
 ul {
@@ -57,8 +76,7 @@ li p{
     color: white;
 
 }
-
-
+/* Style del menu */
 .dropbtn {
     background-color: #333;
     color: white;
@@ -98,7 +116,7 @@ li p{
     background-color: #3e8e41;
 }
 
-header form {
+nav form {
     width: 300px;
     margin:0 ;
     display: inline;
