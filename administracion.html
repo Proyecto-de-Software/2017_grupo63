@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>administracion</title>
 </head>
 <body>
-<header>
-	<img class="imagen" src="hospital.jpg" style="">
+<nav>
 
-	<ul>
+	<ul class="left">
+		<img class="imagen" src="hospital.jpg">
 		<li> <a> Inicio </a> </li>
+		<li> <a> Pacientes </a> </li>
+	</ul>
 
-		<form style="float:right;">
-			<input type="search" placeholder="Buscar...">
-			<button type="submit">
-				<a>Buscar</a>
-			</button>
-	</form>
+	<ul class="right">	
 
-	 	<div class="dropdown">
+	<div class="dropdown">
  		 <button class="dropbtn"> <a class="font">Administracion</a>  </button>
   		<div class="dropdown-content">
    		 <a href="#">Usuario</a>
@@ -28,9 +26,17 @@
   		</div>
 		</div>
 
-	</ul>
+		<form >
+			<input type="search" placeholder="Buscar...">
+			<button type="submit">
+				<a>Buscar</a>
+			</button>
+	</form>
 
-</header>
+	<a class="white">Facu Marrero</a>
+</ul>
+
+</nav>
 
 <section>
 	<div class="define"></div>
@@ -39,7 +45,7 @@
 <footer>
 	<ul>
 		<li> <p> Proyecto de Software 2017 - Hospital Dr. Ricardo Gutierrez </p> </li>
-		<li style="float: right;"> <p> v 0.1.0 </p> </li>
+		<li class="right"> <p> v 0.1.0 </p> </li>
 	</ul>
 </footer>
 
