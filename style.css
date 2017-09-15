@@ -1,5 +1,6 @@
 .right {
     float: right;
+    margin-right: 9px;
 }
 
 .left {
@@ -10,9 +11,39 @@
     color: white;
 }
 
+.contNav{
+    font-size: 200%;
+    margin-left: 10%;
+}
+
+.buscar{
+    padding-top:20px;
+    border: 20px;
+}
+
+.buscarBTN{
+    background-color:  #778899;
+    
+    color: white;
+    
+    height: 20px;
+}
+
+.parte{
+    max-width: 33%;
+    float: left;
+    margin-right: 4px;      
+        
+
+}
+
+#titulo{
+    font-size: 400%;
+    text-align: center;
+}
 
 section {
-    height: 550px;
+    min-height: 500px;
 }
 
 .font {
@@ -121,4 +152,16 @@ nav form {
     margin:0 ;
     display: inline;
     padding: 16px;
+}
+
+/* acomodar los parrafos responsive */
+
+@media only screen and (max-width: 1213px) {
+    .parte{
+        max-width: 100%;
+    }
+
+    footer{
+
+    }
 }
