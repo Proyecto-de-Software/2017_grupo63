@@ -15,6 +15,9 @@
     font-size: 200%;
     margin-left: 10%;
 }
+.center{
+    text-align: center;
+}
 
 .buscar{
     padding-top:20px;
@@ -54,6 +57,7 @@ section {
 .imagen{
     float: left;
     width: 45px;
+    height: 70px;
 }
 
 .define {
@@ -66,11 +70,19 @@ footer{
         margin: 0;
         padding: 0;
         background-color: #333;
+         
 }
 
-@media () {
-
-
+.footer2{
+        height: 50px;
+        margin: 0;
+        padding: 0;
+        background-color: #333;
+          position:fixed;
+         left:0px;
+        bottom:0px;
+         height:60px;
+         width:100%;
 }
 
 
