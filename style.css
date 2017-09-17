@@ -22,6 +22,7 @@
 .buscar{
     padding-top:20px;
     border: 20px;
+
 }
 
 .buscarBTN{
@@ -39,6 +40,11 @@
         
 
 }
+
+.navDerecha{
+    padding: 10px;
+}
+
 
 #titulo{
     font-size: 400%;
