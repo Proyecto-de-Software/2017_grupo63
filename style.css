@@ -1,7 +1,6 @@
 .right {
     float: right;
     margin-right: 9px;
-    display: inline;
 }
 
 .left {
@@ -42,11 +41,9 @@
 
 }
 
-
 .navDerecha{
     padding: 10px;
 }
-
 
 
 #titulo{
@@ -58,11 +55,10 @@ section {
     min-height: 500px;
 }
 
-nav div button a{
+.font {
     font-size: 15px;
     text-align: center;
 }
-
 
 .imagen{
     float: left;
@@ -136,14 +132,12 @@ li p{
     padding: 14px;
     border: none;
     cursor: pointer;
-    font-size: 100%
 
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
-    width: 200px
 }
 
 .dropdown-content {
@@ -171,11 +165,6 @@ li p{
     background-color: #3e8e41;
 }
 
-nav form .forma {
-    width: 100px;
-    
-}
-
 nav form {
     width: 300px;
     margin:0 ;
@@ -194,15 +183,4 @@ nav form {
     footer{
 
     }
-}
-
-
-@media(max-width: 750px){
-
-nav{
-
-    height: 250px
-}
-ul .right {
-    float: left;
 }
