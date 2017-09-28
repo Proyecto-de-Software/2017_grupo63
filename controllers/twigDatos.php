@@ -18,8 +18,8 @@
 	    	$datos = new DatosConfig();
 	    	$datos = $datos->obtenerInfo();
 	    	$datos = $datos;
-	    	$datos['url'] = "https://" . "$_SERVER[HTTP_HOST]" ;	
-	    	var_dump($datos);
+	    	$datos['url'] = "https://" . "$_SERVER[HTTP_HOST]" . "/";	
+	    	
 	    	return $datos;
 	    }
 
