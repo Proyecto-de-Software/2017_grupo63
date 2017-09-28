@@ -18,7 +18,7 @@
 	    	$datos = new DatosConfig();
 	    	$datos = $datos->obtenerInfo();
 	    	$datos = $datos;
-	    	$datos['url'] = "http://" . "$_SERVER[HTTP_HOST]" . '/grupo63/';	
+	    	$datos['url'] = "https://" . "$_SERVER[HTTP_HOST]" ;	
 	    	var_dump($datos);
 	    	return $datos;
 	    }
