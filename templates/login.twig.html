@@ -1,0 +1,23 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+	<form id="test-form"  action='../controllers/login.php?action=check' method='post'>
+
+	     <div class="center">
+	        <input type="hidden" name="id" id="id" value="">
+	        <br> <br>
+	        Usuario: 
+	        <input type="text" name="usuario" id="usuario" value=""  required>
+	        <br> <br>
+	        Contraseña:
+	        <input type="password" name="contrasena" id="contraseña" required>
+	        <br> <br>
+
+	      <input type="reset"  value="Cancelar" class="btncancelar" onClick="location.href=www.yoursite.com" >
+	      <input type="submit" value="Aceptar" class="btnAlta"> <!--  id="myButton" Si llamo a la funcion no chequeo required redirige de una, consultar-->
+	    </div>
+  		{% if error is defined %}
+  			<a> {{ error }}</a>
+  		{% endif %}
+    </form>
+{% endblock %}	

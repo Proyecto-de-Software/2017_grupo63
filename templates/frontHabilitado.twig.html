@@ -3,7 +3,7 @@
 	{% block barra %}
 		<div class = "navbar navbar-inverse">
 			<div class="container-fluid">
-				<img class="imagen" src="./images/hospital.jpg" alt = 'logoHospital'>
+				<img class="imagen" src={{ url ~ "/images/hospital.jpg"}} alt = 'logoHospital'>
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 		              <span class="sr-only">Toggle navigation</span>
@@ -14,6 +14,22 @@
 					<a class="navbar-brand " href=" ">{{ titulo }}</a>
 				</div>	
 				<div id="navbar" class="navbar-collapse collapse">
+					<ul class = "navbar-nav">
+						{% if usuario is defined %}	
+							<li><a href="#">Pacientes</a></li>
+	              			<li><a href="#">Inicio</a></li>	
+							<li class="dropdown">
+				                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+				                <ul class="dropdown-menu">
+				                  <li><a href="#">Usuarios</a></li>
+				                  <li><a href="#">Roles</a></li>
+				                  <li><a href="#">Permisos</a></li>
+				                  <li role="separator" class="divider"></li>
+				                  <li><a href="#">Configuracion</a></li>
+				                </ul>
+				            </li>
+						{% endif %}					
+					</ul>
 					<ul class="navbar-nav navbar-right">
 						<li>
 							<form class = 'navbar-form'>
@@ -28,7 +44,14 @@
 							</form>
 						</li>		
 						<li>
-							<a class="white" href= 'loginUsuario.html'>Login</a>
+						{% if usuario is defined %}
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ usuario }}</a>
+								<ul class="dropdown-menu">
+									<li><a href={{ url ~ "controllers/salir.php"}}>Salir</a></li>
+								</ul>	
+						{% else %}
+								<a class="white" href= {{ url ~ "controllers/login.php?action=showLoginForm"}}>Login</a>
+						{% endif %}
 						</li>
 					</ul>	
 					
