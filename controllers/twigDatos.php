@@ -18,8 +18,9 @@
 	    	$datos = new DatosConfig();
 	    	$datos = $datos->obtenerInfo();
 	    	$datos = $datos;
-	    	$datos['url'] = "https://" . "$_SERVER[HTTP_HOST]" . "/";	
-	    	
+	    	$datos['url'] = "https://" . "$_SERVER[HTTP_HOST]" . "/";
+	    	// en servidor local remplazar la linea de arriba con:	
+	    	//$datos['url'] = "http://" . "$_SERVER[HTTP_HOST]" . '/grupo63/';
 	    	return $datos;
 	    }
 
