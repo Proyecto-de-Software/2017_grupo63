@@ -1,9 +1,9 @@
 <?php 
-	require_once("../vendor/twig/twig/lib/Twig/Autoloader.php");
+	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
 	require_once "twigDatos.php";
-	require_once "../models/configDatos.php";
-	require_once "../models/conexionModelo.php";
-	require_once "../models/pacienteModelo.php";
+	require_once "models/configDatos.php";
+	require_once "models/conexionModelo.php";
+	require_once "models/pacienteModelo.php";
 	
 	$datos = datosTwig::getInstance();
 	$datos = $datos->datosConfig();
@@ -11,6 +11,7 @@
 	if ($datos['habilitado'] == 1 ) {
 		
 		session_start();
+		
 		if (isset($_SESSION['usuario'])) {
 			# code...
 			/*if (no tiene permisos) { aca chequear por los permisos 

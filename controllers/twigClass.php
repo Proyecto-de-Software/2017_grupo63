@@ -1,7 +1,8 @@
 <?php 
 		
 		$raiz = $_SERVER['DOCUMENT_ROOT'];
-		require_once("$raiz/vendor/twig/twig/lib/Twig/Autoloader.php"); //en el servidor local agregar la carpeta del proyecto luego de $raiz 
+		//require_once("$raiz/grupo63/vendor/twig/twig/lib/Twig/Autoloader.php"); //en el servidor local agregar la carpeta del proyecto luego de $raiz 
+		require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
 		abstract class TwigClass {
 
 	    private static $twig;
@@ -10,7 +11,7 @@
 
 	        if (!isset(self::$twig)) {
 
-	            $path = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "/templates";
+	            $path = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "grupo63/templates";
 	            Twig_Autoloader::register();
 	            $loader = new Twig_Loader_Filesystem("$path");
 	            
@@ -25,6 +26,7 @@
 			$datos = $datos->datosLogueado();
 			$datos = 	array_merge($datos, $datosExtra);
 			$twig = self::getTwig();
+			//moo
 			$template = $twig->loadTemplate($plantilla);
 			$template->display($datos);   	
 	    }

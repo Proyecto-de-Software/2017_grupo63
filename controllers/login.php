@@ -1,8 +1,8 @@
 <?php 
-	require_once("../vendor/twig/twig/lib/Twig/Autoloader.php");
+	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
 	require_once "twigDatos.php";
-	require_once "../models/configDatos.php";
-	require_once "../models/conexionModelo.php";
+	require_once "models/configDatos.php";
+	require_once "models/conexionModelo.php";
 	
 	
 	$datos = datosTwig::getInstance();
@@ -47,10 +47,10 @@
 		}
 	}	
 	
-	require_once("twigClass.php");
+	/*require_once("twigClass.php");
 	$twig = TwigClass::getTwig('templates');
 	$template = $twig->loadTemplate($plantilla);
-	$template->display($datos);
+	$template->display($datos);*/
 
 
 

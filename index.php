@@ -15,7 +15,21 @@
 			
 	}
 	else{
-		$plantilla = "frontHabilitado.twig.html";	
+			
+		
+		switch (isset($_GET['seccion']) ? $_GET['seccion'] : '') {
+			case 'pacientes':
+				# code...
+				require_once "controllers/pacientes.php";
+				break;
+			case 'login':
+				require_once "controllers/login.php";
+				break;
+			default:
+				# code...
+				$plantilla = "frontHabilitado.twig.html";
+				break;
+		}
 	}
 		 
 	
