@@ -11,7 +11,7 @@
 
 	        if (!isset(self::$twig)) {
 
-	            $path = $_SERVER['CONTEXT_DOCUMENT_ROOT'] . "grupo63/templates";
+	            $path = "templates";
 	            Twig_Autoloader::register();
 	            $loader = new Twig_Loader_Filesystem("$path");
 	            
