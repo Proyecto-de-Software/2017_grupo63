@@ -1,0 +1,41 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+	<a> HOLA</a>
+	{% if pacientes is empty %}
+		<label>NO se encontraron pacientes</label>	
+	{% else %}
+		<div class = "table-responsive">
+			<table class="table">
+			    <thead>
+			      <tr>
+			      	<td>Apellido</td>
+			      	<td>Nombre</td>
+			      	<td>Fecha de Nacimiento</td>
+			      	<td>Genero</td>
+			      	<td>Tipo de Documento</td>
+			      	<td>Numero de Documento</td>
+			      	<td>Domicilio</td>
+			      	<td>Telefono</td>
+			      	<td>Obra Social</td>
+			      </tr>
+		    	</thead>
+		    	<tbody>
+		    		{% for paciente in pacientes %}
+		    			<tr>
+			    			<td> {{ paciente.apellido }} </td>
+			    			<td> {{ paciente.nombre }} </td>
+			    			<td> {{ paciente.nacimiento }} </td>
+			    			<td> {{ paciente.genero }} </td>
+			    			<td> {{ paciente.tipoDoc }} </td>
+			    			<td> {{ paciente.numDoc }} </td>
+			    			<td> {{ paciente.domicilio }} </td>
+			    			<td> {{ paciente.telefono }} </td>
+			    			<td> {{ paciente.obraSocial }} </td>
+		    			</tr>
+		    		{% endfor %}	
+		    	</tbody>		
+			</table>
+		</div>
+	{% endif %}	
+{% endblock %}	
