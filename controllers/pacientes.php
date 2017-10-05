@@ -29,10 +29,10 @@
 		}
 	}
 
-	require_once("twigClass.php");
+	/*require_once("twigClass.php");
 	$twig = TwigClass::getTwig('templates');
 	$template = $twig->loadTemplate($plantilla);
-	$template->display($datos);
+	$template->display($datos);*/
 
 
  ?>
