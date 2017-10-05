@@ -1,6 +1,6 @@
 <?php 
-	$raiz = $_SERVER['DOCUMENT_ROOT'];
-	require_once ("$raiz/grupo63/models/configDatos.php");
+	
+	require_once ("models/configDatos.php");
 	class datosTwig 
 	{
 		private static $singleton;
