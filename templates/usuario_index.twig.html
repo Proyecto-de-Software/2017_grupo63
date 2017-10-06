@@ -1,0 +1,43 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+	<a> HOLA</a>
+	{% if usuarios is empty %}
+		<label>NO se encontraron usuarios</label>	
+	{% else %}
+		<div class = "table-responsive">
+		
+			<table class="table">
+			    <thead>
+			      <tr>
+			      
+			      	<td>Id</td>
+			      	<td>Email</td>
+			      	<td>Username</td>
+			      	<td>Password</td>
+			      	<td>Activo</td>
+			      	<td>First Name</td>
+			      	<td>Last Name</td>
+			      	<td>Borrado</td>
+			      	
+			      </tr>
+		    	</thead>
+		    	<tbody>
+		    		{% for usuario in usuarios %}
+		    			<tr>
+			    			<td> {{ usuario.id }} </td>
+			    			<td> {{ usuario.email }} </td>
+			    			<td> {{ usuario.username }} </td>
+			    			<td> {{ usuario.password }} </td>
+			    			<td> {{ usuario.activo }} </td>
+			    			<td> {{ usuario.first_name }} </td>
+			    			<td> {{ usuario.last_name }} </td>
+			    			<td> {{ usuario.borrado }} </td>
+			    			
+		    			</tr>
+		    		{% endfor %}	
+		    	</tbody>		
+			</table>
+		</div>
+	{% endif %}	
+{% endblock %}	

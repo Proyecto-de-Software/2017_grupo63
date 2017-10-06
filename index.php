@@ -19,8 +19,12 @@
 	}
 	else{
 			
-		
+		var_dump($_GET['seccion']);
 		switch (isset($_GET['seccion']) ? $_GET['seccion'] : '') {
+			case 'userController':
+				# code...
+				require_once "controllers/userController.php";
+				break;
 			case 'pacientes':
 				# code...
 				require_once "controllers/pacientes.php";
