@@ -27,8 +27,7 @@
 	   		
 	   		if (!isset($_SESSION)) { session_start();}
 	   		$datos = self::datosConfig();
-	   		$datos['usuario'] = $_SESSION['usrName'];
-	   		$datos['rol'] = $_SESSION['rol'];
+	   		$datos['usuario'] = $_SESSION['usuario'];
 	   		return $datos;
 	   	}
 	}

@@ -48,15 +48,6 @@
                     }
                     
                     break;
-                case 'salir':
-                    	# code...
-                    	$datos = $this->datosTwig(false);
-                    	$plantilla = 'frontHabilitado.twig.html';
-                    	if (!isset($_SESSION)){
-							session_start();
-						}
-						session_destroy();
-                    	break;    
                 default:
                     # code...
                     break;
@@ -99,6 +90,10 @@
             return $error;
         }
 
+        public function salir()
+        {
+            # code...
+        }
          
     } 
  ?>

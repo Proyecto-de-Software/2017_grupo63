@@ -71,12 +71,14 @@ section {
             margin:0 auto;
         }
 
-footer{
+.footer{
         height: 50px;
         margin: 0;
         padding: 0;
         background-color: #333;
-         
+        position: absolute;
+        bottom: 0;
+        width: 100%;      
 }
 
 .footer2{
@@ -84,7 +86,7 @@ footer{
         margin: 0;
         padding: 0;
         background-color: #333;
-          position:fixed;
+        position:fixed;
          left:0px;
         bottom:0px;
          height:60px;

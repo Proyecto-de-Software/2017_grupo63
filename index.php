@@ -5,7 +5,10 @@
 	require_once "controllers/twigDatos.php";
 	require_once "models/configDatos.php";
 	require_once "models/conexionModelo.php";
-	
+	require_once "models/usuarioModelo.php";
+	require_once "models/pacienteModelo.php";
+	require_once("controllers/twigClass.php");
+	require_once "controllers/controller.php";
 	
 	$datos = datosTwig::getInstance();
 	$datos = $datos->datosConfig();
@@ -24,20 +27,21 @@
 				break;
 			case 'login':
 				require_once "controllers/login.php";
+				$loginController = Login::getInstance();
+				$loginController->loguearse(isset($_GET['action']) ? $_GET['action'] : '' );
 				break;
 			default:
 				# code...
 				$plantilla = "frontHabilitado.twig.html";
+				$controller = new controller;
+				$controller->mostrarVista($plantilla, $controller->datosTwig(false));
 				break;
 		}
 	}
 		 
 	
 	
-	require_once("controllers/twigClass.php");
-	$twig = TwigClass::getTwig('templates');
-	$template = $twig->loadTemplate($plantilla);
-	//var_dump($_SERVER);
-	$template->display($datos);
+	
+	
 	
  ?>
