@@ -1,7 +1,7 @@
 {% extends 'frontHabilitado.twig.html' %}
 
 {% block cuerpo %}
-	<a> HOLA</a>
+	<a> Listado Pacientes</a>
 	{% if pacientes is empty %}
 		<label>NO se encontraron pacientes</label>	
 	{% else %}
@@ -33,6 +33,7 @@
 			    			<td> {{ paciente.telefono }} </td>
 			    			<td> {{ paciente.obraSocial }} </td>
 		    			</tr>
+		    			
 		    		{% endfor %}	
 		    	</tbody>		
 			</table>

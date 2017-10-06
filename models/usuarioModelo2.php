@@ -1,5 +1,5 @@
 <?php 
-
+require_once ('Usuario.php');
 	class UsuarioModelo2 extends ConexionABD
 	{
 
@@ -7,6 +7,17 @@
 		{
 			parent::__construct();	
 		}
+
+    private static $instance;
+
+    public static function getInstance() {
+
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 
 		public function listar()
 		{
@@ -16,5 +27,12 @@
 			$usuarios = $consulta-> fetchAll();
 			return $usuarios;
 		}
+
+		public function show() {
+        //var_dump($validacion); die();
+        echo self::getTwig()->render('altaUsuario.twig.html',$datos);
+        
+        
+    }
 	}		
  ?>

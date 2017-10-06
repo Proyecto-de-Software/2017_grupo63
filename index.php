@@ -1,14 +1,23 @@
 <?php 
 	
-	
-	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
-	require_once "controllers/twigDatos.php";
-	require_once "models/configDatos.php";
-	require_once "models/conexionModelo.php";
-	require_once "models/usuarioModelo.php";
-	require_once "models/pacienteModelo.php";
 	require_once("controllers/twigClass.php");
-	require_once "controllers/controller.php";
+	require_once ("controllers/controller.php");
+	require_once ("controllers/twigDatos.php");
+	require_once ("controllers/userController.php");
+	
+	
+
+	
+
+	require_once ("models/configDatos.php");
+	require_once ("models/conexionModelo.php");
+	require_once ("models/pacienteModelo.php");
+	//require_once ("models/Usuario.php");
+	require_once ("models/usuarioModelo.php");
+	require_once ("models/usuarioModelo2.php");
+
+
+	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
 	
 	$datos = datosTwig::getInstance();
 	$datos = $datos->datosConfig();
@@ -19,7 +28,7 @@
 	}
 	else{
 			
-		var_dump($_GET['seccion']);
+		//var_dump($_GET['seccion']);
 		switch (isset($_GET['seccion']) ? $_GET['seccion'] : '') {
 			case 'userController':
 				# code...

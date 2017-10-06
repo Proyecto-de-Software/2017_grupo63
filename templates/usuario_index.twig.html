@@ -1,7 +1,7 @@
 {% extends 'frontHabilitado.twig.html' %}
 
 {% block cuerpo %}
-	<a> HOLA</a>
+	<a> Listado de Usuarios</a>
 	{% if usuarios is empty %}
 		<label>NO se encontraron usuarios</label>	
 	{% else %}
@@ -34,7 +34,12 @@
 			    			<td> {{ usuario.last_name }} </td>
 			    			<td> {{ usuario.borrado }} </td>
 			    			
-		    			</tr>
+		    			
+		    			 <td><p><a href="users/{{ item.id_user }}"> <img  src='../img/ver.png' alt=""></a></p></td>
+                    <td><p><a href="users/{{ item.id_user }}/edit">  <img  src='../img/edit.png' alt="imagen de editar info"> </a></p></td>
+                    <td><p><a onClick="javascript: return confirm('Estas seguro?');" href="users/{{ item.id_user }}/delete" > <img class='' src='../img/delete.png' alt="imagen para eliminar registro">  </a></p></td>
+                </tr>
+                	</tr>
 		    		{% endfor %}	
 		    	</tbody>		
 			</table>
