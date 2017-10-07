@@ -1,70 +1,81 @@
 <?php 
-	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
-	require_once ("twigDatos.php");
-	require_once ("models/configDatos.php");
-	require_once ("models/conexionModelo.php");
-	require_once ("models/usuarioModelo2.php");
-	require_once ("models/Usuario.php");
 	
-
-	$datos = datosTwig::getInstance();
-	$datos = $datos->datosConfig();
-	$plantilla = 'frontDeshabilitado.twig.html';
-
-	if ($datos['habilitado'] == 1 ) {
+	/**
+	* 
+	*/
+	class UserController extends Controller
+	{
 		
-		session_start();
-		
-		if (isset($_SESSION['usuario'])) {
-			# code...
-			/*if (no tiene permisos) { aca chequear por los permisos 
-				# code...
-				$plantilla = 'noAutorizado.twig.html';
-			} lo siguiente tendria que ir en un else*/
+		private static $instance;
 
-			if ($_GET['action'] == 'index'){
+        public static function getInstance() {
 
-				$pm = new UsuarioModelo2();
-				$datos['usuarios'] = $pm->listar();	
-				$plantilla = 'usuario_index.twig.html';
-			}
-			if ($_GET['action'] == 'new'){
+            if (!isset(self::$instance)) {
+                self::$instance = new self();
+            }
 
-				$view = new UsuarioModelo2();
-				//$view->show(); Directamente me manejo con la $plantilla de abajo de todo el controller
-				
-				$plantilla = 'usuario_new.twig.html';
-			}
-			
-			if ($_GET['action'] == 'create'){
-				     
-				    
-				    $datos = array('id'=>$_POST['id'],'email'=>$_POST['email'],'username'=>$_POST['username'],'password'=>$_POST['password'],'activo'=>$_POST['activo'],'first_name'=>$_POST['first_name'],'last_name'=>$_POST['last_name'],'borrado'=>$_POST['borrado']);
-				    //var_dump($datos);
-         			 $user = new Usuario($datos); //El arreglo con los datos está llegando al Usuario
-         			 $user->guardar();
-         			 $pm = new UsuarioModelo2();
-					$datos['usuarios'] = $pm->listar();	
-         			 $plantilla = 'usuario_index.twig.html';
-           			 
-
-
-			
-       
-   		 }
-
+            return self::$instance;
+        }
+        
+        private function __construct() {
+            
+        }
+	
+        public function trabajar($accion)
+         {
+         	if (!$this->estaLogueado()) 
+         	{
+         		$datos = $this->datosTwig(false);
+         		$datos['error'] = 'Esta seccion es solo para usuarios registrados';	
+         		$plantilla = 'login.twig.html';
+         	}
+         	elseif (!$this->tienePermiso("usuario_" . $accion)) 
+         	{
+         		$datos = $this->datosTwig(true);
+         		$plantilla = 'noAutorizado.twig.html';
+         	}
+         	else
+         	{
+         		$datos = $this->datosTwig(true);
+         		switch ($accion) {
+         			case 'index':
+         				$um = new UsuarioModelo();
+						
+						$datos['usuarios'] = $um->listar();	
+						$plantilla = 'usuario_index.twig.html';
+						break;
+         			case 'new':
+         				$plantilla = 'usuario_new.twig.html';
+         				break;
+         			case 'newDB':
+         				$um = new UsuarioModelo();
+         				if ($um->yaExisteUsuario($_POST['username'])) {
+         					$datos['usuarioNuevo'] = $_POST;
+         					$datos['error'] = 'Ese nombre de usuario ya esta registrado';
+         					$plantilla = 'usuario_new.twig.html';
+         				}
+         				elseif ($um->yaExisteCorreo($_POST['email'])) {
+         					
+         					$datos['usuarioNuevo'] = $_POST;
+         					$datos['error'] = 'Ese correo electronico ya esta registrado';
+         					$plantilla = 'usuario_new.twig.html';
+         				}
+         				else{
+         					$um->insertar($_POST);
+         					$datos['usuarios'] = $um->listar();	
+							$plantilla = 'usuario_index.twig.html';
+         				}
+         				break;
+         			default:
+         				# code...
+         				
+         				break;
+         		}
+         	}
+         	$this->mostrarVista($plantilla, $datos);
+         } 
 
 	}
-		else {
-			$plantilla = 'login.twig.html';
-		}
-}
-
-	require_once("twigClass.php");
-	$twig = TwigClass::getTwig('templates');
-	$template = $twig->loadTemplate($plantilla);
-	$template->display($datos);
-
 
 
 
