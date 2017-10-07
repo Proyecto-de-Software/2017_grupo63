@@ -3,7 +3,7 @@
 	require_once("controllers/twigClass.php");
 	require_once ("controllers/controller.php");
 	require_once ("controllers/twigDatos.php");
-	require_once ("controllers/userController.php");
+	//require_once ("controllers/userController.php");
 	
 	
 
@@ -14,7 +14,7 @@
 	require_once ("models/pacienteModelo.php");
 	//require_once ("models/Usuario.php");
 	require_once ("models/usuarioModelo.php");
-	require_once ("models/usuarioModelo2.php");
+	
 
 
 	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
@@ -24,7 +24,8 @@
 	
 	if ($datos['habilitado'] == 0) {
 			$plantilla = "frontDeshabilitado.twig.html";
-			
+			$controller = new controller;
+			$controller->mostrarVista($plantilla, $controller->datosTwig(false));
 	}
 	else{
 			
@@ -33,6 +34,8 @@
 			case 'userController':
 				# code...
 				require_once "controllers/userController.php";
+				$userController = UserController::getInstance();
+				$userController->trabajar(isset($_GET['action']) ? $_GET['action'] : '' );
 				break;
 			case 'pacientes':
 				# code...
@@ -47,7 +50,7 @@
 				# code...
 				$plantilla = "frontHabilitado.twig.html";
 				$controller = new controller;
-				$controller->mostrarVista($plantilla, $controller->datosTwig(false));
+				$controller->mostrarVista($plantilla, $controller->datosTwig(false));			
 				break;
 		}
 	}

@@ -10,36 +10,53 @@
 			<table class="table">
 			    <thead>
 			      <tr>
-			      
-			      	<td>Id</td>
-			      	<td>Email</td>
-			      	<td>Username</td>
-			      	<td>Password</td>
-			      	<td>Activo</td>
+			      	
+			      	<td>Nombre de usuario</td>
 			      	<td>First Name</td>
 			      	<td>Last Name</td>
-			      	<td>Borrado</td>
-			      	
+			      	<td>Correo electronico</td>
+			      	<td>Estado</td>
 			      </tr>
 		    	</thead>
 		    	<tbody>
 		    		{% for usuario in usuarios %}
 		    			<tr>
-			    			<td> {{ usuario.id }} </td>
-			    			<td> {{ usuario.email }} </td>
+			    			
 			    			<td> {{ usuario.username }} </td>
-			    			<td> {{ usuario.password }} </td>
-			    			<td> {{ usuario.activo }} </td>
 			    			<td> {{ usuario.first_name }} </td>
 			    			<td> {{ usuario.last_name }} </td>
-			    			<td> {{ usuario.borrado }} </td>
-			    			
+			    			<td> {{ usuario.email }} </td>
+			    			<td> 
+			    				{% if usuario.activo %} 
+			    					activo
+			    				{% else %}
+			    					no activo
+			    				{% endif %}		
+			    			</td>
 		    			
-		    			 <td><p><a href="users/{{ item.id_user }}"> <img  src='../img/ver.png' alt=""></a></p></td>
-                    <td><p><a href="users/{{ item.id_user }}/edit">  <img  src='../img/edit.png' alt="imagen de editar info"> </a></p></td>
-                    <td><p><a onClick="javascript: return confirm('Estas seguro?');" href="users/{{ item.id_user }}/delete" > <img class='' src='../img/delete.png' alt="imagen para eliminar registro">  </a></p></td>
-                </tr>
-                	</tr>
+			    			<td>
+			    			 	<p>
+			    			 		<a href="index.php?seccion=userController&amp;action=leer&amp;id={{ usuario.id }}"> 
+			    			 			<img src='img/ver.png' alt="ver registro">
+			    			 		</a>
+			    			 	</p>
+			    			</td>
+                    		<td>
+                    			<p>
+                    				<a href="index.php?seccion=userController&amp;action=editar&amp;id={{ usuario.id }}">  
+                    					<img  src='img/edit.png' alt="imagen de editar info"> 
+                    				</a>
+                    			</p>
+                    		</td>
+                    		<td>
+                    			<p>
+                    				<a onClick="javascript: return confirm('Estas seguro?');" href="index.php?seccion=userController&amp;action=borrar&amp;id={{ usuario.id }}" > 
+                    					<img class='' src='img/delete.png' alt="imagen para eliminar registro">  
+                    				</a>
+                    			</p>
+                    		</td>
+                		</tr>
+                	
 		    		{% endfor %}	
 		    	</tbody>		
 			</table>

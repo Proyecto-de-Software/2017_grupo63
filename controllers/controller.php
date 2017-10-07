@@ -23,5 +23,23 @@
 			$template = $twig->loadTemplate($plantilla);
 			$template->display($datos);
 		}
+		
+		public function estaLogueado()
+		{
+			if (!isset($_SESSION)){
+				session_start();
+			}
+			$log= isset($_SESSION['usuario']);
+			if (!$log) {
+				session_destroy();
+			}
+			return $log;		
+		}
+
+		public function tienePermiso($modulo)
+		{
+			# Implementar despues
+			return true;
+		}
 	}
  ?>

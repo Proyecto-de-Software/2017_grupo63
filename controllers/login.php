@@ -77,6 +77,7 @@
                         session_start();     
                         $_SESSION['usuario'] = $usuario['username'];
                         $_SESSION['activo'] = $usuario['activo'];
+                        $_SESSION['userID'] = $usuario['id'];
                         $error = '';
 
                                         
