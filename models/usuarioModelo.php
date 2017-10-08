@@ -1,6 +1,6 @@
 <?php 
 
-	class UsuarioModelo extends ConexionABD
+	class UsuarioModelo extends Listable
 	{
 
 		function __construct()
@@ -21,23 +21,9 @@
 		
 		public function listar($pagina)
 		{
-			$dc = new DatosConfig();
-			(int)$limite = $dc->paginas();
-			(int)$offset = ($pagina - 1) * $limite;
-			$sql = "SELECT * FROM usuario WHERE borrado = 0 " ;
-			$consulta = $this->base->prepare($sql);
-			$total = $consulta->execute(); 
-			$total = $consulta->rowCount();
-			$paginasTotales = ceil($total / $limite);
-			var_dump($total);
-			//$consulta->closeCursor();
-			//$consulta = null;
-			$consulta = $this->base->prepare($sql . "LIMIT $limite OFFSET $offset");	
-			var_dump($consulta);
-			$usuarios = $consulta->execute();
-			var_dump($usuarios);
-			$datosPag = $usuarios->fetchAll();
-			$datosPag = new ConsultaPag($pagina, $paginasTotales, $usuarios);
+			$pp = $this->getLimitOffset("usuario", $pagina);
+			$usuarios = $this->getDatosPara('usuario', $pp->getLimit(), $pp->getOffset());
+			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuarios);
 			return $datosPag;
 		}
 

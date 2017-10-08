@@ -1,6 +1,6 @@
 <?php 
 
-	class PacienteModelo extends ConexionABD
+	class PacienteModelo extends Listable
 	{
 
 		function __construct()

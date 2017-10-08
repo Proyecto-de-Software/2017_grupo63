@@ -39,13 +39,14 @@
          		$datos = $this->datosTwig(true);
          		switch ($accion) {
          			case 'index':
-         				$um = new UsuarioModelo();
-						
-						$usuariosPag = $um->listar(isset($_GET['page']) ? $_GET['page'] : 1 );	
-						$datos['usuarios'] = $usuariosPag->getDatos();
-                        $datos['paginationPath'] = "index.php?seccion=userController&amp;action=index&amp;page="; 
+                        $um = new UsuarioModelo();
+                        $usuariosPag = $um->listar(isset($_GET['page']) ? $_GET['page'] : 1 );  
+                        $datos['usuarios'] = $usuariosPag->getDatos();
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&page="; 
+                        $datos['lastPage'] = $usuariosPag->getTotal();
+                        $datos['currentPage'] = $usuariosPag->getActual();
                         $plantilla = 'usuario_index.twig.html';
-						break;
+                        break;
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
          				break;
