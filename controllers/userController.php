@@ -47,6 +47,14 @@
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
          				break;
+                    case 'eliminar':
+                        //var_dump($_GET['username']);
+                        $um = new UsuarioModelo();
+                        $username =  $_GET['username'];              
+                        $um->eliminar($username);
+                        $datos['usuarios'] = $um->listar();  
+                        $plantilla = 'usuario_index.twig.html';
+                        break;
          			case 'newDB':
          				$um = new UsuarioModelo();
          				if ($um->yaExisteUsuario($_POST['username'])) {

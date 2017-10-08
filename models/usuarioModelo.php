@@ -32,7 +32,6 @@
 		{
 			$consulta = $this->base->prepare('SELECT * FROM usuario WHERE username = :unNombre and borrado = 0');
 			$consulta-> bindParam(':unNombre', $usuario, PDO::PARAM_STR, 256);
-			$consulta->execute();
 			return $consulta->rowCount() > 0 ;
 		}
 	
@@ -60,5 +59,30 @@
 			$consulta->execute();
 
 		}
+ 	 	
+ 	 	public function eliminar($username){
+        $consulta = $this->base->prepare('DELETE FROM `usuario` WHERE username = :unUsername');
+		$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
+		$consulta->execute();
+     	//$sql = ('DELETE FROM `usuario` WHERE username = :unUsername');
+     	 //$consulta = $this->base->prepare($sql);
+     	//$consulta-> bindParam(':unUsuario', $username, PDO::PARAM_STR, 256);
+       
+       
+       
+        $consulta->execute();
+        return $consulta->rowCount() > 0 ;
+         //$this->id = $conexion->lastInsertId();
+      	//$result = true;
+      //desconectar($conn);
+       //return $result; 
+      //$conexion = null;
+   
+ 	 }
+	
+
+
+
+
 	}		
  ?>
