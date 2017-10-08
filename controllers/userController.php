@@ -41,8 +41,10 @@
          			case 'index':
          				$um = new UsuarioModelo();
 						
-						$datos['usuarios'] = $um->listar();	
-						$plantilla = 'usuario_index.twig.html';
+						$usuariosPag = $um->listar(isset($_GET['page']) ? $_GET['page'] : 1 );	
+						$datos['usuarios'] = $usuariosPag->getDatos();
+                        $datos['paginationPath'] = "index.php?seccion=userController&amp;action=index&amp;page="; 
+                        $plantilla = 'usuario_index.twig.html';
 						break;
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';

@@ -19,13 +19,26 @@
 			return $usuarios;
 		}
 		
-		public function listar()
+		public function listar($pagina)
 		{
+			$dc = new DatosConfig();
+			(int)$limite = $dc->paginas();
+			(int)$offset = ($pagina - 1) * $limite;
 			$sql = "SELECT * FROM usuario WHERE borrado = 0 " ;
 			$consulta = $this->base->prepare($sql);
-			$consulta->execute();
-			$usuarios = $consulta-> fetchAll();
-			return $usuarios;
+			$total = $consulta->execute(); 
+			$total = $consulta->rowCount();
+			$paginasTotales = ceil($total / $limite);
+			var_dump($total);
+			//$consulta->closeCursor();
+			//$consulta = null;
+			$consulta = $this->base->prepare($sql . "LIMIT $limite OFFSET $offset");	
+			var_dump($consulta);
+			$usuarios = $consulta->execute();
+			var_dump($usuarios);
+			$datosPag = $usuarios->fetchAll();
+			$datosPag = new ConsultaPag($pagina, $paginasTotales, $usuarios);
+			return $datosPag;
 		}
 
 		public function yaExisteUsuario($usuario)

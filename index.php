@@ -14,7 +14,7 @@
 	require_once ("models/pacienteModelo.php");
 	//require_once ("models/Usuario.php");
 	require_once ("models/usuarioModelo.php");
-	
+	require_once ("models/consultaPag.php");
 
 
 	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
