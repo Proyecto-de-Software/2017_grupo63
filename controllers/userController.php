@@ -40,11 +40,14 @@
          		switch ($accion) {
          			case 'index':
                         $um = new UsuarioModelo();
-                        $usuariosPag = $um->listar(isset($_GET['page']) ? $_GET['page'] : 1 );  
+                        $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '' ;
+                        $usuariosPag = $um->listar(isset($_GET['page']) ? $_GET['page'] : 1, $filtro );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
-                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&page="; 
                         $datos['lastPage'] = $usuariosPag->getTotal();
                         $datos['currentPage'] = $usuariosPag->getActual();
+                        
+                        $datos['filtro'] = $filtro; 
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
                         $plantilla = 'usuario_index.twig.html';
                         break;
          			case 'new':

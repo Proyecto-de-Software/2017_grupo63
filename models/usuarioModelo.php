@@ -19,10 +19,23 @@
 			return $usuarios;
 		}
 		
-		public function listar($pagina)
+		public function listar($pagina, $filtro)
 		{
-			$pp = $this->getLimitOffset("usuario", $pagina);
-			$usuarios = $this->getDatosPara('usuario', $pp->getLimit(), $pp->getOffset());
+			$filtro = htmlspecialchars($filtro);
+			$args = array();
+			$where = '';
+			if ((strtolower($filtro) == 'activo') || ((strtolower($filtro) == 'bloqueado'))) {
+				$valor = strtolower($filtro) == 'activo' ? 1 : 0 ;
+				$where = "AND activo = :filtro";
+				$args[':filtro'] = $valor;
+			}
+			elseif (!empty($filtro)) {
+				$filtro = '%' . $filtro . '%';
+				$where = "AND (username LIKE :filtro OR last_name LIKE :filtro OR first_name LIKE :filtro)";
+				$args[':filtro'] = $filtro;
+			}
+			$pp = $this->getLimitOffset("usuario", $pagina, $where, $args);
+			$usuarios = $this->getDatosPara('usuario', $pp->getLimit(), $pp->getOffset(), $where, $args);
 			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuarios);
 			return $datosPag;
 		}

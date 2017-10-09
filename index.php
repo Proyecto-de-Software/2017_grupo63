@@ -29,7 +29,6 @@
 	}
 	else{
 			
-		//var_dump($_GET['seccion']);
 		switch (isset($_GET['seccion']) ? $_GET['seccion'] : '') {
 			case 'userController':
 				# code...
