@@ -50,7 +50,20 @@
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
          				break;
-                    case 'eliminar':
+                  case 'show':
+                    //var_dump($_GET['id']);die();
+                     $um = new UsuarioModelo();
+                   
+                     $user  = $um->get_user($_GET['username']);
+                     var_dump($user);die();
+
+                     //$view = new UsuarioModelo();
+                     //$view->showAll($id,$user);
+                     //var_dump($datos['usuarios']);die();
+                     //$datos['usuario'] = $user;
+                     $plantilla = 'usuario_show.twig.html';
+                     break;
+                  case 'eliminar':
                         //var_dump($_GET['username']);
                         $um = new UsuarioModelo();
                         $username =  $_GET['username'];              

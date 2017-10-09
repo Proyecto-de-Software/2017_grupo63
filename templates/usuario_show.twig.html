@@ -1,0 +1,46 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+  <a> Listado de Usuarios</a>
+  <!-- {% if usuarios is empty %}
+    <label>NO se encontraron usuarios</label> 
+  {% else %} -->
+    <div class = "table-responsive">
+    
+      <table class="table">
+          <thead>
+            <tr>
+              
+              <td>Nombre de usuario</td>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>Correo electronico</td>
+              <td>Estado</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for usuario in usuarios %}
+              <tr>
+                
+                <td> {{ usuario.username }} </td>
+                <td> {{ usuario.first_name }} </td>
+                <td> {{ usuario.last_name }} </td>
+                <td> {{ usuario.email }} </td>
+                <td> 
+                  {% if usuario.activo %} 
+                    activo
+                  {% else %}
+                    no activo
+                  {% endif %}   
+                </td>
+              
+               
+                    </tr>
+                  
+            {% endfor %}  
+          </tbody>    
+      </table>
+      {% include 'paginacion.twig.html' %}
+    </div>
+   <!--{% endif %} -->
+{% endblock %}  

@@ -69,8 +69,7 @@
        
        
        
-        $consulta->execute();
-        return $consulta->rowCount() > 0 ;
+       
          //$this->id = $conexion->lastInsertId();
       	//$result = true;
       //desconectar($conn);
@@ -79,6 +78,16 @@
    
  	 }
 	
+
+		public function get_user($username) {
+
+			$consulta = $this->base->prepare('SELECT * FROM `usuario` WHERE username = :unUsername');
+           	$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
+		
+
+           $consulta->execute();
+           return $consulta;
+        }
 
 
 

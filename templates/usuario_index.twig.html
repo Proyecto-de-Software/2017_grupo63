@@ -36,7 +36,7 @@
 		    			
 			    			<td>
 			    			 	<p>
-			    			 		<a href="index.php?seccion=userController&amp;action=leer&amp;id={{ usuario.id }}"> 
+			    			 		<a href="index.php?seccion=userController&amp;action=show&amp;username={{ usuario.username }}"> 
 			    			 			<img src='img/ver.png' alt="ver registro">
 			    			 		</a>
 			    			 	</p>
@@ -48,6 +48,7 @@
                     				</a>
                     			</p>
                     		</td>
+                    		
                     		<td>
                     			<p>
                     				<a onClick="javascript: return confirm('Estas seguro?');" href="index.php?seccion=userController&amp;action=eliminar&amp;username={{ usuario.username }}" > 
