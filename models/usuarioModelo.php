@@ -92,18 +92,27 @@
  	 }
 	
 
-		public function get_user($username) {
-
-			$consulta = $this->base->prepare('SELECT * FROM `usuario` WHERE username = :unUsername');
-           	$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
-		
-
-           $consulta->execute();
-           return $consulta;
+		public function get_user($id) {
+			$sql = 'SELECT * FROM usuario WHERE id = :unId AND borrado = 0';
+			$consulta = $this->base->prepare($sql);
+           	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
+			$consulta->execute();
+         	$usuario = $consulta->fetch();
+            return $usuario;
         }
 
 
-
+        public function getRoles($id)
+        {
+        	$sql = 'SELECT rol.nombre FROM usuario as u 
+			INNER JOIN usuario_tiene_rol as utr ON u.id = utr.usuario_id 
+			INNER JOIN rol ON rol.id = utr.rol_id WHERE u.id = :unId ';
+        	$consulta = $this->base->prepare($sql);
+           	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
+			$consulta->execute();
+         	$roles = $consulta->fetchAll();
+            return $roles;
+        }
 
 	}		
  ?>

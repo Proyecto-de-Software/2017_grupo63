@@ -28,8 +28,11 @@
 			$controller->mostrarVista($plantilla, $controller->datosTwig(false));
 	}
 	else{
-			
-		switch (isset($_GET['seccion']) ? $_GET['seccion'] : '') {
+		$seccion = isset($_GET['seccion']) ? $_GET['seccion'] : '' ;	
+		
+		if (!isset($_SESSION)) session_start();
+		if ( $seccion == '' && isset($_SESSION['usuario'])) $seccion = "registrado";
+		switch ($seccion) {
 			case 'userController':
 				# code...
 				require_once "controllers/userController.php";
@@ -44,6 +47,11 @@
 				require_once "controllers/login.php";
 				$loginController = Login::getInstance();
 				$loginController->loguearse(isset($_GET['action']) ? $_GET['action'] : '' );
+				break;
+			case 'registrado':
+				$plantilla = "backend.twig.html";
+				$controller = new controller;
+				$controller->mostrarVista($plantilla, $controller->datosTwig(true));
 				break;
 			default:
 				# code...
