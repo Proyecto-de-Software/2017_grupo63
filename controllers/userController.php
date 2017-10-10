@@ -52,22 +52,23 @@
                         break;
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
+<<<<<<< HEAD
          				break;
                   case 'editar':
                      $plantilla = 'usuario_update.twig.html';
                     
+=======
+         				$datos['volver'] = $_SERVER['HTTP_REFERER'];
+>>>>>>> 1a67ebd92ba305a5a11f3a5567d235db623544f0
                      break;
                   case 'show':
-                    //var_dump($_GET['id']);die();
                      $um = new UsuarioModelo();
                    
-                     $user  = $um->get_user($_GET['username']);
-                     var_dump($user);die();
-
-                     //$view = new UsuarioModelo();
-                     //$view->showAll($id,$user);
-                     //var_dump($datos['usuarios']);die();
-                     //$datos['usuario'] = $user;
+                     $usuario  = $um->get_user($_GET['id']);
+                     $roles = $um->getRoles($_GET['id']);
+                     $datos["user"] = $usuario;
+                     $datos["roles"] = $roles;
+                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
                      $plantilla = 'usuario_show.twig.html';
                      break;
                   case 'eliminar':
