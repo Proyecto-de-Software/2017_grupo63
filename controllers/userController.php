@@ -53,6 +53,10 @@
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
          				break;
+                  case 'editar':
+                     $plantilla = 'usuario_update.twig.html';
+                    
+                     break;
                   case 'show':
                     //var_dump($_GET['id']);die();
                      $um = new UsuarioModelo();
@@ -74,6 +78,10 @@
                         $datos['usuarios'] = $um->listar();  
                         $plantilla = 'usuario_index.twig.html';
                         break;
+                   case 'update':
+                     $um = new UsuarioModelo();
+                     //var_dump($_POST['username']);die();
+                     $um->editar($_POST);
          			case 'newDB':
          				$um = new UsuarioModelo();
          				if ($um->yaExisteUsuario($_POST['username'])) {

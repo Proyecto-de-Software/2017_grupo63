@@ -1,0 +1,38 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    
+
+ <label>CREAR USUARIO</label>   
+ <form id="test-form" class="" action='index.php?seccion=userController&amp;action=update' method='POST'>
+   
+    <div class="form-group"> 
+        <label class = "form-control-label" for="username">Nombre de usuario *:</label><br>
+        <input class = "form-control" type="text" name="username" id="username" value=""  required>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label" for="email">Correo Electronico *:</label><br>
+        <input class = "form-control" type="text" name="email" id="email" value=""  required>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label" for="first_name">Nombre *:</label><br>
+        <input class = "form-control" type="text" name="first_name" id="first_name" value=""  required>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label" for="last_name">Apellido *:</label><br>
+        <input class = "form-control" type="text" name="last_name" id="last_name" value=""  required>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label" for="password">Contraseña *:</label><br>
+        <input class = "form-control" type="password" name="password" id="password" value=""  required> 
+    </div>
+    
+
+
+    <input type="reset" value="Cancelar" class="btncancelar" onClick="location.href='{{ configuration["base_url"] }}/index.php/index'" >
+    <input type="submit" value="Dar de Alta" class="btnAlta">
+    {% if error is defined %}
+            <a> {{ error }}</a>
+    {% endif %}
+</form>
+{% endblock %}

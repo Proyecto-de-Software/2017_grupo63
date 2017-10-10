@@ -72,6 +72,21 @@
 
 		}
  	 	
+ 	 	public function editar($usuario)
+		{
+			//var_dump($usuario);die();
+			$sql = ('UPDATE  `usuario`  SET `email` =:unMail , `username` =:unUsuario, `password` =:unPass, `first_name` =:unNombre, `last_name` =:unApellido WHERE `username` =:unUsuario ');
+			
+			$consulta = $this->base->prepare($sql);
+			
+			$consulta-> bindParam(':unMail', $usuario['email'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unUsuario', $usuario['username'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unPass', $usuario['password'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unNombre', $usuario['first_name'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unApellido', $usuario['last_name'], PDO::PARAM_STR, 256);
+			$consulta->execute();
+
+		}
  	 	public function eliminar($username){
         $consulta = $this->base->prepare('DELETE FROM `usuario` WHERE username = :unUsername');
 		$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
@@ -95,10 +110,13 @@
 		public function get_user($username) {
 
 			$consulta = $this->base->prepare('SELECT * FROM `usuario` WHERE username = :unUsername');
+			
            	$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
-		
+			
+
 
            $consulta->execute();
+           var_dump($consulta);die();
            return $consulta;
         }
 
