@@ -107,7 +107,7 @@
  	 }
 	
 
-<<<<<<< HEAD
+
 		public function get_user($username) {
 
 			$consulta = $this->base->prepare('SELECT * FROM `usuario` WHERE username = :unUsername');
@@ -119,7 +119,7 @@
            $consulta->execute();
            var_dump($consulta);die();
            return $consulta;
-=======
+
 		public function get_user($id) {
 			$sql = 'SELECT * FROM usuario WHERE id = :unId AND borrado = 0';
 			$consulta = $this->base->prepare($sql);
@@ -127,7 +127,7 @@
 			$consulta->execute();
          	$usuario = $consulta->fetch();
             return $usuario;
->>>>>>> 1a67ebd92ba305a5a11f3a5567d235db623544f0
+
         }
 
 
