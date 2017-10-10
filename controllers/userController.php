@@ -52,15 +52,11 @@
                         break;
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
-
+                     $um = new UsuarioModelo();
+                     $roles = $um->getRoles();
+                     $datos["roles"] = $roles;
+                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
          				break;
-                  case 'editar':
-                     $plantilla = 'usuario_update.twig.html';
-                    
-
-         				$datos['volver'] = $_SERVER['HTTP_REFERER'];
-
-                     break;
                   case 'show':
                      $um = new UsuarioModelo();
                    
@@ -83,7 +79,7 @@
                      $um = new UsuarioModelo();
                      //var_dump($_POST['username']);die();
                      $um->editar($_POST);
-         			case 'newDB':
+         			case 'newDB':                  
          				$um = new UsuarioModelo();
          				if ($um->yaExisteUsuario($_POST['username'])) {
          					$datos['usuarioNuevo'] = $_POST;
@@ -98,8 +94,12 @@
          				}
          				else{
          					$um->insertar($_POST);
-         					$datos['usuarios'] = $um->listar();	
-							$plantilla = 'usuario_index.twig.html';
+         					$usuariosPag = $um->listar(1, '' );  
+                        $datos['usuarios'] = $usuariosPag->getDatos();
+                        $datos['lastPage'] = $usuariosPag->getTotal();
+                        $datos['currentPage'] = $usuariosPag->getActual();                        
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=&page=";	
+							   $plantilla = 'usuario_index.twig.html';
          				}
          				break;
          			default:

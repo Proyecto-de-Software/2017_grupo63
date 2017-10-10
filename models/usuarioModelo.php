@@ -69,12 +69,15 @@
 			$consulta-> bindParam(':unNombre', $usuario['first_name'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unApellido', $usuario['last_name'], PDO::PARAM_STR, 256);
 			$consulta->execute();
-
+			$idUser = $this->base->lastInsertId();
+			foreach ($usuario['roles'] as $rol) {
+				$this->asignarRol($idUser, $rol);
+			}
 		}
  	 	
  	 	public function editar($usuario)
 		{
-			//var_dump($usuario);die();
+			
 			$sql = ('UPDATE  `usuario`  SET `email` =:unMail , `username` =:unUsuario, `password` =:unPass, `first_name` =:unNombre, `last_name` =:unApellido WHERE `username` =:unUsuario ');
 			
 			$consulta = $this->base->prepare($sql);
@@ -85,24 +88,20 @@
 			$consulta-> bindParam(':unNombre', $usuario['first_name'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unApellido', $usuario['last_name'], PDO::PARAM_STR, 256);
 			$consulta->execute();
+			/*
+			$idUser = $this->base->lastInsertId();
+			
+			foreach ($usuario['roles'] as $rol) {
+				$this->asignarRol($idUser, $rol);
+			}
+			*/
 
 		}
  	 	public function eliminar($username){
         $consulta = $this->base->prepare('DELETE FROM `usuario` WHERE username = :unUsername');
 		$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
 		$consulta->execute();
-     	//$sql = ('DELETE FROM `usuario` WHERE username = :unUsername');
-     	 //$consulta = $this->base->prepare($sql);
-     	//$consulta-> bindParam(':unUsuario', $username, PDO::PARAM_STR, 256);
-       
-       
-       
-       
-         //$this->id = $conexion->lastInsertId();
-      	//$result = true;
-      //desconectar($conn);
-       //return $result; 
-      //$conexion = null;
+
    
  	 }
 	
@@ -120,17 +119,27 @@
         }
 
 
-        public function getRoles($id)
+        public function getRoles($id = 0)
         {
-        	$sql = 'SELECT rol.nombre FROM usuario as u 
-			INNER JOIN usuario_tiene_rol as utr ON u.id = utr.usuario_id 
-			INNER JOIN rol ON rol.id = utr.rol_id WHERE u.id = :unId ';
+        	$sql = 'SELECT * FROM rol';
+        	$args = array();
+        	if ($id != 0) {
+        		$sql = 'SELECT rol.nombre FROM usuario as u 
+				INNER JOIN usuario_tiene_rol as utr ON u.id = utr.usuario_id 
+				INNER JOIN rol ON rol.id = utr.rol_id WHERE u.id = :unId ';
+        		$args['unId'] = $id;
+        	}
+        	
         	$consulta = $this->base->prepare($sql);
-           	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
-			$consulta->execute();
+			$consulta->execute($args);
          	$roles = $consulta->fetchAll();
             return $roles;
         }
 
+        public function asignarRol($usuario, $rol)
+        {
+        	$consulta = $this->darConexion()->prepare("INSERT INTO usuario_tiene_rol (usuario_id, rol_id) VALUES ($usuario, $rol)");
+        	$consulta->execute();
+        }
 	}		
  ?>
