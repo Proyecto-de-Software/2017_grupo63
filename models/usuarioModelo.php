@@ -108,17 +108,6 @@
 	
 
 
-		public function get_user($username) {
-
-			$consulta = $this->base->prepare('SELECT * FROM `usuario` WHERE username = :unUsername');
-			
-           	$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
-			
-
-
-           $consulta->execute();
-           var_dump($consulta);die();
-           return $consulta;
 
 		public function get_user($id) {
 			$sql = 'SELECT * FROM usuario WHERE id = :unId AND borrado = 0';
