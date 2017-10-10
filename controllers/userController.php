@@ -52,14 +52,14 @@
                         break;
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
-<<<<<<< HEAD
+
          				break;
                   case 'editar':
                      $plantilla = 'usuario_update.twig.html';
                     
-=======
+
          				$datos['volver'] = $_SERVER['HTTP_REFERER'];
->>>>>>> 1a67ebd92ba305a5a11f3a5567d235db623544f0
+
                      break;
                   case 'show':
                      $um = new UsuarioModelo();
