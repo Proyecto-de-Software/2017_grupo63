@@ -1,46 +1,63 @@
 {% extends 'frontHabilitado.twig.html' %}
 
 {% block cuerpo %}
-  <a> Listado de Usuarios</a>
-  <!-- {% if usuarios is empty %}
-    <label>NO se encontraron usuarios</label> 
-  {% else %} -->
-    <div class = "table-responsive">
     
-      <table class="table">
-          <thead>
-            <tr>
-              
-              <td>Nombre de usuario</td>
-              <td>First Name</td>
-              <td>Last Name</td>
-              <td>Correo electronico</td>
-              <td>Estado</td>
-            </tr>
-          </thead>
-          <tbody>
-            {% for usuario in usuarios %}
-              <tr>
-                
-                <td> {{ usuario.username }} </td>
-                <td> {{ usuario.first_name }} </td>
-                <td> {{ usuario.last_name }} </td>
-                <td> {{ usuario.email }} </td>
-                <td> 
-                  {% if usuario.activo %} 
-                    activo
-                  {% else %}
-                    no activo
-                  {% endif %}   
-                </td>
-              
-               
-                    </tr>
-                  
-            {% endfor %}  
-          </tbody>    
-      </table>
-      {% include 'paginacion.twig.html' %}
-    </div>
-   <!--{% endif %} -->
-{% endblock %}  
+
+<label>MOSTRAR USUARIO</label>   
+<div class="form-container table-container"> 
+     <form  class="form-horizontal" action='' method='POST'>
+       
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="username">Nombre de usuario :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ user.username }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="first_name">Estado :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static">
+                {% if user.activo %} 
+                     activo
+                 {% else %}
+                     bloqueado
+                {% endif %}
+              </p>  
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="email">Correo Electronico :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ user.email }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="first_name">Nombre :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ user.first_name }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="last_name">Apellido :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ user.last_name }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label  col-sm-2" for="roles">Roles :</label>
+            <div class = "col-sm-4">
+              <select multiple class="form-control " id="roles" readonly>
+                {% for rol in roles %}
+                  <option> {{ rol.nombre }} </option>
+                {% endfor%}
+              </select>
+            </div> 
+        </div>
+
+
+        <input type="reset" value="Volver" class=class="btn btn-default cancel-button" onClick="location.href='{{ volver }}'" >
+        
+        
+    </form>
+</div>    
+{% endblock %}

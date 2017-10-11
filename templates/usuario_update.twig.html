@@ -3,34 +3,62 @@
 {% block cuerpo %}
     
 
- <label>CREAR USUARIO</label>   
- <form id="test-form" class="" action='index.php?seccion=userController&amp;action=update' method='POST'>
+ <label>EDITAR USUARIO</label>   
+ <form id="test-form" class="" action='index.php?seccion=userController&amp;action=updateDB' method='POST'>
    
-    <div class="form-group"> 
-        <label class = "form-control-label" for="username">Nombre de usuario *:</label><br>
-        <input class = "form-control" type="text" name="username" id="username" value=""  required>
-    </div>
-    <div class="form-group"> 
-        <label class = "form-control-label" for="email">Correo Electronico *:</label><br>
-        <input class = "form-control" type="text" name="email" id="email" value=""  required>
-    </div>
-    <div class="form-group"> 
-        <label class = "form-control-label" for="first_name">Nombre *:</label><br>
-        <input class = "form-control" type="text" name="first_name" id="first_name" value=""  required>
-    </div>
-    <div class="form-group"> 
-        <label class = "form-control-label" for="last_name">Apellido *:</label><br>
-        <input class = "form-control" type="text" name="last_name" id="last_name" value=""  required>
-    </div>
-    <div class="form-group"> 
-        <label class = "form-control-label" for="password">Contraseña *:</label><br>
-        <input class = "form-control" type="password" name="password" id="password" value=""  required> 
-    </div>
     
-
-
-    <input type="reset" value="Cancelar" class="btncancelar" onClick="location.href='{{ configuration["base_url"] }}/index.php/index'" >
-    <input type="submit" value="Dar de Alta" class="btnAlta">
+    <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="username">Nombre de usuario *:</label>
+        <div class = "col-sm-10">
+            <input class = "form-control-static" type="text" name="username" id="username" value="{{ user.username }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="email">Correo Electronico *:</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="email" id="email" value="{{ user.email }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="first_name">Nombre *:</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="first_name" id="first_name" value="{{ user.first_name }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="last_name">Apellido *:</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="last_name" id="last_name" value=" {{ user.last_name }}"  required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class = "form-control-label col-sm-2" >Estado *:</label>
+        <div class = "col-sm-10">    
+            <select name = "activo">
+                <option value = "0" {% if not user.activo %} selected {% endif %}> Bloqueado </option>
+                <option value = "1" {% if user.activo %} selected {% endif %}> Activo </option>
+            </select>
+        </div>    
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label  col-sm-2" >Roles* :</label>
+        <div class = "col-sm-10">
+            <select multiple class="form-control " name="roles[]" required>
+                {% for rol in roles %}
+                  <option value ="{{ rol.id }}" {% if rol in rolesUser %} selected {% endif %} > {{ rol.nombre }} </option>
+                {% endfor %}
+            </select>
+        </div> 
+    </div>
+    <div class="form-group col-sm-12">
+        <input type="reset" value="Cancelar" class="btncancelar" onClick="location.href='{{ volver }}'" >
+        <input type="submit" value="Editar" class="btnAlta">
+    </div>
+    <div class="form-group" hidden> 
+        <div class = "col-sm-10">
+            <input class = "form-control-static" type="text" name="id" id="id" value="{{ user.id }}" hidden required>
+        </div>
+    </div>
     {% if error is defined %}
             <a> {{ error }}</a>
     {% endif %}

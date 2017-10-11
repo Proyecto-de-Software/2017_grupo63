@@ -64,7 +64,11 @@
                      $roles = $um->getRoles($_GET['id']);
                      $datos["user"] = $usuario;
                      $datos["roles"] = $roles;
-                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                     if(strpos($_SERVER['HTTP_REFERER'], 'updateDB') !== 0 )
+                        $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
+                     else     
+                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                     
                      $plantilla = 'usuario_show.twig.html';
                      break;
                   case 'eliminar':
@@ -77,9 +81,26 @@
                         break;
                    case 'update':
                      $um = new UsuarioModelo();
-                     //var_dump($_POST['username']);die();
-                     $um->editar($_POST);
-         			case 'newDB':                  
+                     $usuario  = $um->get_user($_GET['id']);
+                     $rolesUser = $um->getRoles($_GET['id']);
+                     $roles = $um->getRoles();
+                     $datos["user"] = $usuario;
+                     $datos['rolesUser'] = $rolesUser;
+                     $datos["roles"] = $roles;               
+                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                     $plantilla = 'usuario_update.twig.html';
+         			   break;
+                  case 'updateDB':
+                        $um = new UsuarioModelo();   
+                        $um->editar($_POST);
+                        $usuariosPag = $um->listar(1, '' );  
+                        $datos['usuarios'] = $usuariosPag->getDatos();
+                        $datos['lastPage'] = $usuariosPag->getTotal();
+                        $datos['currentPage'] = $usuariosPag->getActual();                        
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=&page="; 
+                        $plantilla = 'usuario_index.twig.html';
+                        break;   
+                  case 'newDB':                  
          				$um = new UsuarioModelo();
          				if ($um->yaExisteUsuario($_POST['username'])) {
          					$datos['usuarioNuevo'] = $_POST;
