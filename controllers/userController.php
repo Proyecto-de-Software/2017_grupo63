@@ -124,8 +124,8 @@
          				}
          				break;
          			default:
-         				# code...
-         				
+         				$plantilla = "backend.twig.html";
+                              
          				break;
          		}
          	}
