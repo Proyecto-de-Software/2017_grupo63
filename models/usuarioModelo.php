@@ -78,14 +78,17 @@
  	 	public function editar($usuario)
 		{
 			
-			$sql = ('UPDATE  `usuario`  SET `email` =:unMail , `username` =:unUsuario, `first_name` =:unNombre, `last_name` =:unApellido WHERE `username` =:unUsuario ');
+			$sql = ('UPDATE  `usuario`  SET `email` =:unMail , `username` =:unUsuario, `first_name` =:unNombre, `last_name` =:unApellido, activo = :unEstado 
+			WHERE `id` =:unId ');
 			
 			$consulta = $this->base->prepare($sql);
 			
 			$consulta-> bindParam(':unMail', $usuario['email'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unUsuario', $usuario['username'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unId', $usuario['id'], PDO::PARAM_INT);
 			$consulta-> bindParam(':unNombre', $usuario['first_name'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unApellido', $usuario['last_name'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unEstado', $usuario['activo'], PDO::PARAM_INT);
 			$consulta->execute();
 			
 			$this->quitarRoles($usuario['id']);
