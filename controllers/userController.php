@@ -64,7 +64,7 @@
                      $roles = $um->getRoles($_GET['id']);
                      $datos["user"] = $usuario;
                      $datos["roles"] = $roles;
-                     if(strpos($_SERVER['HTTP_REFERER'], 'updateDB') !== 0 )
+                     if(strpos($_SERVER['HTTP_REFERER'], 'updateDB') !== false )
                         $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
                      else     
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];

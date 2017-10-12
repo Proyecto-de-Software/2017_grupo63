@@ -13,7 +13,7 @@
 
 		function __construct()
 		{	
-			$u=self::USERNAME;
+			    $u=self::USERNAME;
         	$p=self::PASSWORD;
         	$db=self::DB;
         	$host=self::HOST;

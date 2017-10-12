@@ -39,7 +39,9 @@
 		public function tienePermiso($modulo)
 		{
 			# Implementar despues
-			return true;
+			$modulo = explode("DB", $modulo);
+			if (!isset($_SESSION)) session_start();	
+			return in_array($modulo[0], $_SESSION['permisos']);
 		}
 	}
  ?>

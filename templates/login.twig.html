@@ -1,23 +1,37 @@
 {% extends 'frontHabilitado.twig.html' %}
 
 {% block cuerpo %}
-	<form id="test-form"  action='index.php?seccion=login&amp;action=check' method='post'>
+	<form class = "form-signin"  action='index.php?seccion=login&amp;action=check' method='post'>
 
 	     <div class="center">
-	        <input type="hidden" name="id" id="id" value="">
-	        <br> <br>
-	        Usuario: 
-	        <input type="text" name="usuario" id="usuario" value=""  required>
-	        <br> <br>
-	        Contraseña:
-	        <input type="password" name="contrasena" id="contraseña" required>
-	        <br> <br>
-
-	      <input type="reset"  value="Cancelar" class="btncancelar" onClick="location.href=www.yoursite.com" >
-	      <input type="submit" value="Aceptar" class="btnAlta"> <!--  id="myButton" Si llamo a la funcion no chequeo required redirige de una, consultar-->
+			<div class="form-group">
+		         <label for="usuario" class="control-label">Nombre de usuario</label>: 
+		        <div class = "row">
+		        	<div class = "col-md-4 col-sm-3"></div>
+			        <div class = "col-md-4 col-sm-6">
+		        		<input type="text" name="usuario" id="usuario" value="" class = "form-control" required>
+		    		</div>
+		        	<div class = "col-md-4 col-sm-3"></div>	
+		    	</div>
+		    </div>
+		    <div class="form-group">   
+		        <label for="contrasena" class="control-label">Contraseña</label>:
+		        <div class = "row">
+			        <div class = "col-md-4 col-sm-3"></div>
+			        <div class = "col-md-4 col-sm-6">
+			        	<input type="password" name="contrasena" id="contraseña" class = "form-control" required>
+			    	</div>	
+			    	<div class = "col-md-4 col-sm-3"></div>
+			        
+		    	</div>
+		    </div>    
+		    <div >
+		      	<button type="submit" class="btn btn-success ">Ingresar</button>
+	    		<input type="button"  value="Cancelar" class="btn btn-warning" onClick="{{ volver }}" >		
+	    	</div
 	    </div>
   		{% if error is defined %}
-  			<a> {{ error }}</a>
+  			<div class="alert alert-error">{{  error }}</div>
   		{% endif %}
     </form>
 {% endblock %}	

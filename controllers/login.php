@@ -40,6 +40,7 @@
                         if (isset($datos['error'])) {
                             unset($datos['error']);
                         }
+                        
                     } 
                     else 
                     {
@@ -61,6 +62,7 @@
                     # code...
                     break;
             }
+            $datos['volver'] = $_SERVER['HTTP_REFERER'];
             $this->mostrarVista($plantilla, $datos);
         }
         
@@ -78,6 +80,7 @@
                         $_SESSION['usuario'] = $usuario['username'];
                         $_SESSION['activo'] = $usuario['activo'];
                         $_SESSION['userID'] = $usuario['id'];
+                        $_SESSION['permisos'] = $model->getPermisos($usuario['id']);
                         $error = '';
 
                                         

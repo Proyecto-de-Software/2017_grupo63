@@ -146,5 +146,20 @@
 			$consulta = $this->darConexion()->prepare("DELETE FROM usuario_tiene_rol WHERE usuario_id = $user");
 			$consulta->execute();
 		}
+	
+		public function getPermisos($userId)
+		{
+			$sql = "SELECT p.nombre FROM usuario as u INNER JOIN usuario_tiene_rol as utr ON u.id = utr.usuario_id 
+			INNER JOIN rol ON rol.id = utr.rol_id INNER JOIN rol_tiene_permiso as rtp ON rol.id = rtp.rol_id 
+			INNER JOIN permiso as p ON p.id = rtp.permiso_id WHERE u.id = $userId GROUP BY p.nombre";
+			$consulta = $this->base->prepare($sql);
+			$consulta->execute();
+			$datosArray = $consulta->fetchAll();
+			$datos = array();
+			foreach ($datosArray as $dato) {
+				$datos[] = $dato[0];
+			}
+			return $datos;
+		}
 	}		
  ?>
