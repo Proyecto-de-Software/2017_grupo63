@@ -97,13 +97,12 @@
 			}
 
 		}
- 	 	public function eliminar($username){
-        $consulta = $this->base->prepare('DELETE FROM `usuario` WHERE username = :unUsername');
-		$consulta-> bindParam(':unUsername', $username, PDO::PARAM_STR, 256);
+ 	 	
+ 	 	public function eliminar($id){
+        $consulta = $this->base->prepare('UPDATE usuario SET borrado = 1 WHERE id = :unId');
+		$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
 		$consulta->execute();
-
-   
- 	 }
+		}
 	
 
 

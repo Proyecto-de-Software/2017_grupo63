@@ -71,13 +71,19 @@
                      
                      $plantilla = 'usuario_show.twig.html';
                      break;
-                  case 'eliminar':
+                  case 'destroy':
                         //var_dump($_GET['username']);
-                        $um = new UsuarioModelo();
-                        $username =  $_GET['username'];              
-                        $um->eliminar($username);
-                        $datos['usuarios'] = $um->listar();  
-                        $plantilla = 'usuario_index.twig.html';
+                        $um = new UsuarioModelo();              
+                        $um->eliminar($_GET['id']);
+                        $filtro = "";
+                        $usuariosPag = $um->listar(1, $filtro );  
+                        $datos['usuarios'] = $usuariosPag->getDatos();
+                        $datos['lastPage'] = $usuariosPag->getTotal();
+                        $datos['currentPage'] = 1;
+                        
+                        $datos['filtro'] = $filtro; 
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
+                        $plantilla = 'usuario_index.twig.html';  
                         break;
                    case 'update':
                      $um = new UsuarioModelo();
