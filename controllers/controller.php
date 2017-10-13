@@ -42,7 +42,8 @@
 			$modulo = explode("DB", $modulo);
 			var_dump($_SESSION['permisos']);
 			var_dump($modulo[0]);
-			var_dump($modulo[0] = $_SESSION['permisos'][1]);
+			var_dump($modulo[0] == $_SESSION['permisos'][1]);
+			var_dump($_SESSION['permisos'][1]);
 			if (!isset($_SESSION)) session_start();	
 			return in_array($modulo[0], $_SESSION['permisos']);
 		}
