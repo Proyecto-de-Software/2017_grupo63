@@ -40,6 +40,7 @@
 		{
 			# Implementar despues
 			$modulo = explode("DB", $modulo);
+
 			if (!isset($_SESSION)) session_start();	
 			return in_array($modulo[0], $_SESSION['permisos']);
 		}

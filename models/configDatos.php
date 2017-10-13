@@ -23,11 +23,12 @@
 
 		public function editar($datos)
 		{
+
 			$sql = " UPDATE configuracion SET titulo = :titulo, descripcion = :descripcion, mail = :mail, paginado = :paginado, habilitado = :habilitado " ;
 			$consulta = $this->base->prepare($sql);
 			$consulta-> bindParam(':titulo', $datos['titulo'], PDO::PARAM_STR,256);
 			$consulta-> bindParam(':descripcion', $datos['descripcion'], PDO::PARAM_STR,256);
-			$consulta-> bindParam(':email', $datos['email'], PDO::PARAM_STR,256);
+			$consulta-> bindParam(':mail', $datos['mail'], PDO::PARAM_STR,256);
 			$consulta-> bindParam(':paginado', $datos['paginado'], PDO::PARAM_INT);
 			$consulta-> bindParam(':habilitado', $datos['habilitado'], PDO::PARAM_INT);
 			$consulta->execute();
