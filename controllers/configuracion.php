@@ -35,21 +35,23 @@
          	}
          	else
          	{
-         		$datos = $this->datosTwig(true);
+         		
          		switch ($accion) {
          			case 'show':
          				$plantilla = "configuracion.twig.html";
          				$model = new DatosConfig();
-         				$datos['config'] = $model->obtenerInfo();
+                        $datos['config'] = $model->obtenerInfo();
          				$datos['config']['paginado'] = (int) $datos['config']['paginado'];
          				$datos['volver'] = "index.php";
-         				break;
+         				$datos = $this->datosTwig(true);
+                        break;
          			
          			case 'update':
          				$plantilla = "backend.twig.html";
          				$model = new DatosConfig();
          				$model->editar($_POST);
-         				break;
+         				$datos = $this->datosTwig(true);
+                        break;
          			default:
          				
          				break;
