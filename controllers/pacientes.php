@@ -64,6 +64,28 @@
                      
                      $plantilla = 'paciente_show.twig.html';
                      break;
+                    case 'update':
+                     $pm = new PacienteModelo();
+                     $paciente  = $pm->get_user($_GET['id']);
+                     //$rolesUser = $um->getRoles($_GET['id']);
+                     //$roles = $um->getRoles();
+                     $datos["paciente"] = $paciente;
+                     //$datos['rolesUser'] = $rolesUser;
+                     //$datos["roles"] = $roles;               
+                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                     $plantilla = 'paciente_update.twig.html';
+                       break;
+                      case 'updateDB':
+                        $pm = new PacienteModelo(); 
+                        $pm->editar($_POST);
+                        //$pacientesPag = $pm->listar(1, '' );
+                        //var_dump($_POST);
+                        //$datos['pacientes'] = $pacientesPag->get_user();
+                        //$datos['lastPage'] = $usuariosPag->getTotal();
+                        //$datos['currentPage'] = $usuariosPag->getActual();                        
+                        //$datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=&page="; 
+                        $plantilla = 'paciente_index.twig.html';
+                        break;   
                     case 'destroy':
                         //var_dump($_GET['username']);
                         $pm = new PacienteModelo();
