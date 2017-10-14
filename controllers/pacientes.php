@@ -49,9 +49,21 @@
                         //$datos['currentPage'] = $usuariosPag->getActual();
                         $plantilla = 'paciente_index.twig.html';
                         break;
-         			case 'new':
-         				$plantilla = 'usuario_new.twig.html';
-         				break;
+         			case 'show':
+         				
+                     $pm = new PacienteModelo();
+                   
+                     $paciente = $pm->get_user($_GET['id']);
+                     //$roles = $um->getRoles($_GET['id']);
+                     $datos["paciente"] = $paciente;
+                     //$datos["roles"] = $roles;
+                     //f(strpos($_SERVER['HTTP_REFERER'], 'updateDB') !== false )
+                        //$datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
+                     //else     
+                       // $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                     
+                     $plantilla = 'paciente_show.twig.html';
+                     break;
                     case 'destroy':
                         //var_dump($_GET['username']);
                         $pm = new PacienteModelo();

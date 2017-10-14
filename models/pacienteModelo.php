@@ -23,5 +23,16 @@
 		$consulta->execute();
 		}
 
+		public function get_user($id) {
+			$sql = 'SELECT * FROM paciente WHERE id = :unId AND borrado = 0';
+			$consulta = $this->base->prepare($sql);
+           	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
+			$consulta->execute();
+         	$paciente = $consulta->fetch();
+            return $paciente;
+
+        }
+
+
 	}		
  ?>
