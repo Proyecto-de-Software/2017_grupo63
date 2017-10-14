@@ -32,6 +32,7 @@
 			    			<td> {{ paciente.domicilio }} </td>
 			    			<td> {{ paciente.telefono }} </td>
 			    			<td> {{ paciente.obraSocial }} </td>
+<<<<<<< HEAD
 			    			<td>
 			    			 	<p>
 			    			 		<a href="index.php?seccion=pacientes&amp;action=show&amp;id={{ paciente.id }}"> 
@@ -53,6 +54,30 @@
 			    			 		</a>
 			    			 	</p>
 			    			</td>
+=======
+		    				<td>
+			    			 	<p>
+			    			 		<a href="index.php?seccion=pacienteController&amp;action=show&amp;id={{ paciente.id }}"> 
+			    			 			<img src='img/ver.png' alt="ver paciente">
+			    			 		</a>
+			    			 	</p>
+			    			</td>
+                    		<td>
+                    			<p>
+                    				<a href="index.php?seccion=pacienteController&amp;action=update&amp;id={{ paciente.id }}">  
+                    					<img  src='img/edit.png' alt="imagen de editar info"> 
+                    				</a>
+                    			</p>
+                    		</td>
+                    		
+                    		<td>
+                    			<p>
+                    				<a onClick="javascript: return confirm('Estas seguro?');" href="index.php?seccion=pacienteController&amp;action=destroy&amp;id={{ paciente.id }}" > 
+                    					<img class='' src='img/delete.png' alt="eliminar paciente">  
+                    				</a>
+                    			</p>
+                    		</td>
+>>>>>>> 5a64a66ea59bcda7ada07e59b542daec004f1502
 		    			</tr>
 		    			
 		    		{% endfor %}	
