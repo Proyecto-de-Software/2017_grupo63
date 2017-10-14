@@ -43,13 +43,13 @@
 				break;
 			case 'pacientes':
 				require_once "controllers/pacientes.php";
-<<<<<<< HEAD
+
 				$pacientes = PacienteController::getInstance();
 				$pacientes->trabajar(isset($_GET['action']) ? $_GET['action'] : '' );
-=======
-				$pacienteController = pacientes::getInstance();
-				$pacienteController->trabajar($action);
->>>>>>> 5a64a66ea59bcda7ada07e59b542daec004f1502
+
+				//$pacienteController = pacientes::getInstance();
+				//$pacienteController->trabajar($action);
+
 				break;
 			case 'login':
 				require_once "controllers/login.php";
