@@ -23,6 +23,7 @@
 	
         public function trabajar($accion)
         {
+
          	if (!$this->estaLogueado()) 
          	{
          		$datos = $this->datosTwig(false);
@@ -39,24 +40,29 @@
          		$datos = $this->datosTwig(true);
          		switch ($accion) {
          			case 'index':
+                        //echo "string";
                         $pm = new PacienteModelo();
                         $pacientesPag = $pm->listar(isset($_GET['page']) ? $_GET['page'] : 1 );  
-                        $datos['pacientes'] = $pacientesPag->getDatos();
-                        $datos['paginationPath'] = "index.php?seccion=pacienteController&action=index&page="; 
-                        $datos['lastPage'] = $usuariosPag->getTotal();
-                        $datos['currentPage'] = $usuariosPag->getActual();
-                        $plantilla = 'usuario_index.twig.html';
+                        $datos['pacientes'] = $pacientesPag;//->getDatos();
+                        //$datos['paginationPath'] = "index.php?seccion=pacienteController&action=index&page="; 
+                        //$datos['lastPage'] = $usuariosPag->getTotal();
+                        //$datos['currentPage'] = $usuariosPag->getActual();
+                        $plantilla = 'paciente_index.twig.html';
                         break;
          			case 'new':
          				$plantilla = 'usuario_new.twig.html';
          				break;
-                    case 'eliminar':
+                    case 'destroy':
                         //var_dump($_GET['username']);
-                        $um = new UsuarioModelo();
-                        $username =  $_GET['username'];              
-                        $um->eliminar($username);
-                        $datos['usuarios'] = $um->listar();  
-                        $plantilla = 'usuario_index.twig.html';
+                        $pm = new PacienteModelo();
+                        $id =  $_GET['id'];
+                                     
+                        $pm->eliminar($id);
+                        
+                        $pacientesPag = $pm->listar(isset($_GET['page']) ? $_GET['page'] : 1 ); 
+                        $datos['pacientes'] = $pacientesPag;
+                        
+                        $plantilla = 'paciente_index.twig.html';
                         break;
          			case 'newDB':
          				$um = new UsuarioModelo();

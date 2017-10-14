@@ -42,6 +42,8 @@
 			case 'pacientes':
 				# code...
 				require_once "controllers/pacientes.php";
+				$pacientes = PacienteController::getInstance();
+				$pacientes->trabajar(isset($_GET['action']) ? $_GET['action'] : '' );
 				break;
 			case 'login':
 				require_once "controllers/login.php";

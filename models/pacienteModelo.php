@@ -16,5 +16,12 @@
 			$pacientes = $consulta-> fetchAll();
 			return $pacientes;
 		}
+
+		public function eliminar($id){
+        $consulta = $this->base->prepare('UPDATE paciente SET borrado = 1 WHERE id = :unId');
+		$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
+		$consulta->execute();
+		}
+
 	}		
  ?>

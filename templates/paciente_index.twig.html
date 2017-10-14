@@ -32,9 +32,32 @@
 			    			<td> {{ paciente.domicilio }} </td>
 			    			<td> {{ paciente.telefono }} </td>
 			    			<td> {{ paciente.obraSocial }} </td>
+			    			<td>
+			    			 	<p>
+			    			 		<a href="index.php?seccion=pacientes&amp;action=show&amp;id={{ paciente.id }}"> 
+			    			 			<img src='img/ver.png' alt="ver registro">
+			    			 		</a>
+			    			 	</p>
+			    			</td>
+			    			<td>
+			    			 	<p>
+			    			 		<a href="index.php?seccion=pacientes&amp;action=destroy&amp;id={{ paciente.id }}"> 
+			    			 			<img src='img/ver.png' alt="Eliminar paciente">
+			    			 		</a>
+			    			 	</p>
+			    			</td>
+			    			<td>
+			    			 	<p>
+			    			 		<a href="index.php?seccion=pacientes&amp;action=edit&amp;id={{ paciente.id }}"> 
+			    			 			<img src='img/ver.png' alt="ver registro">
+			    			 		</a>
+			    			 	</p>
+			    			</td>
 		    			</tr>
 		    			
 		    		{% endfor %}	
+
+
 		    	</tbody>		
 			</table>
 		</div>
