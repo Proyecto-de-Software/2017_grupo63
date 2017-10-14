@@ -1,0 +1,75 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    
+
+ <label>CREAR PACIENTE</label>   
+<div class="form-container table-container"> 
+     <form id="test-form" class="" action='index.php?seccion=pacientes&amp;action=newDB' method='POST'>
+       
+        <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="nombre">Nombre de Paciente *:</label>
+        <div class = "col-sm-10">
+            <input class = "form-control-static" type="text" name="nombre" id="nombre" value="{{ paciente.nombre }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="apellido"> Apellido :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="apellido" id="apellido" value="{{ paciente.apellido }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+       <label class = "form-control-label col-sm-2" for="nacimiento">Fecha de Nacimiento :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="nacimiento" id="nacimiento" value="{{ paciente.nacimiento }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+        <label class = "form-control-label col-sm-2" for="genero">Genero :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="genero" id="genero" value=" {{ paciente.genero }}"  required>
+        </div>
+    </div>
+    <div class="form-group"> 
+         <label class = "form-control-label col-sm-2" for="tipoDoc">Tipo de Documento :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="tipoDoc" id="tipoDoc" value=" {{ paciente.tipoDoc }}"  required>
+        </div>
+    </div>
+      <div class="form-group"> 
+         <label class = "form-control-label col-sm-2" for="numDoc">Dni :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="numDoc" id="numDoc" value=" {{ paciente.numDoc }}"  required>
+        </div>
+    </div>
+      <div class="form-group"> 
+          <label class = "form-control-label col-sm-2" for="domicilio">Domicilio :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="domicilio" id="domicilio" value=" {{ paciente.domicilio }}"  required>
+        </div>
+    </div>
+      <div class="form-group"> 
+         <label class = "form-control-label col-sm-2" for="telefono">Telefono :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="telefono" id="telefono" value=" {{ paciente.telefono }}"  required>
+        </div>
+    </div>
+      <div class="form-group"> 
+          <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
+        <div class = "col-sm-10">
+            <input class = "form-control" type="text" name="obraSocial" id="obraSocial" value=" {{ paciente.obraSocial }}"  required>
+        </div>
+    </div>
+
+        <div class="form-group "> 
+            <input type="submit" value="Dar de Alta" class=" btn-success btn">
+            <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='index.php?seccion=pacientes&amp;action=index'" >
+        </div>
+        
+        {% if error is defined %}
+                <a> {{ error }}</a>
+        {% endif %}
+    </form>
+</div>    
+{% endblock %}

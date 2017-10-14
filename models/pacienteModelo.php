@@ -60,5 +60,42 @@
 			//}
 
 		}
+
+
+			public function yaExistePaciente($paciente)
+		{
+			$consulta = $this->base->prepare('SELECT * FROM paciente WHERE numDoc = :unNumDoc and borrado = 0');
+			$consulta-> bindParam(':unNumDoc', $paciente, PDO::PARAM_STR, 256);
+			return $consulta->rowCount() > 0 ;
+		}
+	
+		public function insertar($paciente)
+		{
+			//var_dump($paciente);die();
+			$sql = ('INSERT INTO `paciente` (`nombre`, `apellido`, `nacimiento`, `genero`, `tipoDoc`, `numDoc`, `domicilio`, `telefono`,`obraSocial`) 
+				VALUES (:unNombre, :unApellido, :unNacimiento, :unTipoDoc, :unGenero, :unNumDoc, :unDomicilio, :unTelefono, :unObraSocial)');
+			
+			$consulta = $this->base->prepare($sql);
+			
+			$consulta-> bindParam(':unNombre', $paciente['nombre'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unApellido', $paciente['apellido'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unNacimiento', $paciente['nacimiento'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unGenero', $paciente['genero'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unTipoDoc', $paciente['tipoDoc'], PDO::PARAM_STR, 256);
+			
+			
+			$consulta-> bindParam(':unNumDoc', $paciente['numDoc'], PDO::PARAM_INT);
+			$consulta-> bindParam(':unDomicilio', $paciente['domicilio'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unTelefono', $paciente['telefono'], PDO::PARAM_INT);
+			$consulta-> bindParam(':unObraSocial', $paciente['obraSocial'], PDO::PARAM_STR, 256);
+			//$consulta-> bindParam(':unId', $paciente['id'], PDO::PARAM_INT);
+			$consulta->execute();
+			
+			//$idUser = $this->base->lastInsertId();
+			//foreach ($usuario['roles'] as $rol) {
+			//	$this->asignarRol($idUser, $rol);
+			//}
+		}
+		
 	}		
  ?>

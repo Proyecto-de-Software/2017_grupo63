@@ -64,6 +64,28 @@
                      
                      $plantilla = 'paciente_show.twig.html';
                      break;
+                    case 'new':
+                        $plantilla = 'paciente_new.twig.html';
+                        $um = new PacienteModelo();
+                        break;
+                    case 'newDB':                  
+                        $um = new PacienteModelo();
+                        if ($um->yaExistePaciente($_POST['numDoc'])) {
+                            $datos['pacienteNuevo'] = $_POST;
+                            $datos['error'] = 'Ese numero de documento ya esta registrado';
+                            $plantilla = 'paciente_new.twig.html';
+                        }
+                       
+                        else{
+                            $um->insertar($_POST);
+                            $usuariosPag = $um->listar(1, '' );  
+                        //$datos['usuarios'] = $usuariosPag->getDatos();
+                        //$datos['lastPage'] = $usuariosPag->getTotal();
+                        //$datos['currentPage'] = $usuariosPag->getActual();                        
+                        //$datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=&page=";   
+                            $plantilla = 'paciente_index.twig.html';
+                        }
+                        break;    
                     case 'update':
                      $pm = new PacienteModelo();
                      $paciente  = $pm->get_user($_GET['id']);
