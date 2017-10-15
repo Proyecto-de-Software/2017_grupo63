@@ -8,13 +8,21 @@
 			parent::__construct();	
 		}
 
-		public function listar()
+		public function listar( $pagina, $filtro)
 		{
-			$sql = "SELECT * FROM paciente where borrado = 0" ;
-			$consulta = $this->base->prepare($sql);
-			$consulta->execute();
-			$pacientes = $consulta-> fetchAll();
-			return $pacientes;
+			$filtro = htmlspecialchars($filtro);
+			$args = array();
+			$where = '';
+			if (!empty($filtro)) {
+				$filtroSQL = '%' . $filtro . '%';
+				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc = :filtro OR numDoc = :filtro)";
+				$args[':filtro'] = $filtro;
+				$args[':filtroSQL'] = $filtroSQL;
+			}
+			$pp = $this->getLimitOffset("paciente", $pagina, $where, $args);
+			$usuarios = $this->getDatosPara('paciente', $pp->getLimit(), $pp->getOffset(), $where, $args);
+			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuarios);
+			return $datosPag;
 		}
 
 		public function eliminar($id){

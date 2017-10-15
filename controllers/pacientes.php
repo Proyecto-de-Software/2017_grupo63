@@ -38,15 +38,18 @@
          	else
          	{
          		$datos = $this->datosTwig(true);
-         		switch ($accion) {
+         		$pagina =  isset($_GET['page']) ? $_GET['page'] : 1 ;
+                $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : "";
+                switch ($accion) {
          			case 'index':
-                        //echo "string";
+                        
                         $pm = new PacienteModelo();
-                        $pacientesPag = $pm->listar(isset($_GET['page']) ? $_GET['page'] : 1 );  
-                        $datos['pacientes'] = $pacientesPag;//->getDatos();
-                        //$datos['paginationPath'] = "index.php?seccion=pacienteController&action=index&page="; 
-                        //$datos['lastPage'] = $usuariosPag->getTotal();
-                        //$datos['currentPage'] = $usuariosPag->getActual();
+                        $pacientesPag = $pm->listar($pagina, $filtro);  
+                        $datos['pacientes'] = $pacientesPag->getDatos();
+                        $datos['paginationPath'] = "index.php?seccion=pacientes&action=index&filtro=$filtro&page="; 
+                        $datos['lastPage'] = $pacientesPag->getTotal();
+                        $datos['currentPage'] = $pacientesPag->getActual();
+                        $datos['filtro'] = $filtro;
                         $plantilla = 'paciente_index.twig.html';
                         break;
          			case 'show':
@@ -66,18 +69,17 @@
                      break;
                     case 'new':
                         $plantilla = 'paciente_new.twig.html';
-                        $um = new PacienteModelo();
                         break;
                     case 'newDB':                  
-                        $um = new PacienteModelo();
-                        if ($um->yaExistePaciente($_POST['numDoc'])) {
+                        $pm = new PacienteModelo();
+                        if ($pm->yaExistePaciente($_POST['numDoc'])) {
                             $datos['pacienteNuevo'] = $_POST;
                             $datos['error'] = 'Ese numero de documento ya esta registrado';
                             $plantilla = 'paciente_new.twig.html';
                         }
                        
                         else{
-                            $um->insertar($_POST);
+                            $pm->insertar($_POST);
                             $usuariosPag = $um->listar(1, '' );  
                         //$datos['usuarios'] = $usuariosPag->getDatos();
                         //$datos['lastPage'] = $usuariosPag->getTotal();

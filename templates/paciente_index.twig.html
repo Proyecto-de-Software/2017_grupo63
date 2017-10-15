@@ -67,5 +67,23 @@
 		    	</tbody>		
 			</table>
 		</div>
+		{% include 'paginacion.twig.html' %}
+		<div class="row">    
+	        <div class="col-xs-8 col-xs-offset-2">
+			    <form method = "get" action = "index.php">
+				    <div class="input-group">         
+		                <input type="text" class="form-control" name="filtro" value = "{{ filtro }}" placeholder=" buscar ">
+		                <input type="hidden" class="form-control" name="page" value = "1">
+		                <input type="hidden" class="form-control" name="seccion" value = "pacientes">
+		                <input type="hidden" class="form-control" name="action" value = "index">
+		                <span class="input-group-btn">
+		                    <button class="btn btn-default" type="submit">
+		                    	<span class="glyphicon glyphicon-search"></span>
+		                    </button>
+		                </span>
+		            </div>
+	        	</form>
+	        </div>
+		</div>
 	{% endif %}	
 {% endblock %}	
