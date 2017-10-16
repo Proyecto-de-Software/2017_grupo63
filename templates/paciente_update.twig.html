@@ -18,52 +18,65 @@
   <form id="test-form" class="" action='index.php?seccion=pacientes&amp;action=updateDB' method='POST'>
    
     
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="nombre">Nombre de Paciente *:</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="nombre" id="nombre" value="{{ paciente.nombre }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="apellido"> Apellido :</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="apellido" id="apellido" value="{{ paciente.apellido }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
        <label class = "form-control-label col-sm-2" for="nacimiento">Fecha de Nacimiento :</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="nacimiento" id="datepicker" value="{{ paciente.nacimiento }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="genero">Genero :</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="genero" id="genero" value=" {{ paciente.genero }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
-         <label class = "form-control-label col-sm-2" for="numDoc">Dni :</label>
+    <div class="form-group row"> 
+         <label class = "form-control-label col-sm-2" for="tipoDoc">Tipo de documento:</label>
+        <div class = "col-sm-10">
+            <select name = "tipoDoc">
+                <option value= "DNI" {% if (paciente.tipoDoc == "DNI") %} selected {% endif %}> DNI </option>
+                <option value = "LE" {% if (paciente.tipoDoc == "LE") %} selected {% endif %}  >LE</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row"> 
+         <label class = "form-control-label col-sm-2" for="numDoc">Numero de documento :</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="numDoc" id="numDoc" value=" {{ paciente.numDoc }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
+      <div class="form-group row"> 
           <label class = "form-control-label col-sm-2" for="domicilio">Domicilio :</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="domicilio" id="domicilio" value=" {{ paciente.domicilio }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
+      <div class="form-group row"> 
          <label class = "form-control-label col-sm-2" for="telefono">Telefono :</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="telefono" id="telefono" value=" {{ paciente.telefono }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
+      <div class="form-group row"> 
           <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
         <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="obraSocial" id="obraSocial" value=" {{ paciente.obraSocial }}"  required>
+            <select name="obraSocial">
+                <option value = "IOMA" {% if (paciente.obraSocial == "IOMA") %} selected {% endif %}> IOMA </option>
+                <option value = "PAMI" {% if (paciente.obraSocial == "PAMI") %} selected {% endif %}> PAMI </option>
+                <option value = "SWISS MEDICAL" {% if (paciente.obraSocial == "SWISS MEDICAL") %} selected {% endif %}> Swiss Medical</option>
+            </select>
         </div>
     </div>
 
