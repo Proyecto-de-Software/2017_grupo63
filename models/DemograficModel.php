@@ -37,7 +37,6 @@
 
 		public function update($datosDem)
 		{
-			var_dump($datosDem);
 			$sql = "UPDATE datos_demograficos SET heladera = :heladera , electricidad = :electricidad,mascota= :mascota,
 				 tipo_vivienda_id = :opcionvivienda, tipo_calefaccion_id = :opcioncalefaccion, tipo_agua_id = :opcionagua WHERE id = :id";
 			$consulta = $this->base->prepare($sql);
