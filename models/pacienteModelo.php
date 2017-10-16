@@ -117,7 +117,7 @@
             WHERE id =:unId');
         $consulta = $this->base->prepare($sql);
         $consulta->bindParam(':demografic_id', $idDemografico[0], PDO::PARAM_INT, 256);
-        $consulta->bindParam(':unId', $idPaciente[0], PDO::PARAM_INT, 256);
+        $consulta->bindParam(':unId', $idPaciente, PDO::PARAM_INT, 256);
         $consulta->execute();
 
     }

@@ -35,11 +35,13 @@
 
 		}
 
-		public function updateDemografic ($id){
-			//muestro nombre del paciente
-			$plantilla = 'demografic_new.twig.html';
-			//busco el usuario por sql y le modifico con UPDATE EL datos_demografico_id al ultimo que yo cree
-
+		public function update($datosDem)
+		{
+			var_dump($datosDem);
+			$sql = "UPDATE datos_demograficos SET heladera = :heladera , electricidad = :electricidad,mascota= :mascota,
+				 tipo_vivienda_id = :opcionvivienda, tipo_calefaccion_id = :opcioncalefaccion, tipo_agua_id = :opcionagua WHERE id = :id";
+			$consulta = $this->base->prepare($sql);
+			$consulta->execute($datosDem);
 		}
 
 		public function ultimoDemografic(){

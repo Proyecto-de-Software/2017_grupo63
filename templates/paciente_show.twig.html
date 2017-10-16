@@ -65,11 +65,16 @@
         </div>
      
        
-       <input type="reset" value="Volver" class=class="btn btn-default cancel-button" onClick="location.href='index.php?seccion=pacientes&amp;action=index'" >
+       <input type="reset" value="Volver" class="btn btn-warning" onClick="location.href='index.php?seccion=pacientes&amp;action=index'" >
        
-        <input type="reset" value="Ver datos demograficos" class=class="btn btn-default cancel-button" onClick="location.href='index.php?seccion=pacientes&amp;action=showDemografic&id={{paciente.id}}'" >
+        {% if not paciente.datos_demograficos_id %}
+            <input type="reset" value="Cargar datos demograficos" class="btn btn-success " onClick="location.href='index.php?seccion=demografico&amp;action=new&amp;id={{paciente.id}}'" >            
+        {% else %}
+            <input type="reset" value="Ver datos demograficos" class="btn btn-info" onClick="location.href='index.php?seccion=demografico&amp;action=show&amp;id={{paciente.id}}'" >
 
-        <input type="reset" value="Eliminar datos demograficos" class=class="btn btn-default cancel-button" onClick="location.href='index.php?seccion=pacientes&amp;action=destroyDemografic&id={{paciente.id}}'" >
+            <input type="reset" value="Edita datos demograficos" class="btn btn-success " onClick="location.href='index.php?seccion=demografico&amp;action=update&amp;id={{paciente.id}}'" >
+        {% endif %}
+        
 
         
         

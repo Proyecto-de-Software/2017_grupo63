@@ -67,6 +67,11 @@
 				$configController = Configuracion::getInstance();
 				$configController->trabajar($action);
 				break;
+			case 'demografico':
+				require_once "controllers/demografico.php";
+				$demografico = Demografico::getInstance();
+				$demografico->trabajar($action);
+				break;
 			default:
 				# code...
 				$plantilla = "frontHabilitado.twig.html";

@@ -37,11 +37,13 @@
          	else
          	{
          		$datos = $this->datosTwig(true);
+               $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '' ;
+               $pagina = isset($_GET['page']) ? $_GET['page'] : 1;
          		switch ($accion) {
          			case 'index':
                         $um = new UsuarioModelo();
-                        $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '' ;
-                        $usuariosPag = $um->listar(isset($_GET['page']) ? $_GET['page'] : 1, $filtro );  
+                        
+                        $usuariosPag = $um->listar($pagina, $filtro );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
                         $datos['currentPage'] = $usuariosPag->getActual();
@@ -64,11 +66,8 @@
                      $roles = $um->getRoles($_GET['id']);
                      $datos["user"] = $usuario;
                      $datos["roles"] = $roles;
-                     if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
-                        $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
-                     else     
-                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
-                     
+                     $datos['volver'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=$pagina";
+                     var_dump($datos['volver']);
                      $plantilla = 'usuario_show.twig.html';
                      break;
                   case 'destroy':
@@ -135,14 +134,7 @@
          				  case 'demografic':
                         $plantilla = 'demografic_new.twig.html';
                         break;
-                     case 'newDemografic':
-                     $dm = new DemograficModel();
-                     $dm->insertDemografic($_POST);
-                     $idDemografico = $dm->ultimoDemografic();
-                     $idPaciente = (new PacienteModelo())->ultimoUsuario();
-                     (new PacienteModelo())->agregarDemografic($idPaciente,  $idDemografico);
-                     $plantilla = "backend.twig.html"; 
-                      break;
+                     
          			default:
          				$plantilla = "backend.twig.html";
                               

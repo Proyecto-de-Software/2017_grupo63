@@ -3,13 +3,13 @@
 {% block cuerpo %}
     
 
- <label>CREAR DATO DEMOGRAFICO</label>   
+ <label>CARGAR DATO DEMOGRAFICO</label>   
 <div class="form-container table-container"> 
-     <form id="test-form" class="" action='index.php?seccion=userController&amp;action=newDemografic' method='POST'>
+     <form id="test-form" class="" action='index.php?seccion=demografico&amp;action=newDB' method='POST'>
         <div class="form-group"> 
             <label class = "form-control-label" for="Heladera">Heladera? :</label><br>
             
-                <label class="radio-inline"><input type="radio" value="1" name="radioheladera">Si</label>
+                <label class="radio-inline"><input type="radio" value="1" name="radioheladera" required>Si</label>
                 
             
              <label class="radio-inline"><input type="radio" value="0" name="radioheladera">No</label>
@@ -17,7 +17,7 @@
             </div>
              <div class="form-group"> 
             <label class = "form-control-label" for="Electricidad">Electricidad? :</label><br>
-                <label class="radio-inline"><input type="radio" value="1" name="radioelectricidad">Si</label>
+                <label class="radio-inline"><input type="radio" value="1" name="radioelectricidad" required>Si</label>
             
              <label class="radio-inline"><input type="radio" value="0" name="radioelectricidad">No</label>
             
@@ -25,7 +25,7 @@
             <div class="form-group"> 
             <label class = "form-control-label" for="username">Mascota? :</label><br>
             
-                <label class="radio-inline"><input type="radio" value="1" name="radiomascota">Si</label>
+                <label class="radio-inline"><input type="radio" value="1" name="radiomascota" required>Si</label>
                 
             
              <label class="radio-inline"><input type="radio" value="0" name="radiomascota">No</label>
@@ -54,15 +54,15 @@
         </div>
         </div>        
         <div class="form-group col-sm-12"> 
-            <input type="reset" value="Cancelar" class="btncancelar" onClick="location.href='{{ volver }}'" >
-            <input type="submit" value="Dar de Alta" class="btnAlta">
+            <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='{{ volver }}'" >
+            <input type="submit" value="Dar de Alta" class="btn btn-success">
         </div>
         
         {% if error is defined %}
                 <a> {{ error }}</a>
         {% endif %}
 
-        <input type="hidden" name="paciente_id" value=" {{paciente_id.id}} ">
+        <input type="hidden" name="paciente" value=" {{paciente}} ">
 
     </form>
 </div>    
