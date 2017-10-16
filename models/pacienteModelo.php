@@ -81,7 +81,7 @@
 		{
 			//var_dump($paciente);die();
 			$sql = ('INSERT INTO `paciente` (`nombre`, `apellido`, `nacimiento`, `genero`, `tipoDoc`, `numDoc`, `domicilio`, `telefono`,`obraSocial`) 
-				VALUES (:unNombre, :unApellido, :unNacimiento, :unTipoDoc, :unGenero, :unNumDoc, :unDomicilio, :unTelefono, :unObraSocial)');
+				VALUES (:unNombre, :unApellido, :unNacimiento, :unGenero, :unTipoDoc, :unNumDoc, :unDomicilio, :unTelefono, :unObraSocial)');
 			
 			$consulta = $this->base->prepare($sql);
 			
