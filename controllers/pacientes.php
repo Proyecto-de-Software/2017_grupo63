@@ -78,10 +78,14 @@
                         }
                        
                         else{
-                             $pm->insertar($_POST);
-                            $datos['paciente_id'] = $pm->ultimoUsuario();
+                            $pm->insertar($_POST);
+                            $pacientesPag = $pm->listar(1, '' );  
+                            $datos['pacientes'] = $pacientesPag->getDatos();
+                            $datos['lastPage'] = $pacientesPag->getTotal();
+                            $datos['currentPage'] = $pacientesPag->getActual();                        
+                            $datos['paginationPath'] = "index.php?seccion=pacientes&action=index&filtro=&page=";   
+                            $plantilla = 'paciente_index.twig.html';
 
-                            $plantilla = 'demografic_new.twig.html';
                         }
                         break;    
                     case 'update':
