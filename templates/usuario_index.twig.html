@@ -37,14 +37,14 @@
 			    			<td>
 			    			 	<p>
 			    			 		<a href="index.php?seccion=userController&amp;action=show&amp;id={{ usuario.id }}"> 
-			    			 			<img src='img/ver.png' alt="ver registro">
+			    			 			<img class='icono' src='images/ver.jpeg' alt="ver registro">
 			    			 		</a>
 			    			 	</p>
 			    			</td>
                     		<td>
                     			<p>
                     				<a href="index.php?seccion=userController&amp;action=update&amp;id={{ usuario.id }}">  
-                    					<img  src='img/edit.png' alt="imagen de editar info"> 
+                    					<img class='icono' src='images/edit.jpeg' alt="imagen de editar info"> 
                     				</a>
                     			</p>
                     		</td>
@@ -52,7 +52,7 @@
                     		<td>
                     			<p>
                     				<a onClick="javascript: return confirm('Estas seguro?');" href="index.php?seccion=userController&amp;action=destroy&amp;id={{ usuario.id }}" > 
-                    					<img class='' src='img/delete.png' alt="imagen para eliminar registro">  
+                    					<img class='icono' src='images/borrar.jpeg' alt="imagen para eliminar registro">  
                     				</a>
                     			</p>
                     		</td>
@@ -62,7 +62,17 @@
 		    	</tbody>		
 			</table>
 		</div>
-		{% include 'paginacion.twig.html' %}
+		<div class = "row" > 
+			<div class = "col-md-6">
+				{% include 'paginacion.twig.html' %}
+			</div>
+			<div class = "col-md-1 col-md-offset-5" >
+				<button class="btn btn-success" onclick="location.href= 'index.php?seccion=userController&amp;action=new' ">
+		         	NUEVO
+		        </button>
+			</div>	
+		</div>
+		
 		<div class="row">    
 	        <div class="col-xs-8 col-xs-offset-2">
 			    <form method = "get" action = "index.php">

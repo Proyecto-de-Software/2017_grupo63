@@ -41,6 +41,11 @@
 
 }
 
+.icono{
+    max-width: 25px;
+    max-height: 25px;
+}
+
 .navDerecha{
     padding: 10px;
 }
@@ -174,7 +179,6 @@ nav form {
     display: inline;
     padding: 16px;
 }
-
 /* acomodar los parrafos responsive */
 
 @media only screen and (max-width: 1213px) {

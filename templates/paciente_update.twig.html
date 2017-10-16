@@ -1,5 +1,16 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="jquery-ui/jquery-ui.min.js" ></script>
+    <script type="text/javascript" src ="js/datePicker.js" ></script>
+{% endblock %}
+{% block estilo %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href= "jquery-ui/jquery-ui.min.css">
+{% endblock %}
+
 {% block cuerpo %}
     
 
@@ -10,7 +21,7 @@
     <div class="form-group"> 
         <label class = "form-control-label col-sm-2" for="nombre">Nombre de Paciente *:</label>
         <div class = "col-sm-10">
-            <input class = "form-control-static" type="text" name="nombre" id="nombre" value="{{ paciente.nombre }}"  required>
+            <input class = "form-control" type="text" name="nombre" id="nombre" value="{{ paciente.nombre }}"  required>
         </div>
     </div>
     <div class="form-group"> 
@@ -22,7 +33,7 @@
     <div class="form-group"> 
        <label class = "form-control-label col-sm-2" for="nacimiento">Fecha de Nacimiento :</label>
         <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="nacimiento" id="nacimiento" value="{{ paciente.nacimiento }}"  required>
+            <input class = "form-control" type="text" name="nacimiento" id="datepicker" value="{{ paciente.nacimiento }}"  required>
         </div>
     </div>
     <div class="form-group"> 
@@ -58,8 +69,8 @@
 
    
     <div class="form-group col-sm-12">
-        <input type="reset" value="Cancelar" class="btncancelar" onClick="location.href='{{ volver }}'" >
-        <input type="submit" value="Editar" class="btnAlta">
+        <input type="submit" value="Editar" class="btn-success btn">
+        <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='{{ volver }}'" >
     </div>
     <div class="form-group" hidden> 
         <div class = "col-sm-10">

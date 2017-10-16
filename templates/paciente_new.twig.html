@@ -1,5 +1,15 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="jquery-ui/jquery-ui.min.js" ></script>
+    <script type="text/javascript" src ="js/datePicker.js" ></script>
+{% endblock %}
+{% block estilo %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href= "jquery-ui/jquery-ui.min.css">
+{% endblock %}
+
 {% block cuerpo %}
     
 
@@ -7,64 +17,74 @@
 <div class="form-container table-container"> 
      <form id="test-form" class="" action='index.php?seccion=pacientes&amp;action=newDB' method='POST'>
        
-        <div class="form-group"> 
-        <label class = "form-control-label col-sm-2" for="nombre">Nombre de Paciente *:</label>
-        <div class = "col-sm-10">
-            <input class = "form-control-static" type="text" name="nombre" id="nombre" value="{{ paciente.nombre }}"  required>
+        <div class="form-group row"> 
+        <label class = "form-control-label col-md-2" for="nombre">Nombre de Paciente *:</label>
+        <div class = "col-md-10">
+            <input class = "form-control" type="text" name="nombre" id="nombre" value="{{ pacienteNuevo.nombre }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
-        <label class = "form-control-label col-sm-2" for="apellido"> Apellido :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="apellido" id="apellido" value="{{ paciente.apellido }}"  required>
+    <div class="form-group row"> 
+        <label class = "form-control-label col-md-2" for="apellido"> Apellido :</label>
+        <div class = "col-md-10">
+            <input class = "form-control" type="text" name="apellido" id="apellido" value="{{ pacienteNuevo.apellido }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
        <label class = "form-control-label col-sm-2" for="nacimiento">Fecha de Nacimiento :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="nacimiento" id="nacimiento" value="{{ paciente.nacimiento }}"  required>
+        <div class = "col-md-10">
+            <input class = "form-control" type="text" name="nacimiento" id="datepicker" value="{{ pacienteNuevo.nacimiento }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
-        <label class = "form-control-label col-sm-2" for="genero">Genero :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="genero" id="genero" value=" {{ paciente.genero }}"  required>
+    <div class="form-group row"> 
+        <label class = "form-control-label col-md-2" for="genero">Genero :</label>
+        <div class = "col-md-10">
+            <select name = "genero">
+                <option value = "masculino">Masculino</option>
+                <option value = "femenino">Femenino</option>
+            </select>
         </div>
     </div>
-    <div class="form-group"> 
-         <label class = "form-control-label col-sm-2" for="tipoDoc">Tipo de Documento :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="tipoDoc" id="tipoDoc" value=" {{ paciente.tipoDoc }}"  required>
+    <div class="form-group row"> 
+         <label class = "form-control-label col-md-2" for="tipoDoc">Tipo de Documento :</label>
+        <div class = "col-md-10">
+            <SELECT name = "tipoDoc"> 
+                <option value= "DNI"> DNI </option>
+                <option value = "LE">LE</option>
+            </SELECT>
         </div>
     </div>
-      <div class="form-group"> 
-         <label class = "form-control-label col-sm-2" for="numDoc">Dni :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="numDoc" id="numDoc" value=" {{ paciente.numDoc }}"  required>
+      <div class="form-group row"> 
+         <label class = "form-control-label col-md-2" for="numDoc">Dni :</label>
+        <div class = "col-md-10">
+            <input class = "form-control" type="text" name="numDoc" id="numDoc" value=" {{ pacienteNuevo.numDoc }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
-          <label class = "form-control-label col-sm-2" for="domicilio">Domicilio :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="domicilio" id="domicilio" value=" {{ paciente.domicilio }}"  required>
+      <div class="form-group row"> 
+          <label class = "form-control-label col-md-2" for="domicilio">Domicilio :</label>
+        <div class = "col-md-10">
+            <input class = "form-control" type="text" name="domicilio" id="domicilio" value=" {{ pacienteNuevo.domicilio }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
-         <label class = "form-control-label col-sm-2" for="telefono">Telefono :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="telefono" id="telefono" value=" {{ paciente.telefono }}"  required>
+      <div class="form-group row"> 
+         <label class = "form-control-label col-md-2" for="telefono">Telefono :</label>
+        <div class = "col-md-10">
+            <input class = "form-control" type="text" name="telefono" id="telefono" value=" {{ pacienteNuevo.telefono }}"  required>
         </div>
     </div>
-      <div class="form-group"> 
+      <div class="form-group row"> 
           <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
         <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="obraSocial" id="obraSocial" value=" {{ paciente.obraSocial }}"  required>
+            <select name="obraSocial">
+                <option value = "IOMA"> IOMA </option>
+                <option value = "PAMI"> PAMI </option>
+                <option value = "SWISS MEDICAL"> Swiss Medical</option>
+            </select>
         </div>
     </div>
 
         <div class="form-group "> 
             <input type="submit" value="Dar de Alta" class=" btn-success btn">
-            <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='index.php?seccion=pacientes&amp;action=index'" >
+            <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='{{ volver }}'" >
         </div>
         
         {% if error is defined %}

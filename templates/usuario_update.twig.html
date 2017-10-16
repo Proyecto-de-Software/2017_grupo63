@@ -7,31 +7,31 @@
  <form id="test-form" class="" action='index.php?seccion=userController&amp;action=updateDB' method='POST'>
    
     
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="username">Nombre de usuario *:</label>
         <div class = "col-sm-10">
-            <input class = "form-control-static" type="text" name="username" id="username" value="{{ user.username }}"  required>
+            <input class = "form-control" type="text" name="username" id="username" value="{{ user.username }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="email">Correo Electronico *:</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="email" id="email" value="{{ user.email }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="first_name">Nombre *:</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="first_name" id="first_name" value="{{ user.first_name }}"  required>
         </div>
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="last_name">Apellido *:</label>
         <div class = "col-sm-10">
             <input class = "form-control" type="text" name="last_name" id="last_name" value=" {{ user.last_name }}"  required>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group row">
         <label class = "form-control-label col-sm-2" >Estado *:</label>
         <div class = "col-sm-10">    
             <select name = "activo">
@@ -40,7 +40,7 @@
             </select>
         </div>    
     </div>
-    <div class="form-group"> 
+    <div class="form-group row"> 
         <label class = "form-control-label  col-sm-2" >Roles* :</label>
         <div class = "col-sm-10">
             <select multiple class="form-control " name="roles[]" required>
@@ -51,8 +51,8 @@
         </div> 
     </div>
     <div class="form-group col-sm-12">
-        <input type="reset" value="Cancelar" class="btncancelar" onClick="location.href='{{ volver }}'" >
-        <input type="submit" value="Editar" class="btnAlta">
+        <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='{{ volver }}'" >
+        <input type="submit" value="Editar" class="btn btn-success">
     </div>
     <div class="form-group" hidden> 
         <div class = "col-sm-10">

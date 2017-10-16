@@ -64,7 +64,7 @@
                      $roles = $um->getRoles($_GET['id']);
                      $datos["user"] = $usuario;
                      $datos["roles"] = $roles;
-                     if(strpos($_SERVER['HTTP_REFERER'], 'updateDB') !== false )
+                     if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
                         $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
                      else     
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];
@@ -93,7 +93,10 @@
                      $datos["user"] = $usuario;
                      $datos['rolesUser'] = $rolesUser;
                      $datos["roles"] = $roles;               
-                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                     if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
+                        $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
+                     else     
+                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
                      $plantilla = 'usuario_update.twig.html';
          			   break;
                   case 'updateDB':
