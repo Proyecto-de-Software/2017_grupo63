@@ -14,10 +14,10 @@
 			$args = array();
 			$where = '';
 			if (!empty($filtro)) {
-				$filtroSQL = '%' . $filtro . '%';
-				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc = :filtro OR paciente.numDoc = $filtro)";
-				$args[':filtro'] = $filtro;
-				$args[':filtroSQL'] = $filtroSQL;
+				$filtroSQL = "%" . $filtro . "%";
+				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc LIKE :filtro OR paciente.numDoc = :filtro)";
+				$args[':filtro'] = "$filtro";
+				$args[':filtroSQL'] = "$filtroSQL";
 			}
 			$pp = $this->getLimitOffset("paciente", $pagina, $where, $args);
 			$usuarios = $this->getDatosPara('paciente', $pp->getLimit(), $pp->getOffset(), $where, $args);
