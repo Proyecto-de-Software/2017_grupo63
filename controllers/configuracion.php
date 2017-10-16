@@ -40,10 +40,11 @@
          			case 'show':
          				$plantilla = "configuracion.twig.html";
          				$model = new DatosConfig();
-                        $datos = $model->obtenerInfo();
-                        $datos['paginado'] = (int) $datos['paginado'];
+                        $datos = $this->datosTwig(true);
+                        $datos['config'] = $model->obtenerInfo();
+                        $datos['config']['paginado'] = (int) $datos['config']['paginado'];
          				$datos['volver'] = "index.php";
-         				$datos = $this->datosTwig(true);
+         				
                         break;
          			
          			case 'update':

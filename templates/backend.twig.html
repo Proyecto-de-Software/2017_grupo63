@@ -1,9 +1,16 @@
 {% extends 'frontHabilitado.twig.html' %}
 
 {% block cuerpo %}
-	<a> </a>
-	<button onclick = "location.href= 'index.php?seccion=pacientes&amp;action=index' " >Pacientes</button>
-	<button onclick = "location.href= 'index.php?seccion=pacientes&amp;action=new' " >Alta Paciente</button>
-	 <button onclick="location.href= 'index.php?seccion=userController&amp;action=index' ">Listar Usuarios</button>
-	 <button onclick="location.href= 'index.php?seccion=userController&amp;action=new' ">Alta Usuario</button>
+	<h1 id = "titulo"> {{ titulo }} </h1>
+	<h4 class = "col-md-10 "> {{ descripcion }}</h4>
+	<div class = "row col-md-12 textoB">
+		<p >
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacinia neque. Proin convallis tristique mauris, tempus fermentum lorem 		suscipit id. In hac habitasse platea dictumst. Quisque ut pellentesque dolor. Ut pharetra pretium justo nec vehicula. Nam tristique nec nibh at 		vestibulum . Vivamus ut dictum leo. Sed eget diam felis. Proin ut est varius, porttitor sapien gravida, sagittis lorem. Duis placerat ex vitae 			ultricies posuere. Maecenas lobortis lorem nec leo faucibus lobortis. Donec pellentesque nisl sed accumsan consectetur. Aliquam erat volutpat. Donec 	a posuere nunc.
+
+			Nunc venenatis erat a erat commodo fermentum. Phasellus vitae ex a nisi eleifend ultrices. Praesent malesuada eget augue a molestie. Quisque pharetra eu arcu eu tempor. Pellentesque suscipit semper arcu sed consectetur. Integer accumsan tortor lacinia elit vulputate, sit amet finibus nibh egestas. Etiam molestie est ultrices, tincidunt enim nec, rutrum eros.
+
+			Curabitur a interdum justo, ut bibendum nibh. Nulla diam leo, eleifend eget urna at, dapibus ornare leo. Nullam bibendum metus nec lectus blandit, non viverra urna sollicitudin. Sed iaculis condimentum dolor, et lacinia orci. Pellentesque mollis libero lorem, vel posuere metus posuere in. Curabitur dignissim sit amet lacus at elementum. Ut facilisis congue est in volutpat. Duis vitae vehicula est. Morbi gravida massa ipsum, ut interdum nisi pharetra quis. In varius lorem dui, condimentum dapibus quam porttitor quis. Donec ut dui vulputate, tristique leo sed, rutrum augue.
+		</p>
+	</div>
+	
 {% endblock %}	
