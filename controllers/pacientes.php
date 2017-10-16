@@ -122,6 +122,20 @@
                         
                         $plantilla = 'paciente_index.twig.html';
                         break;
+                        case 'showDemografic':
+                         $dm = new DemograficModel();
+                         $datos['demograficos']= $dm->showDemografic($_GET['id']);
+                         $datos['idusuario']= $_GET['id'];
+                         $plantilla = 'demografic_show.twig.html';
+                         break;
+                        case 'destroyDemografic':
+                        $pm = new PacienteModelo();
+                        $pm->sacarDemografic($_GET['id'], NULL); 
+                        $plantilla = "backend.twig.html"; 
+                         break;
+                         case 'updateDemografic':
+                            $plantilla = "demografic_new_twig.html";
+                             break;
          			default:
          				# code...
          				
