@@ -1,5 +1,10 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="js/confirmarBorrar.js" ></script>
+{% endblock %}
+
 {% block cuerpo %}
 	<a> Listado Pacientes</a>
 	{% if pacientes is empty %}
@@ -33,13 +38,6 @@
 			    			<td> {{ paciente.telefono }} </td>
 			    			<td> {{ paciente.obraSocial }} </td>
 
-			    			<td>
-			    	    	<p>
-			    			 		<a href="index.php?seccion=pacientes&amp;action=destroy&amp;id={{ paciente.id }}"> 
-			    			 			<img class = "icono" src='images/borrar.jpeg' alt="Eliminar paciente">
-			    			 		</a>
-			    			 	</p>
-			    			</td>
 			    		
 
 		    				<td>
@@ -57,6 +55,13 @@
                     			</p>
                     		</td>
                     		
+			    			<td>
+			    	    		<p>
+			    			 		<a href="index.php?seccion=pacientes&amp;action=destroy&amp;id={{ paciente.id }}" class = "borrar"> 
+			    			 			<img class = "icono" src='images/borrar.jpeg' alt="Eliminar paciente">
+			    			 		</a>
+			    			 	</p>
+			    			</td>
                     	
 
 		    			</tr>

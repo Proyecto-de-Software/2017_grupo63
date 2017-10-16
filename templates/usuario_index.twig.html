@@ -1,5 +1,10 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="js/confirmarBorrarU.js" ></script>
+{% endblock %}
+
 {% block cuerpo %}
 	<a> Listado de Usuarios</a>
 	{% if usuarios is empty %}
@@ -36,7 +41,7 @@
 		    			
 			    			<td>
 			    			 	<p>
-			    			 		<a href="index.php?seccion=userController&amp;action=show&amp;id={{ usuario.id }}"> 
+			    			 		<a href="index.php?seccion=userController&amp;action=show&amp;id={{ usuario.id }}" > 
 			    			 			<img class='icono' src='images/ver.jpeg' alt="ver registro">
 			    			 		</a>
 			    			 	</p>
@@ -51,7 +56,7 @@
                     		
                     		<td>
                     			<p>
-                    				<a onClick="javascript: return confirm('Estas seguro?');" href="index.php?seccion=userController&amp;action=destroy&amp;id={{ usuario.id }}" > 
+                    				<a href="index.php?seccion=userController&amp;action=destroy&amp;id={{ usuario.id }}" class = "borrar" > 
                     					<img class='icono' src='images/borrar.jpeg' alt="imagen para eliminar registro">  
                     				</a>
                     			</p>
