@@ -67,7 +67,6 @@
                      $datos["user"] = $usuario;
                      $datos["roles"] = $roles;
                      $datos['volver'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=$pagina";
-                     var_dump($datos['volver']);
                      $plantilla = 'usuario_show.twig.html';
                      break;
                   case 'destroy':

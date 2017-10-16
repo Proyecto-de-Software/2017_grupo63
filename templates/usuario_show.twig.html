@@ -5,7 +5,7 @@
 
 <label>MOSTRAR USUARIO</label>   
 <div class="form-container table-container"> 
-     <form  class="form-horizontal" action='' method='POST'>
+     <form  class="form-horizontal" action='val' method='POST'>
        
         <div class="form-group"> 
             <label class = "form-control-label col-sm-2" for="username">Nombre de usuario :</label>
@@ -46,7 +46,7 @@
         <div class="form-group"> 
             <label class = "form-control-label  col-sm-2" for="roles">Roles :</label>
             <div class = "col-sm-4">
-              <select multiple class="form-control " id="roles" readonly>
+              <select multiple class="form-control " id="roles" disabled>
                 {% for rol in roles %}
                   <option> {{ rol.nombre }} </option>
                 {% endfor%}
