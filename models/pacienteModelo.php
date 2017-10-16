@@ -104,6 +104,32 @@
 			//	$this->asignarRol($idUser, $rol);
 			//}
 		}
+		public function ultimoUsuario(){
+			$sql = 'SELECT MAX(id) AS id FROM paciente';
+			$consulta = $this->base->prepare($sql);
+			 $consulta->execute();
+			 $result = $consulta->fetch();
+       		 return $result;
+		}
+
+		public function agregarDemografic($idPaciente, $idDemografico) {
+        $sql = ('UPDATE  paciente  SET datos_demograficos_id = :demografic_id
+            WHERE id =:unId');
+        $consulta = $this->base->prepare($sql);
+        $consulta->bindParam(':demografic_id', $idDemografico[0], PDO::PARAM_INT, 256);
+        $consulta->bindParam(':unId', $idPaciente[0], PDO::PARAM_INT, 256);
+        $consulta->execute();
+
+    }
+    public function sacarDemografic($idPaciente, $idDemografico) {
+        $sql = ('UPDATE  paciente  SET datos_demograficos_id = :demografic_id
+            WHERE id =:unId');
+        $consulta = $this->base->prepare($sql);
+        $consulta->bindParam(':demografic_id', $idDemografico, PDO::PARAM_INT, 256);
+        $consulta->bindParam(':unId', $idPaciente, PDO::PARAM_INT, 256);
+        $consulta->execute();
+
+    }
 		
 	}		
  ?>
