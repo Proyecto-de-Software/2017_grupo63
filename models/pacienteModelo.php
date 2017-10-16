@@ -15,7 +15,7 @@
 			$where = '';
 			if (!empty($filtro)) {
 				$filtroSQL = '%' . $filtro . '%';
-				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc = :filtro OR numDoc = :filtro)";
+				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc = :filtro OR paciente.numDoc = $filtro)";
 				$args[':filtro'] = $filtro;
 				$args[':filtroSQL'] = $filtroSQL;
 			}
