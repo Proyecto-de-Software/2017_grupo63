@@ -132,6 +132,17 @@
 							   $plantilla = 'usuario_index.twig.html';
          				}
          				break;
+         				  case 'demografic':
+                        $plantilla = 'demografic_new.twig.html';
+                        break;
+                     case 'newDemografic':
+                     $dm = new DemograficModel();
+                     $dm->insertDemografic($_POST);
+                     $idDemografico = $dm->ultimoDemografic();
+                     $idPaciente = (new PacienteModelo())->ultimoUsuario();
+                     (new PacienteModelo())->agregarDemografic($idPaciente,  $idDemografico);
+                     $plantilla = "backend.twig.html"; 
+                      break;
          			default:
          				$plantilla = "backend.twig.html";
                               
