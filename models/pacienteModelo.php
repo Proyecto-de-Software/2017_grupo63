@@ -113,10 +113,22 @@
 		}
 
 		public function agregarDemografic($idPaciente, $idDemografico) {
-        $sql = ('UPDATE  paciente  SET datos_demograficos_id = :demografic_id
+        $sql = ('UPDATE  paciente  SET id_historia = :demografic_id
             WHERE id =:unId');
         $consulta = $this->base->prepare($sql);
         $consulta->bindParam(':demografic_id', $idDemografico[0], PDO::PARAM_INT, 256);
+        $consulta->bindParam(':unId', $idPaciente, PDO::PARAM_INT, 256);
+        $consulta->execute();
+
+    }
+    
+    public function agregarHistorial($idPaciente, $idDemografico) {
+    	var_dump($idPaciente);
+    	//var_dump($idDemografico);die();
+        $sql = ('UPDATE  paciente  SET id_historia = :idDemografico
+            WHERE id =:unId');
+        $consulta = $this->base->prepare($sql);
+        $consulta->bindParam(':idDemografico', $idDemografico[0], PDO::PARAM_INT, 256);
         $consulta->bindParam(':unId', $idPaciente, PDO::PARAM_INT, 256);
         $consulta->execute();
 

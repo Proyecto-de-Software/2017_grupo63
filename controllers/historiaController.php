@@ -3,7 +3,7 @@
 	/**
 	* 
 	*/
-	class Demografico extends Controller
+	class HistoriaController extends Controller
 	{
 		
 		private static $instance;
@@ -42,24 +42,27 @@
                 $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : "";
                 switch ($accion) {
          			case 'show':
-             			$dm = new DemograficModel();
-                        $datos['demograficos']= $dm->showDemografic($_GET['id']);
-                        $datos['idusuario']= $_GET['id'];
-                        $plantilla = 'demografic_show.twig.html';
+             			$dm = new historiaModel();
+                        $datos['historia']= $dm->showHistory($_GET['id']);
+                        $datos['id']= $_GET['id'];
+                        $plantilla = 'historia_show.twig.html';
                         break;
                     case 'new':
-                        $plantilla = 'demografic_new.twig.html';
+                        $plantilla = 'historia_new.twig.html';
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                        //var_dump($_POST);DIE();
                         $datos['paciente'] = $_GET['id'];
                         break;
-                    case 'newDB':                  
-                        $dm = new DemograficModel();
-                        //var_dump($_POST);die();
-                        $dm->insertDemografic($_POST);
-                        $idDemografico = $dm->ultimoDemografic();
-                        (new PacienteModelo())->agregarDemografic($_POST['paciente'],  $idDemografico);
-                        $plantilla = "backend.twig.html";
-                        break;    
+                    case 'newDB':    
+                        //var_dump($_POST['paciente']) ;die();             
+                        $dm = new HistorialModel();
+                        $dm->insertarHistoria($_POST);
+                         $idDemografico = $dm->ultimoDemografic();
+                        (new PacienteModelo())->agregarHistorial($_POST['paciente'],  $idDemografico);
+                        
+                        $plantilla = "paciente_index.twig.html";
+                        break; 
+
                     case 'update':
                      $dm = new DemograficModel();
                      $datos['demografico']= $dm->showDemografic($_GET['id']);

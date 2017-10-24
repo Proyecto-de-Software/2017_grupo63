@@ -23,6 +23,7 @@
 			      	<th>Domicilio</th>
 			      	<th>Telefono</th>
 			      	<th>Obra Social</th>
+			      	<th>Historia Clinica</th>
 			      </tr>
 		    	</thead>
 		    	<tbody>
@@ -41,12 +42,34 @@
 			    		
 
 		    				<td>
+			    			 	
+			    			 		<a href="index.php?seccion=historiaController&amp;action=new&amp;id={{ paciente.id }}"> 
+			    			 			<img class = "icono" src='images/ver.jpeg' alt="Crear Historia">
+			    			 		</a>
+			    			 	
+			    			 	
+			    			 		<a href="index.php?seccion=historiaControlerl&amp;action=update&amp;id={{ paciente.id }}"> 
+			    			 			<img class = "icono" src='images/edit.jpeg' alt="Ver Historia">
+			    			 		</a>
+			    			 	
+			    			 	
+			    			 		<a href="index.php?seccion=historiaController&amp;action=destroy&amp;id={{ paciente.id }}"> 
+			    			 			<img class = "icono" src='images/borrar.jpeg' alt="Eliminar Historia">
+			    			 		</a>
+			    			 	
+			    			</td>
+			    		
+			    			<td>
+			    			 	
+			    			</td>
+			    				<td>
 			    			 	<p>
 			    			 		<a href="index.php?seccion=pacientes&amp;action=show&amp;id={{ paciente.id }}"> 
 			    			 			<img class = "icono" src='images/ver.jpeg' alt="Ver paciente">
 			    			 		</a>
 			    			 	</p>
 			    			</td>
+			    			<td>
                     		<td>
                     			<p>
                     				<a href="index.php?seccion=pacientes&amp;action=update&amp;id={{ paciente.id }}">  
@@ -80,7 +103,9 @@
 				<button class="btn btn-success" onclick = "location.href= 'index.php?seccion=pacientes&amp;action=new' ">
 		         	NUEVO
 		        </button>
+		      
 			</div>	
+				
 		</div>
 		<div class="row">    
 	        <div class="col-xs-8 col-xs-offset-2">
