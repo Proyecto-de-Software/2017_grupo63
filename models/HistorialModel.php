@@ -7,6 +7,33 @@
 		{
 			parent::__construct();	
 		}
+		public function listar( $pagina, $filtro)
+		{
+			$filtro = htmlspecialchars($filtro);
+			$args = array();
+			$where = '';
+			if (!empty($filtro)) {
+				$filtroSQL = "%" . $filtro . "%";
+				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc LIKE :filtro OR paciente.numDoc = :filtro)";
+				$args[':filtro'] = "$filtro";
+				$args[':filtroSQL'] = "$filtroSQL";
+			}
+			$pp = $this->getLimitOffset("paciente", $pagina, $where, $args);
+			$usuarios = $this->getDatosPara('paciente', $pp->getLimit(), $pp->getOffset(), $where, $args);
+			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuarios);
+			return $datosPag;
+		}
+		public function showHistory($id){
+			//var_dump($id);die();
+            $sql = 'SELECT * FROM paciente INNER JOIN historia ON paciente.id_historia = historia.id  WHERE paciente.id = :unId';
+            $consulta = $this->base->prepare($sql);
+               $consulta-> bindParam(':unId', $id, PDO::PARAM_INT, 11);
+            $consulta->execute();
+             $paciente = $consulta->fetch();
+            return $paciente;
+
+		}
+
 
 	
 		public function eliminar($id){

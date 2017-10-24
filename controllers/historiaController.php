@@ -42,11 +42,26 @@
                 $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : "";
                 switch ($accion) {
          			case 'show':
-             			$dm = new historiaModel();
+             			$dm = new HistorialModel();
                         $datos['historia']= $dm->showHistory($_GET['id']);
                         $datos['id']= $_GET['id'];
                         $plantilla = 'historia_show.twig.html';
                         break;
+                    case 'destroy':
+                        //var_dump($_GET['username']);
+                        $pm = new HistorialModel();
+                        $id =  $_GET['id'];              
+                        $pm->eliminar($id);
+                        
+                        $pacientesPag = $pm->listar($pagina, ""); 
+                        $datos['pacientes'] = $pacientesPag->getDatos();
+                        $datos['lastPage'] = $pacientesPag->getTotal();
+                        $datos['currentPage'] = $pagina;                        
+                        $datos['paginationPath'] = "index.php?seccion=pacientes&action=index&filtro=&page=";
+                        
+                        $plantilla = 'paciente_index.twig.html';
+                        break;
+                        
                     case 'new':
                         $plantilla = 'historia_new.twig.html';
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];

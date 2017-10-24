@@ -1,0 +1,131 @@
+{% extends 'frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+
+
+
+ <label>HISTORIA CLINICA</label>   
+<div class="form-container table-container"> 
+<form  class="form-horizontal" action='sada' method='POST'>
+       
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="fecha">Fecha :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.fecha }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="edad">Edad :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.edad }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="peso">Peso :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.peso }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="vacunas"> Tiene Vacunas? :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {% if (historia.vacunas == 1) %}
+                Si
+                {%else%}
+                No
+                {% endif %}
+              </p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="fecha">Vacuna Observacion :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.vacunaObservacion }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="maduracion"> Maduración acorde? :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {% if (historia.maduracion == 1) %}
+                Si
+                {%else%}
+                No
+                {% endif %}
+              </p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="maduracionObservacion">Maduracion Observacion :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.maduracionObservacion }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+             <label class = "form-control-label col-sm-2" for="fisico"> Examen fisico normal? :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {% if (historia.fisico == 1) %}
+                Si
+                {%else%}
+                No
+                {% endif %}
+              </p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="examenFisicoObservacion">Examen fisico observacion :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.examenFisicoObservacion }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="pc">Pc :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.pc }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="ppc">Ppc :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.ppc }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="talla">Talla :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.talla }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="alimentacion">Alimentacion :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.alimentacion }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="observacionGeneral">Observración General :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.observacionGeneral }}</p>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="usuarioCarga">Usuario Carga :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.usuarioCarga }}</p>
+            </div>
+        </div>
+         <div class="form-group"> 
+            <label class = "form-control-label col-sm-2" for="id_paciente">Id Paciente :</label>
+            <div class = "col-sm-10">
+              <p class = "form-control-static"> {{ historia.id_paciente }}</p>
+            </div>
+        </div>
+
+       
+
+        <input type="reset" value="Volver" class=class="btn btn-default cancel-button" onClick="location.href='index.php?seccion=pacientes&amp;action=index'" >
+        
+    </form>
+
+     
+</div>    
+{% endblock %}

@@ -3,6 +3,9 @@
 {% block javaScript %}
     {{ parent() }}
     <script type="text/javascript" src ="js/confirmarBorrarP.js" ></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block cuerpo %}
@@ -45,11 +48,14 @@
 			    			 	
 			    			 		<a href="index.php?seccion=historiaController&amp;action=new&amp;id={{ paciente.id }}"> 
 			    			 			<img class = "icono" src='images/ver.jpeg' alt="Crear Historia">
+			    			 		
+			    			 	
+			    			 		<a href="index.php?seccion=historiaController&amp;action=show&amp;id={{ paciente.id }}"> 
+			    			 			<span class="glyphicon glyphicon-search"></span>
 			    			 		</a>
 			    			 	
-			    			 	
 			    			 		<a href="index.php?seccion=historiaControlerl&amp;action=update&amp;id={{ paciente.id }}"> 
-			    			 			<img class = "icono" src='images/edit.jpeg' alt="Ver Historia">
+			    			 			<img class = "icono" src='images/edit.jpeg' alt="Editar">
 			    			 		</a>
 			    			 	
 			    			 	
@@ -59,9 +65,7 @@
 			    			 	
 			    			</td>
 			    		
-			    			<td>
-			    			 	
-			    			</td>
+			    			
 			    				<td>
 			    			 	<p>
 			    			 		<a href="index.php?seccion=pacientes&amp;action=show&amp;id={{ paciente.id }}"> 
