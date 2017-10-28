@@ -11,6 +11,11 @@
     color: white;
 }
 
+#cuerpo{
+    min-height: 700px;
+
+}
+
 .contNav{
     font-size: 200%;
     margin-left: 10%;
@@ -83,7 +88,7 @@ section {
         margin: 0;
         padding: 0;
         background-color: #333;
-        position: absolute;
+        position: relative;
         bottom: 0;
         width: 100%;      
 }
@@ -93,7 +98,7 @@ section {
         margin: 0;
         padding: 0;
         background-color: #333;
-        position:fixed;
+        position:relative;
          left:0px;
         bottom:0px;
          height:60px;

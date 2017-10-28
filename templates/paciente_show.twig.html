@@ -75,9 +75,11 @@
             <input type="reset" value="Edita datos demograficos" class="btn btn-success " onClick="location.href='index.php?seccion=demografico&amp;action=update&amp;id={{paciente.id}}'" >
         {% endif %}
         
+        {% if paciente.historias == 0 %}
+            <input type="reset" value="Cargar datos demograficos" class="btn btn-primary " onClick="location.href='index.php?seccion=historiaController&amp;action=new&amp;id={{paciente.id}}'" >
+        {% else %}
 
-        
-        
+        {% endif %}        
         
     </form>
     

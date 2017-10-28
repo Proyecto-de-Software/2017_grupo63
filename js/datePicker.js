@@ -1,4 +1,4 @@
-$( function(data) {
+$( function() {
     var fecha =  $('#datepicker').val() ;
     
     $( "#datepicker" ).datepicker();

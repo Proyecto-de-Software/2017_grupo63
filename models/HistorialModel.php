@@ -7,42 +7,59 @@
 		{
 			parent::__construct();	
 		}
-		public function listar( $pagina, $filtro)
+		public function listar( $pagina, $paciente, $desde, $hasta)
 		{
-			$filtro = htmlspecialchars($filtro);
-			$args = array();
-			$where = '';
-			if (!empty($filtro)) {
-				$filtroSQL = "%" . $filtro . "%";
-				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc LIKE :filtro OR paciente.numDoc = :filtro)";
-				$args[':filtro'] = "$filtro";
-				$args[':filtroSQL'] = "$filtroSQL";
+			$args['id'] = $paciente;
+			$where = 'AND p.id = :id AND borradoHis = 0';
+			if ($desde != "") {
+				$desde = $this->acomodarASql($desde);
+				$where = $where . " AND fecha > :desde";
+				$args['desde'] = $desde;
 			}
-			$pp = $this->getLimitOffset("paciente", $pagina, $where, $args);
-			$usuarios = $this->getDatosPara('paciente', $pp->getLimit(), $pp->getOffset(), $where, $args);
-			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuarios);
+			if ($hasta != "") {
+				$hasta = $this->acomodarASql($hasta);
+				$where = $where . " AND fecha < :hasta";
+				$args['hasta'] = $hasta;
+			}
+			$tabla = "paciente as p INNER JOIN historia AS h ON h.id_paciente = p.id INNER JOIN Usuario u ON u.id = usuarioCarga";
+			$select = "h.id, h.fecha, u.first_name, u.last_name ";
+			$alias = "u.";
+			$pp = $this->getLimitOffset($tabla, $pagina, $where, $args, $select, $alias);
+			$historias = $this->getDatosPara($tabla, $pp->getLimit(), $pp->getOffset(), $where, $args, $select, $alias);
+			$historiasUP = array();
+			foreach ($historias as $historia) {
+				$historia['fecha'] = $this->acomodarDeSql($historia['fecha']);
+				$historiasUP[] = $historia;
+			}
+			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $historiasUP);
 			return $datosPag;
 		}
 		public function showHistory($id){
 			//var_dump($id);die();
-            $sql = 'SELECT * FROM paciente INNER JOIN historia ON paciente.id_historia = historia.id  WHERE paciente.id = :unId';
+            $sql = "SELECT h.id, h.fecha, peso, vacunas, vacunaObservacion, maduracion, maduracionObservacion, examenFisico, examenFisicoObservacion,
+            pc, ppc, talla, alimentacion, observacionGeneral, nacimiento, u.first_name, u.last_name 
+            FROM paciente p INNER JOIN historia h ON p.id = h.id_paciente INNER JOIN Usuario u on u.id =  h.usuarioCarga WHERE h.id = :unId";
             $consulta = $this->base->prepare($sql);
-               $consulta-> bindParam(':unId', $id, PDO::PARAM_INT, 11);
+            $consulta-> bindParam(':unId', $id, PDO::PARAM_INT, 11);
             $consulta->execute();
-             $paciente = $consulta->fetch();
-            return $paciente;
+            $historia = $consulta->fetch();
+            $nac = strtotime($this->acomodarFecha($historia['nacimiento']));
+            $diaH = strtotime ($this->acomodarFecha($historia['fecha']));	
+            $segs = ($diaH - $nac  );
+            $historia['fecha'] = $this->acomodarDeSql($historia['fecha']);
+            $historia['edad'] = floor($segs / (60 * 60 * 24 * 365));
+            return $historia;
 
 		}
 
-
 	
 		public function eliminar($id){
-        $consulta = $this->base->prepare('UPDATE historia SET borrado = 1 WHERE id = :unId');
+        $consulta = $this->base->prepare('UPDATE historia SET borradoHis = 1 WHERE id = :unId');
 		$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
 		$consulta->execute();
 		}
 
-		public function get_user($id) {
+		public function get_historia($id) {
 			$sql = 'SELECT * FROM historia WHERE id = :unId AND borrado = 0';
 			$consulta = $this->base->prepare($sql);
            	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
@@ -55,14 +72,15 @@
         public function editar($historia)
 		{
 			
-			$sql = ('UPDATE  `historia`  SET `nombre` =:unNombre , `apellido` =:unApellido, `nacimiento` =:unNacimiento, `genero` =:unGenero, `numDoc` = :unTipoDoc ,  `domicilio` = :unDomicilio ,  `telefono` = :unTelefono ,  `obraSocial` = :unObraSocial 
-			WHERE `id` =:unId ');
+			$sql = ('UPDATE  `historia`  SET fecha =:fecha , peso = :peso, vacunas =:vacunas, vacunaObservacion =:vacunaObservacion, 
+			maduracion = :maduracion, maduracionObservacion = :maduracionObservacion, examenFisico = :examenFisico, examenFisicoObservacion = 
+			:examenFisicoObservacion, pc = :pc, ppc = :ppc, talla = :talla, alimentacion = :alimentacion, observacionGeneral = :observacionGeneral
+		    WHERE `id` =:unId ');
 			
 			$consulta = $this->base->prepare($sql);
 			
 			$consulta-> bindParam(':unNombre', $historia['nombre'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unApellido', $historia['apellido'], PDO::PARAM_STR, 256);
-			
 			$consulta-> bindParam(':unNacimiento', $historia['nacimiento'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unGenero', $historia['genero'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unTipoDoc', $historia['numDoc'], PDO::PARAM_INT);
@@ -72,11 +90,6 @@
 			$consulta-> bindParam(':unId', $historia['id'], PDO::PARAM_INT);	
 
 			$consulta->execute();
-			
-			//$this->quitarRoles($historia['id']);
-			//foreach ($historia['roles'] as $rol) {
-			//	$this->asignarRol($historia['id'], $rol);
-			//}
 
 		}
 
@@ -90,14 +103,12 @@
 	
 		public function insertarHistoria($historia)
 		{
-			//var_dump($historia);die();
-			$sql = ('INSERT INTO `historia` (`fecha`, `edad`, `peso`, `vacunas`, `vacunaObservacion`, `maduracion`, `maduracionObservacion`, `examenFisico`,`examenFisicoObservacion`,`pc`,`ppc`,`talla`,`alimentacion`,`observacionGeneral`,`usuarioCarga`,`id_paciente`) 
-				VALUES (:unaFecha, :unaEdad, :unPeso, :unasVacunas, :unVacunaObservacion, :unaMaduracion, :unaMaduracionObservacion, :unExamenFisico, :unExamenFisicoObservacion, :unPc, :unPpc, :unaTalla, :unaAlimentacion, :unaObservacionGeneral, :unUsuario, :unIdPaciente)');
+			$sql = ('INSERT INTO `historia` (`fecha`, `peso`, `vacunas`, `vacunaObservacion`, `maduracion`, `maduracionObservacion`, `examenFisico`,`examenFisicoObservacion`,`pc`,`ppc`,`talla`,`alimentacion`,`observacionGeneral`,`usuarioCarga`,`id_paciente`) 
+				VALUES (:unaFecha, :unPeso, :unasVacunas, :unVacunaObservacion, :unaMaduracion, :unaMaduracionObservacion, :unExamenFisico, :unExamenFisicoObservacion, :unPc, :unPpc, :unaTalla, :unaAlimentacion, :unaObservacionGeneral, :unUsuario, :unIdPaciente)');
 			
 			$consulta = $this->base->prepare($sql);
-			
-			$consulta-> bindParam(':unaFecha', $historia['fecha'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unaEdad', $historia['edad'], PDO::PARAM_STR, 256);
+			$fecha = $this->acomodarASql($historia['fecha']);
+			$consulta-> bindParam(':unaFecha', $fecha, PDO::PARAM_STR, 256 );
 			$consulta-> bindParam(':unPeso', $historia['peso'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unasVacunas', $historia['vacunas'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unVacunaObservacion', $historia['vacunaObservacion'], PDO::PARAM_STR, 256);
@@ -110,15 +121,10 @@
 			$consulta-> bindParam(':unaTalla', $historia['talla'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unaAlimentacion', $historia['alimentacion'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unaObservacionGeneral', $historia['observacionGeneral'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unUsuario', $historia['usuarioCarga'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unIdPaciente', $historia['paciente'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unUsuario', $historia['usuarioCarga'], PDO::PARAM_INT);
+			$consulta-> bindParam(':unIdPaciente', $historia['pacienteid'], PDO::PARAM_STR, 256);
 			//$consulta-> bindParam(':unId', $historia['id'], PDO::PARAM_INT);
 			$consulta->execute();
-			
-			//$idUser = $this->base->lastInsertId();
-			//foreach ($usuario['roles'] as $rol) {
-			//	$this->asignarRol($idUser, $rol);
-			//}
 		}
 		public function ultimoUsuario(){
 			$sql = 'SELECT MAX(id) AS id FROM historia';
