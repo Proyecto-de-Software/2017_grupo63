@@ -47,6 +47,7 @@
                         $hm = new HistorialModel();
                         $pacientesPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
                         $datos['historias'] = $pacientesPag->getDatos();
+                        var_dump($pacientesPag->getDatos());
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
                         $datos['lastPage'] = $pacientesPag->getTotal();
                         $datos['currentPage'] = $pacientesPag->getActual();
