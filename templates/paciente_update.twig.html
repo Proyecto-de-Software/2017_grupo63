@@ -37,16 +37,19 @@
         </div>
     </div>
     <div class="form-group row"> 
-        <label class = "form-control-label col-sm-2" for="genero">Genero :</label>
-        <div class = "col-sm-10">
-            <input class = "form-control" type="text" name="genero" id="genero" value=" {{ paciente.genero }}"  required>
+        <label class = "form-control-label col-md-2" for="genero">Genero :</label>
+        <div class = "col-md-10">
+            <select name = "genero">
+                <option value = "masculino" {% if (paciente.genero == "masculino") %} selected {% endif %} >Masculino</option>
+                <option value = "femenino" {% if (paciente.genero == "femenino") %} selected {% endif %} >Femenino</option>
+            </select>
         </div>
     </div>
     <div class="form-group row"> 
          <label class = "form-control-label col-sm-2" for="tipoDoc">Tipo de documento:</label>
         <div class = "col-sm-10">
             <select name = "tipoDoc">
-                <option value= "dni" {% if (paciente.tipoDoc == "DNI") %} selected {% endif %}> DNI </option>
+                <option value= "dni" {% if (paciente.tipoDoc == "DNI") %} selected {% endif %} > DNI </option>
                 <option value = "le" {% if (paciente.tipoDoc == "LE") %} selected {% endif %}  >LE</option>
             </select>
         </div>

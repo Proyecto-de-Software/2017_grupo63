@@ -75,21 +75,11 @@
 			$sql = ('UPDATE  `historia`  SET fecha =:fecha , peso = :peso, vacunas =:vacunas, vacunaObservacion =:vacunaObservacion, 
 			maduracion = :maduracion, maduracionObservacion = :maduracionObservacion, examenFisico = :examenFisico, examenFisicoObservacion = 
 			:examenFisicoObservacion, pc = :pc, ppc = :ppc, talla = :talla, alimentacion = :alimentacion, observacionGeneral = :observacionGeneral
-		    WHERE `id` =:unId ');
+		    WHERE `id` =:id ');
 			
 			$consulta = $this->base->prepare($sql);
-			
-			$consulta-> bindParam(':unNombre', $historia['nombre'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unApellido', $historia['apellido'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unNacimiento', $historia['nacimiento'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unGenero', $historia['genero'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unTipoDoc', $historia['numDoc'], PDO::PARAM_INT);
-			$consulta-> bindParam(':unDomicilio', $historia['domicilio'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unTelefono', $historia['telefono'], PDO::PARAM_INT);
-			$consulta-> bindParam(':unObraSocial', $historia['obraSocial'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unId', $historia['id'], PDO::PARAM_INT);	
-
-			$consulta->execute();
+			$historia['fecha'] = $this->acomodarASql($historia['fecha']);
+			$consulta->execute($historia);
 
 		}
 

@@ -37,26 +37,26 @@
 		public function acomodarASql($fecha)
         {
           $fechaSQL = explode("/", $fecha); 
-          return implode("-", $this->acomodar($fechaSQL));
+          return str_replace(" ", "", implode("-", $this->acomodar($fechaSQL)));
         }
 
      public function acomodarDeSql($fechaSQL)
         { 
           $fecha = explode("-", $fechaSQL); 
-          return implode("/", $this->acomodar($fecha));
+          return str_replace(" ", "", implode("/", $this->acomodar($fecha)));
         }
 		
         public function acomodarFecha($fecha)
         {
         	$fecha = explode("-", $fecha); 
-          	return implode("-", $this->acomodar($fecha));
+        	return str_replace(" ", "", implode("-", $this->acomodar($fecha)));
         }
         public function acomodar($arregloF){
 
         	$aux = $arregloF[0];
         	$arregloF[0] = $arregloF[2];
         	$arregloF[2] = $aux;
-        	return $arregloF;
+        	return str_replace(" ", "", $arregloF);
         }
 	}
 

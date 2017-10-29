@@ -15,7 +15,7 @@
 
  <label>CREAR HISTORIAL CLINICO</label>   
 <div class="form-container table-container"> 
-     <form id="test-form" class="" action='index.php?seccion=historiaController&amp;action=newDB' method='POST'>
+     <form id="test-form" class="" action='index.php?seccion=historiaController&amp;action=updateDB' method='POST'>
         <div class="row">    
             <div class="form-group col-md-4"> 
                 <label class = "form-control-label" for="peso">Fecha *:</label><br>
@@ -107,8 +107,7 @@
         {% if error is defined %}
                 <a> {{ error }}</a>
         {% endif %}
-
-        <input type="hidden" name="pacienteid" value=" {{ pacienteid }} ">
+        <input type="hidden" name="id" value=" {{ historia.id }} ">
     </form>
 </div>    
 {% endblock %}

@@ -105,8 +105,8 @@
                         $plantilla = 'historia_update.twig.html';
                         break;
                       case 'updateDB':
-                        $dm = new DemograficModel(); 
-                        $dm->update($_POST);
+                        $hm = new HistorialModel(); 
+                        $hm->editar($_POST);
                         $plantilla = "backend.twig.html";
                         break;  
          			default:
