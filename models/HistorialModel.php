@@ -21,7 +21,7 @@
 				$where = $where . " AND fecha < :hasta";
 				$args['hasta'] = $hasta;
 			}
-			$tabla = "paciente as p INNER JOIN historia AS h ON h.id_paciente = p.id INNER JOIN Usuario u ON u.id = usuarioCarga";
+			$tabla = "paciente as p INNER JOIN historia AS h ON h.id_paciente = p.id INNER JOIN usuario u ON u.id = usuarioCarga";
 			$select = "h.id, h.fecha, u.first_name, u.last_name ";
 			$alias = "u.";
 			$pp = $this->getLimitOffset($tabla, $pagina, $where, $args, $select, $alias);
