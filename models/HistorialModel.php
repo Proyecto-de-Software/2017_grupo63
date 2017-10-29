@@ -60,11 +60,12 @@
 		}
 
 		public function get_historia($id) {
-			$sql = 'SELECT * FROM historia WHERE id = :unId AND borrado = 0';
+			$sql = 'SELECT * FROM historia WHERE id = :unId';
 			$consulta = $this->base->prepare($sql);
            	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
 			$consulta->execute();
          	$historia = $consulta->fetch();
+            $historia['fecha'] = $this->acomodarDeSql($historia['fecha']);
             return $historia;
 
         }

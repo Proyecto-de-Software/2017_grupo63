@@ -63,17 +63,17 @@
                         break;
                     case 'destroy':
                         //var_dump($_GET['username']);
-                        $hm = new HistorialModel();
-                        $id =  $_GET['pacienteid'];              
-                        $hm->eliminar($id);
-                        
-                        $pacientesPag = $hm->listar($pagina, ""); 
-                        $datos['pacientes'] = $pacientesPag->getDatos();
-                        $datos['lastPage'] = $pacientesPag->getTotal();
-                        $datos['currentPage'] = $pagina;                        
-                        $datos['paginationPath'] = "index.php?seccion=pacientes&action=index&filtro=&page=";
-                        
-                        $plantilla = 'paciente_index.twig.html';
+                        $hm = new HistorialModel();              
+                        $hm->eliminar($_GET['id']); 
+                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
+                        $datos['historias'] = $historiasPag->getDatos();
+                        $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
+                        $datos['lastPage'] = $historiasPag->getTotal();
+                        $datos['currentPage'] = $historiasPag->getActual();
+                        $datos['desde'] = $desde;
+                        $datos['hasta'] = $hasta;
+                        $datos['pacienteid'] = $pacienteid;
+                        $plantilla = 'historia_index.twig.html';
                         break;
                         
                     case 'new':
@@ -100,14 +100,23 @@
 
                     case 'update':
                         $hm = new HistorialModel();
-                        $datos['historia']= $hm->showHistory($_GET['id']); 
+                        $datos['historia']= $hm->get_historia($_GET['id']); 
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];
                         $plantilla = 'historia_update.twig.html';
                         break;
                       case 'updateDB':
                         $hm = new HistorialModel(); 
                         $hm->editar($_POST);
-                        $plantilla = "backend.twig.html";
+                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
+                        $datos['historias'] = $historiasPag->getDatos();
+                        $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
+                        $datos['lastPage'] = $historiasPag->getTotal();
+                        $datos['currentPage'] = $historiasPag->getActual();
+                        $datos['desde'] = $desde;
+                        $datos['hasta'] = $hasta;
+                        $datos['pacienteid'] = $pacienteid;
+                        $datos['volver'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page=$pagina";
+                        $plantilla = 'historia_index.twig.html';
                         break;  
          			default:
          				# code...
