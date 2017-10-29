@@ -45,12 +45,11 @@
                 switch ($accion) {
          			case 'index':
                         $hm = new HistorialModel();
-                        $pacientesPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
-                        $datos['historias'] = $pacientesPag->getDatos();
-                        var_dump($pacientesPag->getDatos());
+                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
+                        $datos['historias'] = $historiasPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
-                        $datos['lastPage'] = $pacientesPag->getTotal();
-                        $datos['currentPage'] = $pacientesPag->getActual();
+                        $datos['lastPage'] = $historiasPag->getTotal();
+                        $datos['currentPage'] = $historiasPag->getActual();
                         $datos['desde'] = $desde;
                         $datos['hasta'] = $hasta;
                         $datos['pacienteid'] = $pacienteid;
