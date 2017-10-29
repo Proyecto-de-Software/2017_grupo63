@@ -23,7 +23,7 @@
 			}
 			$tabla = "paciente p INNER JOIN historia h ON h.id_paciente = p.id INNER JOIN usuario u ON u.id = usuarioCarga";
 			$select = "h.id, h.fecha, u.first_name, u.last_name ";
-			$alias = "u.";
+			$alias = "p.";
 			$pp = $this->getLimitOffset($tabla, $pagina, $where, $args, $select, $alias);
 			$historias = $this->getDatosPara($tabla, $pp->getLimit(), $pp->getOffset(), $where, $args, $select, $alias);
 			$historiasUP = array();
