@@ -38,7 +38,7 @@
 			//var_dump($id);die();
             $sql = "SELECT h.id, h.fecha, peso, vacunas, vacunaObservacion, maduracion, maduracionObservacion, examenFisico, examenFisicoObservacion,
             pc, ppc, talla, alimentacion, observacionGeneral, nacimiento, u.first_name, u.last_name 
-            FROM paciente p INNER JOIN historia h ON p.id = h.id_paciente INNER JOIN Usuario u on u.id =  h.usuarioCarga WHERE h.id = :unId";
+            FROM paciente p INNER JOIN historia h ON p.id = h.id_paciente INNER JOIN usuario u on u.id =  h.usuarioCarga WHERE h.id = :unId";
             $consulta = $this->base->prepare($sql);
             $consulta-> bindParam(':unId', $id, PDO::PARAM_INT, 11);
             $consulta->execute();
