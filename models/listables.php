@@ -30,7 +30,6 @@
 			$sql = "SELECT ". $select  ." FROM $table WHERE " .$alias ."borrado = 0 ". $where ." LIMIT $offset, $limit " ;
 			$this->base->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
 			$consulta = $this->darConexion()->prepare($sql);
-			var_dump($sql);
 			$consulta->execute($args);
 			return $consulta->fetchAll();
 		}
