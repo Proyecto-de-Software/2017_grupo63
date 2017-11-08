@@ -3,6 +3,8 @@
 {% block javaScript %}
     {{ parent() }}
     <script type="text/javascript" src ="js/confirmarBorrarP.js" ></script>
+    <script type="text/javascript" src ="js/ajax.js" ></script>
+    <script type="text/javascript" src ="js/obtenerTipoDoc.js" ></script>
 {% endblock %}
 
 {% block cuerpo %}
@@ -33,7 +35,7 @@
 			    			<td> {{ paciente.nombre }} </td>
 			    			<td> {{ paciente.nacimiento }} </td>
 			    			<td> {{ paciente.genero }} </td>
-			    			<td> {{ paciente.tipoDoc | upper }} </td>
+			    			<td class= "tipoDoc"> {{paciente.tipoDoc}} </td>
 			    			<td> {{ paciente.numDoc }} </td>
 			    			<td> {{ paciente.domicilio }} </td>
 			    			<td> {{ paciente.telefono }} </td>
