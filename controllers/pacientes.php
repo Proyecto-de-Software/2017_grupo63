@@ -91,8 +91,7 @@
                     case 'update':
                      $pm = new PacienteModelo();
                      $paciente  = $pm->get_user($_GET['id']);
-                     $datos["paciente"] = $paciente;
-                                   
+                     $datos["paciente"] = $paciente;              
                      if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
                         $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
                      else     

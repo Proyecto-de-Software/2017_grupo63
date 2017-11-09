@@ -1,96 +1,98 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="jquery-ui/jquery-ui.min.js" ></script>
+    <script type="text/javascript" src ="js/datePicker.js" ></script>
+{% endblock %}
+{% block estilo %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href= "jquery-ui/jquery-ui.min.css">
+{% endblock %}
+
 {% block cuerpo %}
     
 
  <label>CREAR HISTORIAL CLINICO</label>   
 <div class="form-container table-container"> 
      <form id="test-form" class="" action='index.php?seccion=historiaController&amp;action=newDB' method='POST'>
-       
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="fecha">Fecha *:</label><br>
-            <input class = "form-control" type="date" name="fecha" id="fecha" value="{{ historia.fecha }}"  required>
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="edad">Edad *:</label><br>
-            <input class = "form-control" type="text" name="edad" id="edad" value="{{ historia.edad }}"  required>
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="peso">Peso *:</label><br>
-            <input class = "form-control" type="text" name="peso" id="peso" value=" {{ historia.peso }} "  required>
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="vacunas">Vacunas Completas? :</label><br>
-            
+        <div class="row">    
+            <div class="form-group col-md-4"> 
+                <label class = "form-control-label" for="peso">Fecha *:</label><br>
+                <input class = "form-control" type="text" name="fecha" id="datepicker" value=" {{ historia.fecha }} "  required>
+            </div>
+            <div class="form-group col-md-4"> 
+                <label class = "form-control-label" for="peso">Peso (kg) *:</label><br>
+                <input class = "form-control" type="number" name="peso" id="peso" value=" {{ historia.peso }} "  required>
+            </div>
+            <div class="form-group col-md-4"> 
+                <label class = "form-control-label" for="talla">Talla:</label><br>
+                <input class = "form-control" type="number" name="talla" id="talla" value="{{ historia.talla }}" >
+            </div>
+        </div>    
+        <div class="row"> 
+            <div class="form-group col-md-6">
+                <label class = "form-control-label" for="vacunas">Vacunas Completas? :</label><br>
                 <label class="radio-inline"><input type="radio" value="1" name="vacunas" required>Si</label>
-                
-            
-             <label class="radio-inline"><input type="radio" value="0" name="vacunas">No</label>
-            
+                <label class="radio-inline"><input type="radio" value="0" name="vacunas">No</label>
+            </div>    
+            <div class="form-group col-md-6"> 
+                <label class = "form-control-label" for="vacunaObservacion">Vacuna Observacion *:</label><br>
+                <textarea class = "form-control" name="vacunaObservacion" value=" {{ historia.vacunaObservacion }}" rows="4" cols="50" required> 
+                </textarea> 
+            </div>
         </div>
         
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="vacunaObservacion">Vacuna Observacion *:</label><br>
-            <input class = "form-control" type="text" name="vacunaObservacion" id="vacunaObservacion" value=" {{ historia.vacunaObservacion }}"  required> 
-        </div>
+        
              
-        <div class="form-group row"> 
-           <label class = "form-control-label" for="maduracion">Maduración Acorde? :</label><br>
-            
+        <div class="row"> 
+            <div class = "form-group col-md-6">
+               <label class = "form-control-label" for="maduracion">Maduración Acorde? :</label><br>
                 <label class="radio-inline"><input type="radio" value="1" name="maduracion" required>Si</label>
-                
-            
-             <label class="radio-inline"><input type="radio" value="0" name="maduracion">No</label>
-            
+                <label class="radio-inline"><input type="radio" value="0" name="maduracion">No</label>
+            </div>
+            <div class="form-group col-md-6"> 
+                <label class = "form-control-label" for="maduracionObservacion">Maduracion Observacion *:</label><br>
+                <textarea class = "form-control" name="maduracionObservacion" value=" {{ historia.maduracionObservacion }}" rows="4" cols="50" required>
+                </textarea>
+            </div>
         </div>
         
-         <div class="form-group row"> 
-            <label class = "form-control-label" for="maduracionObservacion">Maduracion Observacion *:</label><br>
-            <input class = "form-control" type="text" name="maduracionObservacion" id="maduracionObservacion" value="{{ historia.maduracionObservacion }}"  required>
+        <div class="row"> 
+            <div class = "form-group col-md-6">       
+                <label class = "form-control-label" for="fisico">Examen fisico normal? :</label><br>
+                <label class="radio-inline"><input type="radio" value="1" name="examenFisico" required>Si</label>
+                <label class="radio-inline"><input type="radio" value="0" name="examenFisico">No</label>
+            </div>
+            <div class="form-group col-md-6"> 
+                <label class = "form-control-label" for="examenFisicoObservacion">Examen Fisico Observacion *:</label><br>
+                <textarea class = "form-control" name="examenFisicoObservacion" value=" {{ historia.examenFisicoObservacion }}" rows="4" cols="50" required>
+                </textarea>
+            </div>
         </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="fisico">Examen fisico normal? :</label><br>
-            
-                <label class="radio-inline"><input type="radio" value="1" name="fisico" required>Si</label>
-                
-            
-             <label class="radio-inline"><input type="radio" value="0" name="fisico">No</label>
-            
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="examenFisicoObservacion">Examen Fisico Observacion *:</label><br>
-            <input class = "form-control" type="text" name="examenFisicoObservacion" id="examenFisicoObservacion" value="{{ historia.examenFisicoObservacion }}"  required>
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="pc">PC *:</label><br>
-            <input class = "form-control" type="text" name="pc" id="pc" value="{{ historia.pc }}"  required>
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="ppc">PPC *:</label><br>
-            <input class = "form-control" type="text" name="ppc" id="ppc" value="{{ historia.ppc }}"  required>
-        </div>
-        <div class="form-group row"> 
-            <label class = "form-control-label" for="talla">Talla *:</label><br>
-            <input class = "form-control" type="text" name="talla" id="talla" value="{{ historia.talla }}"  required>
-        </div>
-         <div class="form-group row"> 
-            <label class = "form-control-label" for="alimentacion">Alimentacion *:</label><br>
-            <input class = "form-control" type="text" name="alimentacion" id="alimentacion" value="{{ historia.alimentacion }}"  required>
-        </div>
-         <div class="form-group row"> 
-            <label class = "form-control-label" for="observacionGeneral">Observacion General*:</label><br>
-            <input class = "form-control" type="text" name="observacionGeneral" id="observacionGeneral" value="{{ historia.observacionGeneral }}"  required>
-        </div>
-         <div class="form-group row"> 
-            <label class = "form-control-label" for="usuario">Usuario Carga *:</label><br>
-            <input class = "form-control" type="text" name="usuarioCarga" id="usuarioCarga" value="{{ historia.usuarioCarga }}"  required>
-        </div>
-
-
-
-
-
-         <div class="form-group  row"> 
+        <div class = "row">  
+            <div class="form-group col-md-6"> 
+                <label class = "form-control-label" for="pc">Percentilo Perímetro *:</label><br>
+                <input class = "form-control" type="number" name="pc" id="pc" value="{{ historia.pc }}"  >
+            </div>
+            <div class="form-group col-md-6 "> 
+                <label class = "form-control-label" for="ppc">Percentilo Perímetro Cefálico *:</label><br>
+                <input class = "form-control" type="number" name="ppc" id="ppc" value="{{ historia.ppc }}"  >
+            </div>
+        </div>    
+         <div class = "row">    
+             <div class="form-group col-md-6"> 
+                <label class = "form-control-label" for="alimentacion">Alimentacion *:</label><br>
+                <textarea class = "form-control" name="alimentacion" value=" {{ historia.alimentacion }}" rows="4" cols="50" >
+                </textarea>
+            </div>
+             <div class="form-group col-md-6"> 
+                <label class = "form-control-label" for="observacionGeneral">Observacion General*:</label><br>
+                <textarea class = "form-control" name="observacionGeneral" value=" {{ historia.observacionGeneral }}" rows="4" cols="50" >
+                </textarea>
+            </div>
+        </div>    
+         <div class="form-group  row col-md-offset-5"> 
             <input type="submit" value="Dar de Alta" class=" btn-success btn">
             <input type="reset" value="Cancelar" class="btn btn-warning" onClick="location.href='index.php?seccion=userController&amp;action=index'" >
         </div>
@@ -99,7 +101,7 @@
                 <a> {{ error }}</a>
         {% endif %}
 
-        <input type="hidden" name="paciente" value=" {{paciente}} ">
+        <input type="hidden" name="pacienteid" value=" {{ pacienteid }} ">
     </form>
 </div>    
 {% endblock %}

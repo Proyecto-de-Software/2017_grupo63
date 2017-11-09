@@ -21,7 +21,12 @@
 			}
 			$pp = $this->getLimitOffset("paciente", $pagina, $where, $args);
 			$usuarios = $this->getDatosPara('paciente', $pp->getLimit(), $pp->getOffset(), $where, $args);
-			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuarios);
+			foreach ($usuarios as $usuario) {
+				$fecha = $this->acomodarDeSql($usuario['nacimiento']);
+				$usuario['nacimiento'] = $fecha;
+				$usuariosAcom[] = $usuario;
+			}
+			$datosPag = new ConsultaPag($pagina, $pp->getPaginasTotales(), $usuariosAcom);
 			return $datosPag;
 		}
 
@@ -32,11 +37,13 @@
 		}
 
 		public function get_user($id) {
-			$sql = 'SELECT * FROM paciente WHERE id = :unId AND borrado = 0';
-			$consulta = $this->base->prepare($sql);
+			$sql2 = "SELECT p.id, p.apellido, p.nombre, p.nacimiento, p.tipoDoc, p.numDoc,p.domicilio, p.telefono, 
+			p.obraSocial, p.datos_demograficos_id, genero FROM paciente p WHERE p.id = :unId ";
+			$consulta = $this->base->prepare($sql2);
            	$consulta-> bindParam(':unId', $id, PDO::PARAM_INT);
 			$consulta->execute();
          	$paciente = $consulta->fetch();
+         	$paciente['nacimiento'] = $this->acomodarDeSql($paciente['nacimiento']);
             return $paciente;
 
         }
@@ -44,17 +51,18 @@
         public function editar($paciente)
 		{
 			
-			$sql = ('UPDATE  `paciente`  SET `nombre` =:unNombre , `apellido` =:unApellido, `nacimiento` =:unNacimiento, `genero` =:unGenero, `numDoc` = :unTipoDoc ,  `domicilio` = :unDomicilio ,  `telefono` = :unTelefono ,  `obraSocial` = :unObraSocial 
+			$sql = ('UPDATE  `paciente`  SET `nombre` =:unNombre , `apellido` =:unApellido, `nacimiento` =:unNacimiento, `genero` =:unGenero, `tipoDoc` = :unTipoDoc ,`numDoc` = :unNumDoc ,  `domicilio` = :unDomicilio ,  `telefono` = :unTelefono ,  `obraSocial` = :unObraSocial 
 			WHERE `id` =:unId ');
 			
 			$consulta = $this->base->prepare($sql);
-			
+			$fechaSQL = $this->acomodarASql($paciente['nacimiento']);
 			$consulta-> bindParam(':unNombre', $paciente['nombre'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unApellido', $paciente['apellido'], PDO::PARAM_STR, 256);
 			
-			$consulta-> bindParam(':unNacimiento', $paciente['nacimiento'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unNacimiento', $fechaSQL, PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unGenero', $paciente['genero'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unTipoDoc', $paciente['numDoc'], PDO::PARAM_INT);
+			$consulta-> bindParam(':unTipoDoc', $paciente['tipoDoc'], PDO::PARAM_INT);
+			$consulta-> bindParam(':unNumDoc', $paciente['numDoc'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unDomicilio', $paciente['domicilio'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unTelefono', $paciente['telefono'], PDO::PARAM_INT);
 			$consulta-> bindParam(':unObraSocial', $paciente['obraSocial'], PDO::PARAM_STR, 256);
@@ -85,18 +93,16 @@
 			
 			$consulta = $this->base->prepare($sql);
 			
+			$fechaSQL = $this->acomodarASql($paciente['nacimiento']);
 			$consulta-> bindParam(':unNombre', $paciente['nombre'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unApellido', $paciente['apellido'], PDO::PARAM_STR, 256);
-			$consulta-> bindParam(':unNacimiento', $paciente['nacimiento'], PDO::PARAM_STR, 256);
+			$consulta-> bindParam(':unNacimiento', $fechaSQL, PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unGenero', $paciente['genero'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unTipoDoc', $paciente['tipoDoc'], PDO::PARAM_STR, 256);
-			
-			
 			$consulta-> bindParam(':unNumDoc', $paciente['numDoc'], PDO::PARAM_INT);
 			$consulta-> bindParam(':unDomicilio', $paciente['domicilio'], PDO::PARAM_STR, 256);
 			$consulta-> bindParam(':unTelefono', $paciente['telefono'], PDO::PARAM_INT);
 			$consulta-> bindParam(':unObraSocial', $paciente['obraSocial'], PDO::PARAM_STR, 256);
-			//$consulta-> bindParam(':unId', $paciente['id'], PDO::PARAM_INT);
 			$consulta->execute();
 			
 			//$idUser = $this->base->lastInsertId();
@@ -123,8 +129,6 @@
     }
     
     public function agregarHistorial($idPaciente, $idDemografico) {
-    	var_dump($idPaciente);
-    	//var_dump($idDemografico);die();
         $sql = ('UPDATE  paciente  SET id_historia = :idDemografico
             WHERE id =:unId');
         $consulta = $this->base->prepare($sql);
@@ -141,7 +145,7 @@
         $consulta->bindParam(':unId', $idPaciente, PDO::PARAM_INT, 256);
         $consulta->execute();
 
-    }
-		
+    }   
+        	
 	}		
  ?>

@@ -3,9 +3,8 @@
 {% block javaScript %}
     {{ parent() }}
     <script type="text/javascript" src ="js/confirmarBorrarP.js" ></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src ="js/ajax.js" ></script>
+    <script type="text/javascript" src ="js/obtenerTipoDoc.js" ></script>
 {% endblock %}
 
 {% block cuerpo %}
@@ -26,7 +25,7 @@
 			      	<th>Domicilio</th>
 			      	<th>Telefono</th>
 			      	<th>Obra Social</th>
-			      	<th>Historia Clinica</th>
+			      	
 			      </tr>
 		    	</thead>
 		    	<tbody>
@@ -36,7 +35,7 @@
 			    			<td> {{ paciente.nombre }} </td>
 			    			<td> {{ paciente.nacimiento }} </td>
 			    			<td> {{ paciente.genero }} </td>
-			    			<td> {{ paciente.tipoDoc | upper }} </td>
+			    			<td class= "tipoDoc"> {{paciente.tipoDoc}} </td>
 			    			<td> {{ paciente.numDoc }} </td>
 			    			<td> {{ paciente.domicilio }} </td>
 			    			<td> {{ paciente.telefono }} </td>
@@ -44,32 +43,13 @@
 
 			    		
 
-		    				<td>
-			    			 	
-			    			 		<a href="index.php?seccion=historiaController&amp;action=new&amp;id={{ paciente.id }}"> 
-			    			 			<img class = "icono" src='images/ver.jpeg' alt="Crear Historia">
-			    			 		
-			    			 	
-			    			 		<a href="index.php?seccion=historiaController&amp;action=show&amp;id={{ paciente.id }}"> 
-			    			 			<span class="glyphicon glyphicon-search"></span>
-			    			 		</a>
-			    			 	
-			    			 		<a href="index.php?seccion=historiaControlerl&amp;action=update&amp;id={{ paciente.id }}"> 
-			    			 			<img class = "icono" src='images/edit.jpeg' alt="Editar">
-			    			 		</a>
-			    			 	
-			    			 	
-			    			 		<a href="index.php?seccion=historiaController&amp;action=destroy&amp;id={{ paciente.id }}"> 
-			    			 			<img class = "icono" src='images/borrar.jpeg' alt="Eliminar Historia">
-			    			 		</a>
-			    			 	
-			    			</td>
+		    				
 			    		
 			    			
-			    				<td>
+			    			<td>
 			    			 	<p>
 			    			 		<a href="index.php?seccion=pacientes&amp;action=show&amp;id={{ paciente.id }}"> 
-			    			 			<img class = "icono" src='images/ver.jpeg' alt="Ver paciente">
+			    			 			<img class = "icono" src='images/ojo.png' alt="Ver paciente">
 			    			 		</a>
 			    			 	</p>
 			    			</td>
@@ -81,7 +61,13 @@
                     				</a>
                     			</p>
                     		</td>
-                    		
+                    		<td>
+                    			<p>
+                    				<a href="index.php?seccion=historiaController&amp;action=index&amp;pacienteid={{ paciente.id }}"> 
+			    			 			<img class = "icono" src='images/historia.jpg' alt="ver historias">
+			    			 		</a>	
+                    			</p>
+                    		</td>
 			    			<td>
 			    	    		<p>
 			    			 		<a href="index.php?seccion=pacientes&amp;action=destroy&amp;id={{ paciente.id }}" class = "borrar"> 
