@@ -37,6 +37,7 @@
 		if ( $seccion == '' && isset($_SESSION['usuario'])) $seccion = "registrado";
 		
 		switch ($seccion) {
+			
 			case 'historiaController':
 				# code...
 				require_once "controllers/historiaController.php";

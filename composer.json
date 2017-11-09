@@ -1,5 +1,9 @@
 {
     "require": {
+
+        "longman/telegram-bot": "^0.50.0"
+
         "slim/slim": "^3.0"
+
     }
 }
