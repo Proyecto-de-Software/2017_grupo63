@@ -1,8 +1,8 @@
 {
     "require": {
 
-        "longman/telegram-bot": "^0.50.0"
-
+        "longman/telegram-bot": "^0.50.0",
+        "twig/twig": "1.*",
         "slim/slim": "^3.0"
 
     }
