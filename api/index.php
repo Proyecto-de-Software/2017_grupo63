@@ -3,6 +3,7 @@
 	require_once '../models/conexionModelo.php';
 	require_once '../models/turnosModelo.php';
 	require_once '../models/listables.php';
+	require '../vendor/slim/slim/Slim/App.php';
 
 	use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;

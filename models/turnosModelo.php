@@ -56,21 +56,23 @@
 
 		public function reservar($dni, $fecha, $hora)
 		{
-			$turno = new DateTime($fecha->format('d-m-Y H:i:s'));
-			$tiempo  = explode(":", $hora);
-			$turno->add(new DateInterval('PT'. $tiempo[0].'H'. $tiempo[1]. 'M'));
+			$turno = new DateTime($fecha . " " . $hora);
+			//$tiempo  = explode(":", $hora);
+			//$turno->add(new DateInterval('PT'. $tiempo[0].'H'. $tiempo[1]. 'M'));
 			$sql = "INSERT INTO turno (fecha, dni) VALUES (:fecha, :dni)" ; 
 			$consulta = $this->base->prepare($sql);
-			$consulta->bindParam(':fecha', $turno);
+			$turnoF = $turno->format('Y-m-d H:i:s');
+			$consulta->bindParam(':fecha', $turnoF);
 			$consulta->bindParam(':dni', $dni);
 			$consulta->execute();
-			return $this->$base->lastInsertId();
+			return $this->base->lastInsertId();
 		}
 
 		public function verificarHora($time)
 		{
 			$time = explode(":", $time);
 			if (count($time) != 2) {
+				echo "hola";
 				return false;
 			}
 			$hora = $time[0];
@@ -78,8 +80,8 @@
 			if ($hora <= 7 || $hora >= 20 ) {
 				return false;
 			}
-			if ($minuto != '00' || $minuto != '30') {
-				return flase;
+			if ($minuto != '00' && $minuto != '30') {
+				return false;
 			}
 			return true;
 		}
