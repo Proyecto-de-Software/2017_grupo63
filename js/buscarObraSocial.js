@@ -1,6 +1,6 @@
-function buscarTipoDoc() {
+function buscarObraSocial() {
   // This is a sample server that supports CORS.
-  var url = 'https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-documento';
+  var url = 'https://api-referencias.proyecto2017.linti.unlp.edu.ar/obra-social';
   var xhr = createCORSRequest('GET', url);
   if (!xhr) {
     alert('CORS not supported');
@@ -11,10 +11,10 @@ function buscarTipoDoc() {
   xhr.onload = function() {
     var text = xhr.responseText;
     var obj = JSON.parse(text);
-
-    var listado = document.getElementById("tipoDoc");
-    var docPac = document.getElementById("pacTipoDoc").childNodes[0].nodeValue;
-    var trim = $.trim(docPac);
+    
+    var listado = document.getElementById("obraSocial");
+    var obraSocialPac = document.getElementById("pacObraSocial").childNodes[0].nodeValue;
+    var trim = $.trim(obraSocialPac);
     while (listado.hasChildNodes()) {
       listado.removeChild(listado.lastChild);
     } 
@@ -38,4 +38,4 @@ function buscarTipoDoc() {
   xhr.send();
 }
 
-buscarTipoDoc();
+buscarObraSocial();

@@ -7,6 +7,7 @@
     <script type="text/javascript" src ="js/datePicker.js" ></script>
     <script type="text/javascript" src ="js/ajax.js" ></script>
     <script type="text/javascript" src ="js/buscarTipoDoc.js" ></script>
+    <script type="text/javascript" src ="js/buscarObraSocial.js" ></script>
 {% endblock %}
 {% block estilo %}
     {{ parent() }}
@@ -75,10 +76,11 @@
             <input class = "form-control" type="text" name="telefono" id="telefono" value="{{ paciente.telefono |trim }}"  required>
         </div>
     </div>
-      <div class="form-group row"> 
-          <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
+    <div class="form-group row"> 
+        <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
+        <div hidden id="pacObraSocial"> {{paciente.obraSocial}}</div>
         <div class = "col-sm-10">
-            <select name="obraSocial">
+            <select name="obraSocial" id="obraSocial">
                 <option value = "IOMA" {% if (paciente.obraSocial == "IOMA") %} selected {% endif %}> IOMA </option>
                 <option value = "PAMI" {% if (paciente.obraSocial == "PAMI") %} selected {% endif %}> PAMI </option>
                 <option value = "SWISS MEDICAL" {% if (paciente.obraSocial == "SWISS MEDICAL") %} selected {% endif %}> Swiss Medical</option>
