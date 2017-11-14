@@ -13,7 +13,6 @@
 			$filtro = htmlspecialchars($filtro);
 			$filtroDocT = htmlspecialchars($filtroDocT);
 			$filtroDocN = htmlspecialchars($filtroDocN);
-			var_dump($filtroDocT);
 			$args = array();
 			$where = '';
 			if (!empty($filtro)) {
