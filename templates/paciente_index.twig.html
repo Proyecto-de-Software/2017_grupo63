@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block cuerpo %}
-	<a> Listado Pacientes</a>
+	
 	{% if pacientes is empty %}
 		<label>NO se encontraron pacientes</label>	
 	{% else %}
@@ -30,6 +30,30 @@
 			      </tr>
 		    	</thead>
 		    	<tbody>
+		    		<div class="row">    
+				        <div class="col-md-12 ">
+						    <form method = "get" action = "index.php">
+							    <div class="input-group col-md-6 col-md-offset-3">         
+					                <input type="text" class="" name="filtro" value = "{{ filtro }}" placeholder=" buscar ">
+					                <input type="hidden" class="form-control" name="page" value = "1">
+					                <input type="hidden" class="form-control" name="seccion" value = "pacientes">
+					                <input type="hidden" class="form-control" name="action" value = "index">
+					                <input type="hidden" class="form-control" name="filtroDoc" id="filtroDoc" value = "{{filtroDoc}}">
+						            <SELECT name = "docFiltro" id = "docFiltro" class = ""> 
+						                <option value= "0"> -Tipo de documento- </option>						              
+						            </SELECT>
+						            <input type="number" class="" name="filtroDocNum" value = "{{filtroDocNum}}" placeholder="documento sin puntos">
+					                <span class="input-group-btn">
+					                    <button class="btn btn-succes" type="submit">
+					                    	<span class=""> BUSCAR</span>
+					                    </button>
+					                </span>
+					            </div>
+					            
+				        		
+				        	</form>
+				        </div>
+					</div>
 		    		{% for paciente in pacientes %}
 		    			<tr>
 			    			<td> {{ paciente.apellido }} </td>
@@ -98,22 +122,6 @@
 			</div>	
 				
 		</div>
-		<div class="row">    
-	        <div class="col-xs-8 col-xs-offset-2">
-			    <form method = "get" action = "index.php">
-				    <div class="input-group">         
-		                <input type="text" class="form-control" name="filtro" value = "{{ filtro }}" placeholder=" buscar ">
-		                <input type="hidden" class="form-control" name="page" value = "1">
-		                <input type="hidden" class="form-control" name="seccion" value = "pacientes">
-		                <input type="hidden" class="form-control" name="action" value = "index">
-		                <span class="input-group-btn">
-		                    <button class="btn btn-default" type="submit">
-		                    	<span class="glyphicon glyphicon-search"></span>
-		                    </button>
-		                </span>
-		            </div>
-	        	</form>
-	        </div>
-		</div>
+		
 	{% endif %}	
 {% endblock %}	

@@ -8,19 +8,31 @@
 			parent::__construct();	
 		}
 
-		public function listar( $pagina, $filtro)
+		public function listar( $pagina, $filtro, $filtroDocT, $filtroDocN)
 		{
 			$filtro = htmlspecialchars($filtro);
+			$filtroDocT = htmlspecialchars($filtroDocT);
+			$filtroDocN = htmlspecialchars($filtroDocN);
+			var_dump($filtroDocT);
 			$args = array();
 			$where = '';
 			if (!empty($filtro)) {
 				$filtroSQL = "%" . $filtro . "%";
-				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL OR tipoDoc LIKE :filtro OR paciente.numDoc = :filtro)";
+				$where = "AND (apellido LIKE :filtroSQL OR nombre LIKE :filtroSQL) ";
 				$args[':filtro'] = "$filtro";
 				$args[':filtroSQL'] = "$filtroSQL";
 			}
+			if ($filtroDocT != 0) {
+				$where = $where . "AND (tipoDoc = :unTipoDoc) ";
+				$args['unTipoDoc'] = $filtroDocT;
+			}
+			if ($filtroDocN != "") {
+				$where = $where . "AND (numDoc = :unNumeroDoc)";
+				$args['unNumeroDoc'] = $filtroDocN;
+			}
 			$pp = $this->getLimitOffset("paciente", $pagina, $where, $args);
 			$usuarios = $this->getDatosPara('paciente', $pp->getLimit(), $pp->getOffset(), $where, $args);
+			$usuariosAcom = array();
 			foreach ($usuarios as $usuario) {
 				$fecha = $this->acomodarDeSql($usuario['nacimiento']);
 				$usuario['nacimiento'] = $fecha;

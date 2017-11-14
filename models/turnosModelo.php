@@ -85,6 +85,31 @@
 			}
 			return true;
 		}
+
+		public function estaOcupado($fecha, $hora)
+		 {	
+		 	$sql = "SELECT * FROM turno WHERE fecha = :turno";
+		 	$consulta = $this->base->prepare($sql);
+			$turno = new DateTime($fecha . " " . $hora);
+			$turnoSql = $turno->format('Y-m-d H:i:s');
+			$consulta->bindParam(':turno', $turnoSql);
+		 	$consulta->execute();
+		 	$ocupado = $consulta->fetch();
+		 	return !empty($ocupado);
+		 } 
+		
+		public function yaPaso($fecha)
+		{
+			$hoy = Date("d-m-Y");
+			$fecha = Date($fecha);
+			/*var_dump($hoy);
+			var_dump(strtotime($hoy));
+			var_dump($fecha);
+			var_dump(strtotime($fecha));
+			var_dump($hoy - $fecha);
+			die();*/
+			return strtotime($hoy) >= strtotime($fecha);
+		}
 	}
 
  ?>

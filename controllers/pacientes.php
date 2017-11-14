@@ -40,16 +40,20 @@
          		$datos = $this->datosTwig(true);
          		$pagina =  isset($_GET['page']) ? $_GET['page'] : 1 ;
                 $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : "";
+                $filtroDoc = isset($_GET['docFiltro']) ? $_GET['docFiltro'] : 0 ;
+                $filtroDocNum = isset($_GET['filtroDocNum']) ? $_GET['filtroDocNum'] : "" ;
                 switch ($accion) {
          			case 'index':
                         
                         $pm = new PacienteModelo();
-                        $pacientesPag = $pm->listar($pagina, $filtro);  
+                        $pacientesPag = $pm->listar($pagina, $filtro, $filtroDoc, $filtroDocNum);  
                         $datos['pacientes'] = $pacientesPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=pacientes&action=index&filtro=$filtro&page="; 
                         $datos['lastPage'] = $pacientesPag->getTotal();
                         $datos['currentPage'] = $pacientesPag->getActual();
                         $datos['filtro'] = $filtro;
+                        $datos['filtroDoc'] = $filtroDoc;
+                        $datos['filtroDocNum'] = $filtroDocNum;
                         $plantilla = 'paciente_index.twig.html';
                         break;
          			case 'show':

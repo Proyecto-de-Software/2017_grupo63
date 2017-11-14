@@ -3,6 +3,7 @@
 	require_once '../models/conexionModelo.php';
 	require_once '../models/turnosModelo.php';
 	require_once '../models/listables.php';
+	require_once '../vendor/autoload.php';
 	require '../vendor/slim/slim/Slim/App.php';
 
 	use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -42,6 +43,14 @@
 			if (!$turnosM->verificarFecha($fecha) || !$turnosM->verificarHora($hora)) {
 				$response->getBody()->write("Formato de fecha o de hora no son validos. ");
 				$response->getBody()->write("El formato de fecha debe ser dd-mm-aaaa y el de la hora debe ser hh:mm entre las 8 y las 20");
+				return $response;
+			}
+			if ($turnosM->yaPaso($fecha)) {
+				$response->getBody()->write("La fecha del turno no puede ser anterior al dia actual.");
+				return $response;
+			}
+			if ($turnosM->estaOcupado($fecha, $hora)) {
+				$response->getBody()->write("Ese turno no se encuentra disponible.");
 				return $response;
 			}
 			$idturno = $turnosM->reservar($dni, $fecha, $hora);
