@@ -1,6 +1,6 @@
 <?php
 // Load composer
-require   'vendor/autoload.php';
+require   '../vendor/autoload.php';
 
 $bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
 $bot_username = 'Grupo63bot';
@@ -17,5 +17,5 @@ try {
     }
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // log telegram errors
-    // echo $e->getMessage();
+    echo $e->getMessage();
 }
