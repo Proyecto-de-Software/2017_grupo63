@@ -1,5 +1,13 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="js/ajax.js" ></script>
+    <script type="text/javascript" src ="js/buscarVivienda.js" ></script>
+    <script type="text/javascript" src ="js/buscarCalefaccion.js" ></script>
+    <script type="text/javascript" src ="js/buscarAgua.js" ></script>
+{% endblock %}
+
 {% block cuerpo %}
     
 
@@ -32,24 +40,21 @@
             
             <div class="form-group">
                 <label for="sel1">Tipo de vivienda:</label>
+                <div hidden id="viviendaPac"> {{ demografico.tipo_vivienda_id }}</div>
                 <select class="form-control" name="opcionvivienda" id="sel1">
-                         <option value="1" {% if demografico.opcionvivienda == 1 %} selected {% endif%}>Departamento </option>
-                         <option value="2" {% if demografico.opcionvivienda == 2 %} selected {% endif%}>Casa</option>
-                        </select>
+                </select>
             </div>
             <div class="form-group">
                 <label for="sel2">Tipo de calefaccion:</label>
+                <div hidden id="calefaccionPac"> {{ demografico.tipo_calefaccion_id }}</div>
                 <select class="form-control" name="opcioncalefaccion" id="sel2">
-                         <option value="1" {% if demografico.opcioncalefaccion == 1 %} selected {% endif%}>Central</option>
-                         <option value="2" {% if demografico.opcioncalefaccion == 1 %} selected {% endif%}>Gas</option>
-                        </select>
+                </select>
             </div>
             <div class="form-group">
                 <label for="sel3">Tipo de Agua:</label>
+                <div hidden id="aguaPac"> {{ demografico.tipo_agua_id }}</div>
                 <select class="form-control" name="opcionagua" id="sel3">
-                         <option value="1" {% if demografico.opcionagua == 1 %} selected {% endif%} >Cloaca </option>
-                         <option value="2" {% if demografico.opcionagua == 2 %} selected {% endif%} >Pozo</option>
-                        </select>
+                </select>
             </div>
         </div>
         </div>        

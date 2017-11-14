@@ -1,6 +1,6 @@
-function buscarTipoDoc() {
+function buscarCalefaccion() {
   // This is a sample server that supports CORS.
-  var url = 'https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-documento';
+  var url = 'https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-calefaccion';
   var xhr = createCORSRequest('GET', url);
   if (!xhr) {
     alert('CORS not supported');
@@ -11,13 +11,9 @@ function buscarTipoDoc() {
   xhr.onload = function() {
     var text = xhr.responseText;
     var obj = JSON.parse(text);
-
-    var listado = document.getElementById("tipoDoc");
-    var docPac = document.getElementById("pacTipoDoc").childNodes[0].nodeValue;
-    var trim = $.trim(docPac);
-    while (listado.hasChildNodes()) {
-      listado.removeChild(listado.lastChild);
-    } 
+    var listado = document.getElementById("sel2");
+    var calefaccionPac = document.getElementById("calefaccionPac").innerHTML;
+    var trim = $.trim(calefaccionPac); 
     for (i = 0; i < obj.length; i++) {
   		item=document.createElement("option");
   		item.text=obj[i].nombre;
@@ -38,4 +34,4 @@ function buscarTipoDoc() {
   xhr.send();
 }
 
-buscarTipoDoc();
+buscarCalefaccion();

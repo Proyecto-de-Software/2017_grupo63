@@ -13,16 +13,26 @@ function obtenerTipoDoc() {
     var obj = JSON.parse(text);
     //console.log(obj);
     var lista = document.getElementsByClassName("tipoDoc");
+    var filtro = document.getElementById("docFiltro");
     var uno = lista[0].childNodes[0].nodeValue;
-    //debugger;
-    //uno = $.trim(uno);
-    //console.log(lista.length);
     for (i = 0; i < lista.length; i++) {
       var idDoc = lista[i].childNodes[0].nodeValue;
       //console.log(idDoc);
       var doc = obj[idDoc - 1];
       //console.log(doc.nombre);
       lista[i].childNodes[0].nodeValue = doc.nombre;
+    }
+    var documFiltro = document.getElementById("filtroDoc").value;
+    var trim = $.trim(documFiltro);
+    console.log(documFiltro);
+    for (i = 0; i < obj.length; i++) {
+      item=document.createElement("option");
+      item.text=obj[i].nombre;
+      item.value=obj[i].id;
+      if (obj[i].id == trim) {
+        item.selected = "true";
+      };
+      filtro.options.add(item)
     }
   };
 
