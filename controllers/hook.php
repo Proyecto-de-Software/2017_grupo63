@@ -4,6 +4,7 @@ require  'vendor/autoload.php';
 
 $bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
 $bot_username = 'Grupo63bot';
+ $website = "https://api.telegram.org/bot".$bot_api_key;
 
 try {
     // Create Telegram API object
@@ -15,6 +16,12 @@ try {
     //var_dump(expression)
     //file_put_contents(filename, data)
     $telegram->handle();
+    $update = file_get_contents($website."/getupdates");
+    //$update = file_get_contents("php://input");
+    $updateArray = json_decode($update, TRUE);
+    $chatId = end($updateArray ["result"])["message"]["chat"]["id"];
+    var_dump($chatId);die();
+
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Silence is golden!
