@@ -20,8 +20,11 @@ try {
     //$update = file_get_contents("php://input");
     $updateArray = json_decode($update, TRUE);
     $chatId = end($updateArray ["result"])["message"]["chat"]["id"];
-    var_dump($chatId);die();
 
+    $text = end($updateArray["result"])["message"]["text"];
+
+    var_dump($chatId);
+    var_dump($text);die();
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Silence is golden!
