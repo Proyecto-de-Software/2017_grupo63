@@ -11,8 +11,18 @@
 
 	});
 
-	$bot->command('reservar/{fecha}', function ($message) use ($bot) {
-	    $answer = 'hola soy fecha.';
+	$bot->command('reservar', function ($message) use ($bot) {
+	    $answer = "<html>
+	    <head>
+	    	<title>formulario</title>
+	    </head>
+	    <body>
+	    	<form action=''> 
+	    		<label>fecha</label>
+  				<input type = 'text' name = 'fecha' required >
+	    	</form>
+	    </body>
+	    </html>";
 	    $bot->sendMessage($message->getChat()->getId(), $answer);
 	});
 	
