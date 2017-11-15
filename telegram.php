@@ -10,6 +10,11 @@
 	    $bot->sendMessage($message->getChat()->getId(), $answer);
 	});
 
+	$bot->command('reservar/{fecha}', function ($message) use ($bot) {
+	    $answer = 'hola soy fecha.';
+	    $bot->sendMessage($message->getChat()->getId(), $answer);
+	});
+	
 	$bot->run();
 ?>
 
