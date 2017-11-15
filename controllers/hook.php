@@ -2,8 +2,8 @@
 
 $bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
 $bot_username = 'Grupo63bot';
- $website = "https://grupo63.proyecto2017.linti.unlp.edu.ar/telegram.php?action=hookTelegram".$bot_api_key;
-
+//$website = "https://grupo63.proyecto2017.linti.unlp.edu.ar/telegram.php?action=hookTelegram".$bot_api_key;
+$website = "https://api.telegram.org/bot".$bot_api_key."/";
 try {
     // Create Telegram API object
     $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);

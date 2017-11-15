@@ -1,28 +1,16 @@
 
 <?php
-require_once  'vendor/autoload.php';
-switch ($_GET["action"]) {
-			case 'setTelegram':
-				# code...
+	require_once  'vendor/autoload.php';
+	$bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
+	$bot_username = 'Grupo63bot';
+	$bot = new \TelegramBot\Api\Client($bot_api_key);
 
-				require_once "controllers/set.php";
-				//$historiaController = HistoriaController::getInstance();
-				//$historiaController->trabajar($action);
-				//exit();
-				break;
-			case 'hookTelegram':
-				# code...
-				require_once "controllers/hook.php";
-				//$historiaController = HistoriaController::getInstance();
-				//$historiaController->trabajar($action);
-				break;
+	$bot->command('start', function ($message) use ($bot) {
+	    $answer = 'hola soy Grupo63.';
+	    $bot->sendMessage($message->getChat()->getId(), $answer);
+	});
 
-			case 'update':
-				require_once "controllers/pruebaTelegram.php";
-				break;
-
-}
-
+	$bot->run();
 ?>
 
 
