@@ -1,6 +1,4 @@
 <?php
-// Load composer
-require  'vendor/autoload.php';
 
 $bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
 $bot_username = 'Grupo63bot';

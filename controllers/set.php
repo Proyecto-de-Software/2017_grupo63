@@ -1,7 +1,5 @@
 <?php
 // Load composer
-require   '../vendor/autoload.php';
-
 $bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
 $bot_username = 'Grupo63bot';
 $hook_url = 'https://grupo63.proyecto2017.linti.unlp.edu.ar/telegram.php?action=hookTelegram';

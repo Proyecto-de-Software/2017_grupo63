@@ -1,5 +1,6 @@
 
 <?php
+require_once  'vendor/autoload.php';
 switch ($_GET["action"]) {
 			case 'setTelegram':
 				# code...
