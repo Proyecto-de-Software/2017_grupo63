@@ -11,16 +11,28 @@
 	// create an instance
 	$botman = BotManFactory::create($config);
 
-	$botman->hears('turnos/{fecha}', function ($bot, $fecha) {
-		$respuesta = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
+	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
+		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
 		if (!is_string($respuesta)) {
-			 $respuesta = json_decode($respuesta);
+			 $turnos = json_decode($turnos, true);
+			 if (empty($turnos)) {
+			  		$respuesta = "No contamos con turnos disponibles";
+			  	} else {
+			  		
+					 $respuesta = "Los turnos disponibles son:";
+					 foreach ($turnos as $turno) {
+					 	$respuesta .=  " ".$turno;
+					 	if (next($turnos)==true) {$respuesta .= ",";}
+					 	else{$respuesta .= ".";}	
+					 }
+			  	}
+			  	 	
 		}	    
 	    $bot->reply($respuesta);
 	});
 
-	$botman->hears('reservar/{fecha}/{hora}', function ($bot, $fecha, $hora) {
-		$data = array ('fecha' => $fecha, 'hora' => $hora);
+	$botman->hears('reservar {dni} {fecha} {hora}', function ($bot, $dni, $fecha, $hora) {
+		$data = array ('dni' => $dni, 'fecha' => $fecha, 'hora' => $hora);
 		$data = http_build_query($data);
 		$opciones = array(
 		  'http'=>array(
@@ -47,9 +59,7 @@
 
 	$bot->command('start', function ($message) use ($bot) {
 	    $answer = 'hola soy Grupo63.';
-	    var_dump($message);die();
 	    $bot->sendMessage($message->getChat()->getId(), $answer);
-
 
 	});
 
@@ -66,6 +76,7 @@
 
 	
 	$bot->run();*/
+
 ?>
 
 
