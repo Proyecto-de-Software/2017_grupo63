@@ -4,7 +4,8 @@
         "longman/telegram-bot": "^0.50.0",
         "twig/twig": "1.*",
         "slim/slim": "^3.0",
-        "telegram-bot/api": "^2.3"
+        "telegram-bot/api": "^2.3",
+        "mpociot/botman": "^1.4"
 
     }
 }
