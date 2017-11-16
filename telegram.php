@@ -29,10 +29,15 @@
 		  )
 		);
 		$contexto = stream_context_create($opciones);
-		$idTurno = fopen('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos', 'r', false, $contexto);
-		fpassthru($idTurno);
-		$respuesta = $idTurno;
-		fclose($respuesta);	    
+		try {
+			$idTurno = fopen('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos', 'r', false, $contexto);
+			fpassthru($idTurno);
+			$respuesta = $idTurno;
+			fclose($respuesta);	    
+			
+		} catch (Exception $e) {
+			$respuesta	= $e->getMessage();
+		}
 	    $bot->reply($respuesta);
 	});
 
