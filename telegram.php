@@ -49,14 +49,7 @@
 	    $answer = 'hola soy Grupo63.';
 	    var_dump($message);die();
 	    $bot->sendMessage($message->getChat()->getId(), $answer);
-<<<<<<< HEAD
-	}); 
-	// $bot->command('command1', function ($message) use ($bot) {
-	//     $answer = '.';
-	//     $bot->sendMessage($message->getChat()->getId(), $answer);
-	// }); 
-	$bot->run();
-=======
+
 
 	});
 
@@ -73,8 +66,6 @@
 
 	
 	$bot->run();*/
-
->>>>>>> 9e944907ae4f8df95b9ec7a7c7fa8097df660e6d
 ?>
 
 
