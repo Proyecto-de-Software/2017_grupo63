@@ -13,7 +13,8 @@
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
 		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
-		if (!is_string($turnos)) {
+		$temporal = json_decode($turnos);
+		if (!is_null($temporal)) {
 			 $turnos = json_decode($turnos, true);
 			 if (empty($turnos)) {
 			  		$respuesta = "No contamos con turnos disponibles.";
