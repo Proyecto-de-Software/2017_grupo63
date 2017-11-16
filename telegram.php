@@ -2,7 +2,6 @@
 <?php
 	require_once  'vendor/autoload.php';
 	$bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
-	$urlApi = "https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos";
 	use Mpociot\BotMan\BotManFactory;
 	use Mpociot\BotMan\BotMan;
 	$config = [
@@ -13,7 +12,7 @@
 	$botman = BotManFactory::create($config);
 
 	$botman->hears('turno/{fecha}', function ($bot, $fecha) {
-		$respuesta = file_get_contents($urlApi. "/". $fecha);
+		$respuesta = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
 		if (!is_string($respuesta)) {
 			 $respuesta = json_decode($respuesta);
 		}	    
