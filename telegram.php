@@ -11,7 +11,7 @@
 	// create an instance
 	$botman = BotManFactory::create($config);
 
-	$botman->hears('turno/{fecha}', function ($bot, $name) {
+	$botman->hears('turno/{fecha}', function ($bot, $fecha) {
 	    $bot->reply('la fecha es: '.$fecha);
 	});
 
