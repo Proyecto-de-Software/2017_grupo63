@@ -72,7 +72,7 @@
 		{
 			$time = explode(":", $time);
 			if (count($time) != 2) {
-				echo "hola";
+				//echo "hola";
 				return false;
 			}
 			$hora = $time[0];

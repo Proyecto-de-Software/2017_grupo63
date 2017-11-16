@@ -7,12 +7,13 @@
 
 	$bot->command('start', function ($message) use ($bot) {
 	    $answer = 'hola soy Grupo63.';
+	    var_dump($message);die();
 	    $bot->sendMessage($message->getChat()->getId(), $answer);
 	}); 
-	$bot->command('command1', function ($message) use ($bot) {
-	    $answer = 'hola soy Grupo64.';
-	    $bot->sendMessage($message->getChat()->getId(), $answer);
-	}); 
+	// $bot->command('command1', function ($message) use ($bot) {
+	//     $answer = '.';
+	//     $bot->sendMessage($message->getChat()->getId(), $answer);
+	// }); 
 	$bot->run();
 ?>
 
