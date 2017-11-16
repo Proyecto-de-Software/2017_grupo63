@@ -53,6 +53,7 @@
                         $datos['desde'] = $desde;
                         $datos['hasta'] = $hasta;
                         $datos['pacienteid'] = $pacienteid;
+                        $datos['usuarioId'] = $_SESSION['userID'];
                         $plantilla = 'historia_index.twig.html';
                         break;
                     case 'show':

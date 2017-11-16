@@ -5,6 +5,7 @@
     <script type="text/javascript" src ="jquery-ui/jquery-ui.min.js" ></script>
     <script type="text/javascript" src ="js/fechas.js" ></script>
     <script type="text/javascript" src ="js/confirmarBorrarH.js" ></script>
+    <script type="text/javascript" src ="js/chequearEditarHistoria.js" ></script>
 {% endblock %}
 {% block estilo %}
     {{ parent() }}
@@ -54,6 +55,7 @@
 				    </div>
 				</div> <!-- final del buscador-->
 				<div class = "table-responsive">
+					<input type = "text" hidden value = "{{usuarioId}}" id = "usuario">
 					<table class="table">
 					    <thead>
 					      <tr>
@@ -76,7 +78,8 @@
 					    			<td>
 		                    		<td>
 		                    			<p>
-		                    				<a href="index.php?seccion=historiaController&amp;action=update&amp;id={{ historia.id }}&amp;pacienteid={{ pacienteid }}">  
+		                    				<input type = "text" hidden value="{{ historia.pediatra }}">
+		                    				<a href="index.php?seccion=historiaController&amp;action=update&amp;id={{ historia.id }}&amp;pacienteid={{ pacienteid }}" class = "editar">  
 		                    					<img class = "icono"  src='images/edit.jpeg' alt="Editar historia"> 
 		                    				</a>
 		                    			</p>
