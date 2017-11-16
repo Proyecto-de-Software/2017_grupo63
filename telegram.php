@@ -28,7 +28,7 @@
 		    'content'=>$data
 		  )
 		);
-		$contexto = context_create_stream($opciones);
+		$contexto = stream_context_create($opciones);
 		$idTurno = fopen('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos', 'r', false, $contexto);
 		fpassthru($idTurno);
 		$respuesta = $idTurno;
