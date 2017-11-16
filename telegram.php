@@ -57,7 +57,7 @@
 	    $bot->reply($respuesta);*/
 	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos');
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
 		$respuesta = curl_exec($ch);
 		curl_close($ch);
