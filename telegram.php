@@ -19,6 +19,23 @@
 	    $bot->reply($respuesta);
 	});
 
+	$botman->hears('reservar/{fecha}/{hora}', function ($bot, $fecha, $hora) {
+		$data = array ('fecha' => $fecha, 'hora' => $hora);
+		$data = http_build_query($data);
+		$opciones = array(
+		  'http'=>array(
+		    'method'=>"POST",
+		    'content'=>$data
+		  )
+		);
+		$contexto = context_create_stream($opciones);
+		$idTurno = fopen('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos', 'r', false, $contexto);
+		fpassthru($idTurno);
+		$respuesta = $idTurno;
+		fclose($respuesta);	    
+	    $bot->reply($respuesta);
+	});
+
 	$botman->listen();
 	/*$bot_username = 'Grupo63bot';
 	$bot = new \TelegramBot\Api\Client($bot_api_key);
