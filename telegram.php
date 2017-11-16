@@ -46,7 +46,7 @@
 			$idTurno = fopen('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos', 'r', false, $contexto);
 			fpassthru($idTurno);
 			$respuesta = $idTurno;
-			fclose($respuesta);	    
+			fclose($idTurno);	    
 			
 		} catch (Exception $e) {
 			$respuesta	= $e->getMessage();
