@@ -12,9 +12,9 @@
 	$botman = BotManFactory::create($config);
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
-		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
-		if (!is_string($turnos)) {
-			 $turnos = json_decode($turnos, true);
+		$get = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
+		$turnos = json_decode($get, true);
+		if (!is_null($turnos)) {
 			 if (empty($turnos)) {
 			  		$respuesta = "No contamos con turnos disponibles.";
 			} 
