@@ -36,7 +36,7 @@
 
 	$botman->hears('reservar {dni} {fecha} {hora}', function ($bot, $dni, $fecha, $hora) {
 		$data = array ('dni' => $dni, 'fecha' => $fecha, 'hora' => $hora);
-		$data = http_build_query($data);
+		/*$data = http_build_query($data);
 		$opciones = array(
 		  'http'=>array(
 		    'method'=>"POST",
@@ -54,7 +54,14 @@
 		} catch (Exception $e) {
 			$respuesta	= $e->getMessage();
 		}
-	    $bot->reply($respuesta);
+	    $bot->reply($respuesta);*/
+	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos');
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+		$respuesta = curl_exec($ch);
+		curl_close($ch);
+		$bot->reply($respuesta);
 	});
 
 	$botman->listen();
