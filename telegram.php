@@ -16,8 +16,9 @@
 		if (!is_string($turnos)) {
 			 $turnos = json_decode($turnos, true);
 			 if (empty($turnos)) {
-			  		$respuesta = "No contamos con turnos disponibles";
-			  	} else {
+			  		$respuesta = "No contamos con turnos disponibles.";
+			} 
+			else {
 			  		
 					 $respuesta = "Los turnos disponibles son:";
 					 foreach ($turnos as $turno) {
@@ -27,6 +28,9 @@
 					 }
 			  	}
 			  	 	
+		}
+		else{
+			$respuesta = $turnos;
 		}	    
 	    $bot->reply($respuesta);
 	});
