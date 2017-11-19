@@ -19,19 +19,18 @@
 			return $usuarios;
 		}
 		
-		public function listar($pagina, $filtro)
+		public function listar($pagina, $filtro, $filtroH)
 		{
 			$filtro = htmlspecialchars($filtro);
 			$args = array();
 			$where = '';
-			if ((strtolower($filtro) == 'activo') || ((strtolower($filtro) == 'bloqueado'))) {
-				$valor = strtolower($filtro) == 'activo' ? 1 : 0 ;
-				$where = "AND activo = :filtro";
-				$args[':filtro'] = $valor;
+			if ($filtroH < 2) {
+				$where = "AND activo = :filtroH ";
+				$args[':filtroH'] = $filtroH;
 			}
-			elseif (!empty($filtro)) {
+			if (!empty($filtro)) {
 				$filtro = '%' . $filtro . '%';
-				$where = "AND (username LIKE :filtro OR last_name LIKE :filtro OR first_name LIKE :filtro)";
+				$where = $where . "AND (username LIKE :filtro OR last_name LIKE :filtro OR first_name LIKE :filtro)";
 				$args[':filtro'] = $filtro;
 			}
 			$pp = $this->getLimitOffset("usuario", $pagina, $where, $args);

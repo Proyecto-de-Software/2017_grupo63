@@ -39,11 +39,12 @@
          		$datos = $this->datosTwig(true);
                $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '' ;
                $pagina = isset($_GET['page']) ? $_GET['page'] : 1;
-         		switch ($accion) {
+         		$filtroH = isset($_GET['habilitadoFil']) ? $_GET['habilitadoFil'] : 2; 
+               switch ($accion) {
          			case 'index':
                         $um = new UsuarioModelo();
                         
-                        $usuariosPag = $um->listar($pagina, $filtro );  
+                        $usuariosPag = $um->listar($pagina, $filtro, $filtroH );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
                         $datos['currentPage'] = $usuariosPag->getActual();

@@ -101,9 +101,16 @@
 
                     case 'update':
                         $hm = new HistorialModel();
-                        $datos['historia']= $hm->get_historia($_GET['id']); 
-                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
-                        $plantilla = 'historia_update.twig.html';
+                        $pediatraH = isset($_GET['pediatraH']) ? $_GET['pediatraH'] : 0 ;
+                        if ($pediatraH != $_SESSION['userID']) {
+                            $plantilla = 'noAutorizado.twig.html';
+                        } else {
+                            $historia = $hm->get_historia($_GET['id']);
+                            $datos['historia']= $hm->get_historia($_GET['id']); 
+                            $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                            $plantilla = 'historia_update.twig.html';
+                        }
+                        
                         break;
                       case 'updateDB':
                         $hm = new HistorialModel(); 
