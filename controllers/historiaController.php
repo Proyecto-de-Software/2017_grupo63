@@ -125,7 +125,11 @@
                         $datos['pacienteid'] = $pacienteid;
                         $datos['volver'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page=$pagina";
                         $plantilla = 'historia_index.twig.html';
-                        break;  
+                        break;
+                      case 'grafico':
+                              $plantilla = 'curvaPeso.twig.html';
+                              $datos['paciente'] = $pacienteid; 
+                              break;    
          			default:
          				# code...
          				

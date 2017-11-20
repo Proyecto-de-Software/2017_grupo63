@@ -148,6 +148,7 @@
         $consulta->execute();
 
     }
+    
     public function sacarDemografic($idPaciente, $idDemografico) {
         $sql = ('UPDATE  paciente  SET datos_demograficos_id = :demografic_id
             WHERE id =:unId');
@@ -157,6 +158,63 @@
         $consulta->execute();
 
     }   
-        	
+	
+	public function datosCurvaPeso($paciente)
+	{
+		$treceSemanas = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")-91, date("Y")));
+		return $this->datosCurva($paciente, $treceSemanas, "peso");
+	}	    	
+	
+	public function datosCurvaTalla($paciente)
+	{
+		$dosAnos = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")-2));
+		return $this->datosCurva($paciente, $dosAnos, "talla");
+	}
+
+	public function datosCurvaPPC($paciente)
+	{
+		$treceSemanas = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")-91, date("Y")));
+		return $this->datosCurva($paciente, $treceSemanas, "ppc");
+	}
+
+	public function datosCurva($paciente, $lapso, $colum)
+	{
+		$sql = "SELECT fecha, $colum FROM historia WHERE fecha > :fecha ORDER BY fecha";
+		$consulta = $this->base->prepare($sql);
+		$consulta->bindParam(":fecha", $lapso);
+		$consulta->execute();
+		$datos =  $consulta->fetchAll(PDO::FETCH_ASSOC);
+		$datosJS = array();
+		foreach ($datos as $dato) {
+			$arreglo = array();
+			$fechaJS = $this->sacarUnMes($dato['fecha']);
+			$arreglo[] = $fechaJS;
+			$arreglo[] = (int)$dato["$colum"];
+			$datosJS[] = $arreglo;
+		}
+		return $datosJS;
+	}
+
+	public function datosGrafico($paciente)
+	{
+		$grafico= array();
+		$peso['name'] = "PESO";
+		$peso['data'] = $this->datosCurvaPeso($paciente);
+		$talla['name'] = "TALLA";
+		$talla['data'] = $this->datosCurvaTalla($paciente);
+		$ppc['name'] = "PPC";
+		$ppc['data'] = $this->datosCurvaPPC($paciente);
+		$grafico[] = $peso;
+		$grafico[] = $talla;
+		$grafico[] = $ppc;
+		return $grafico;
+	}
+
+	public function sacarUnMes($fecha)
+		{
+			$fechaJS = explode("-", $fecha);
+			$fechaJS[1] = (int) $fechaJS[1] - 1;
+			return implode(",", $fechaJS);
+		}	
 	}		
  ?>

@@ -3,6 +3,7 @@
 	require_once '../models/conexionModelo.php';
 	require_once '../models/turnosModelo.php';
 	require_once '../models/listables.php';
+	require_once '../models/pacienteModelo.php';
 	require_once '../vendor/autoload.php';
 	require '../vendor/slim/slim/Slim/App.php';
 
@@ -60,6 +61,13 @@
 			}
 			$response->getBody()->write("Su identificacion de turno es " . $idturno);
 			return $response; 	
+	});
+	
+	$app->get('/graficos/{id}', function ($request, $response, $args) {
+		$data = $request->getParsedBody();
+		$id = $data['id'];
+		$pm = new PacienteModelo();
+		return $response->withJson($pm->datosGrafico($id), 200);
 	});
 	
 	$app->run();
