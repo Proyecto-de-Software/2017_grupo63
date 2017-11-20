@@ -70,7 +70,10 @@
                         $dm = new DemograficModel(); 
                         $dm->update($_POST);
                         $plantilla = "backend.twig.html";
-                        break;  
+                        break; 
+                        case 'grafico':
+                        $plantilla = "grafico.twig.html";
+                        break;
          			default:
          				# code...
          				
