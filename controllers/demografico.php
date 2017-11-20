@@ -34,7 +34,7 @@
          	{
          		$datos = $this->datosTwig(true);
          		$plantilla = 'noAutorizado.twig.html';
-         	}*//
+         	}//*
          	else
          	{
          		$datos = $this->datosTwig(true);
