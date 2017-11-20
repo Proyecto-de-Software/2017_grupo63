@@ -32,7 +32,7 @@ $(document).ready(function() {
 
     var paciente = document.getElementById("paciente");
     paciente = paciente.innerHTML;
-    var url = 'grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/graficos/';
+    var url = '/api/index.php/graficos/';
     $.getJSON(url.concat(paciente), function(data) {
         var datajs = [];
         options.series = [];
