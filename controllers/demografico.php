@@ -30,11 +30,11 @@
          		$datos['error'] = 'Esta seccion es solo para usuarios registrados';	
          		$plantilla = 'login.twig.html';
          	}
-         	elseif (!$this->tienePermiso("paciente_" . $accion)) 
+         	//*elseif (!$this->tienePermiso("paciente_" . $accion)) 
          	{
          		$datos = $this->datosTwig(true);
          		$plantilla = 'noAutorizado.twig.html';
-         	}
+         	}*//
          	else
          	{
          		$datos = $this->datosTwig(true);
