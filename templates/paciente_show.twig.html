@@ -1,5 +1,13 @@
 {% extends 'frontHabilitado.twig.html' %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="js/confirmarBorrarP.js" ></script>
+    <script type="text/javascript" src ="js/ajax.js" ></script>
+    <script type="text/javascript" src ="js/cargarTipoDoc.js" ></script>
+    <script type="text/javascript" src ="js/cargarObraSocial.js" ></script>
+{% endblock %}
+
 {% block cuerpo %}
     
 
@@ -36,7 +44,7 @@
         <div class="form-group row"> 
             <label class = "form-control-label col-sm-2" for="TipoDoc">Tido de documento :</label>
             <div class = "col-sm-10">
-              <p class = "form-control-static"> {{ paciente.tipoDoc | upper }}</p>
+              <p class = "form-control-static" id= "docu"> {{ paciente.tipoDoc | upper }}</p>
             </div>
         </div>
         <div class="form-group row"> 
@@ -60,7 +68,7 @@
         <div class="form-group row"> 
             <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
             <div class = "col-sm-10">
-              <p class = "form-control-static"> {{ paciente.obraSocial }}</p>
+              <p class = "form-control-static" id="obraPac"> {{ paciente.obraSocial }}</p>
             </div>
         </div>
      
@@ -73,7 +81,7 @@
             <input type="reset" value="Ver datos demograficos" class="btn btn-info" onClick="location.href='index.php?seccion=demografico&amp;action=show&amp;id={{paciente.id}}'" >
 
             <input type="reset" value="Edita datos demograficos" class="btn btn-success " onClick="location.href='index.php?seccion=demografico&amp;action=update&amp;id={{paciente.id}}'" >
-
+            
             <input type="reset" value="Ver Graficos" class="btn btn-success " onClick="location.href='index.php?seccion=demografico&amp;action=grafico&amp;id={{paciente.id}}'" >
         {% endif %}
         
