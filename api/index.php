@@ -64,10 +64,8 @@
 	});
 	
 	$app->get('/graficos/{id}', function ($request, $response, $args) {
-		$data = $request->getParsedBody();
-		$id = $data['id'];
 		$pm = new PacienteModelo();
-		return $response->withJson($pm->datosGrafico($id), 200);
+		return $response->withJson($pm->datosGrafico($args['id']), 200);
 	});
 	
 	$app->run();

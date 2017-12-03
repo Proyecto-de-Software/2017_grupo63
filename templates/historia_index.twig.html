@@ -28,11 +28,13 @@
 		         	NUEVO
 		        </button>
 			</div>	
-		    <div class = "col-md-1 " >
-				<button class="btn btn-warning" onclick = "location.href= 'index.php?seccion=historiaController&amp;action=grafico&amp;pacienteid={{pacienteid}}' ">
-		         	Evolucion
-		        </button>
-			</div>  
+		    {% if  not historias is empty %}
+			    <div class = "col-md-1 " >
+					<button class="btn btn-warning" onclick = "location.href= 'index.php?seccion=historiaController&amp;action=grafico&amp;pacienteid={{pacienteid}}' ">
+			         	Evolucion
+			        </button>
+				</div>
+			{% endif %}  
 				
 		</div>
 		{% if historias is empty %}

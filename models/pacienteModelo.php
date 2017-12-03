@@ -179,9 +179,10 @@
 
 	public function datosCurva($paciente, $lapso, $colum)
 	{
-		$sql = "SELECT fecha, $colum FROM historia WHERE fecha > :fecha ORDER BY fecha";
+		$sql = "SELECT fecha, $colum FROM historia WHERE fecha > :fecha AND id_paciente = :pac AND borradoHis = 0 ORDER BY fecha";
 		$consulta = $this->base->prepare($sql);
 		$consulta->bindParam(":fecha", $lapso);
+		$consulta->bindParam(":pac", $paciente);
 		$consulta->execute();
 		$datos =  $consulta->fetchAll(PDO::FETCH_ASSOC);
 		$datosJS = array();
@@ -197,6 +198,8 @@
 
 	public function datosGrafico($paciente)
 	{
+		//var_dump($paciente);
+		//die();
 		$grafico= array();
 		$peso['name'] = "PESO";
 		$peso['data'] = $this->datosCurvaPeso($paciente);
@@ -213,7 +216,7 @@
 	public function sacarUnMes($fecha)
 		{
 			$fechaJS = explode("-", $fecha);
-			$fechaJS[1] = (int) $fechaJS[1] - 1;
+			//$fechaJS[1] = (int) $fechaJS[1] - 1;
 			return implode(",", $fechaJS);
 		}	
 	}		
