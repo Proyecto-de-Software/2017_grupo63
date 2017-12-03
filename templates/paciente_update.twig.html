@@ -6,7 +6,7 @@
     <script type="text/javascript" src ="jquery-ui/jquery-ui.min.js" ></script>
     <script type="text/javascript" src ="js/datePicker.js" ></script>
     <script type="text/javascript" src ="js/ajax.js" ></script>
-    <script type="text/javascript" src ="js/buscarTipoDoc.js" ></script>
+    
     <script type="text/javascript" src ="js/buscarObraSocial.js" ></script>
 {% endblock %}
 {% block estilo %}
@@ -49,12 +49,12 @@
         </div>
     </div>
     <div class="form-group row"> 
-         <label class = "form-control-label col-sm-2" for="tipoDoc">Tipo de documento:</label>
-        <div hidden id="pacTipoDoc"> {{paciente.tipoDoc}}</div>    
+         <label class = "form-control-label col-sm-2" for="tipoDoc">Tipo de documento:</label>    
         <div class = "col-sm-10">
             <select name = "tipoDoc" id = "tipoDoc">
-                <option value= "dni" {% if (paciente.tipoDoc == "DNI") %} selected {% endif %} > DNI </option>
-                <option value = "le" {% if (paciente.tipoDoc == "LE") %} selected {% endif %}  >LE</option>
+                {% for clave, doc in docs %}
+                    <option value= "{{clave}}" {% if (paciente.tipoDoc == clave) %} selected {% endif %}>{{doc}}</option>
+                {% endfor %}
             </select>
         </div>
     </div>
@@ -78,12 +78,11 @@
     </div>
     <div class="form-group row"> 
         <label class = "form-control-label col-sm-2" for="obraSocial">Obra Social :</label>
-        <div hidden id="pacObraSocial"> {{paciente.obraSocial}}</div>
         <div class = "col-sm-10">
             <select name="obraSocial" id="obraSocial">
-                <option value = "IOMA" {% if (paciente.obraSocial == "IOMA") %} selected {% endif %}> IOMA </option>
-                <option value = "PAMI" {% if (paciente.obraSocial == "PAMI") %} selected {% endif %}> PAMI </option>
-                <option value = "SWISS MEDICAL" {% if (paciente.obraSocial == "SWISS MEDICAL") %} selected {% endif %}> Swiss Medical</option>
+                {% for clave, obra in obras %}
+                    <option value= "{{clave}}" {% if (paciente.obraSocial == clave) %} selected {% endif %}>{{obra}}</option>
+                {% endfor %}
             </select>
         </div>
     </div>

@@ -4,8 +4,8 @@
     {{ parent() }}
     <script type="text/javascript" src ="js/confirmarBorrarP.js" ></script>
     <script type="text/javascript" src ="js/ajax.js" ></script>
-    <script type="text/javascript" src ="js/obtenerTipoDoc.js" ></script>
-    <script type="text/javascript" src ="js/obtenerObraSocial.js" ></script>
+    
+    
 {% endblock %}
 
 {% block cuerpo %}
@@ -60,11 +60,11 @@
 			    			<td> {{ paciente.nombre }} </td>
 			    			<td> {{ paciente.nacimiento }} </td>
 			    			<td> {{ paciente.genero }} </td>
-			    			<td class= "tipoDoc"> {{paciente.tipoDoc}} </td>
+			    			<td class= "tipoDoc"> {{documentos[paciente.tipoDoc]}} </td>
 			    			<td> {{ paciente.numDoc }} </td>
 			    			<td> {{ paciente.domicilio }} </td>
 			    			<td> {{ paciente.telefono }} </td>
-			    			<td class = "obraSocial"> {{ paciente.obraSocial }} </td>
+			    			<td class = "obraSocial"> {{ obras[paciente.obraSocial] }} </td>
 
 			    		
 

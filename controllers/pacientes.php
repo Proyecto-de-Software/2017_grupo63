@@ -55,12 +55,18 @@
                         $datos['filtroDoc'] = $filtroDoc;
                         $datos['filtroDocNum'] = $filtroDocNum;
                         $plantilla = 'paciente_index.twig.html';
+                        $curlc = new CURLController();
+                        $datos['obras'] = $curlc->obtenerDatos("obra-social");
+                        $datos['documentos'] = $curlc->obtenerDatos("tipo-documento"); 
                         break;
          			case 'show':
          				
                      $pm = new PacienteModelo();
                    
                      $paciente = $pm->get_user($_GET['id']);
+                     $curlc = new CURLController(); 
+                     $paciente["obraSocial"] = $curlc->obtenerDato("obra-social/" . $paciente['obraSocial']);
+                     $paciente["tipoDoc"] = $curlc->obtenerDato("tipo-documento/" . $paciente['tipoDoc']);
                      $datos["paciente"] = $paciente;
                      if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
                         $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
@@ -71,6 +77,9 @@
                      break;
                     case 'new':
                         $plantilla = 'paciente_new.twig.html';
+                        $curlc = new CURLController();
+                        $datos["docs"] = $curlc->obtenerDatos("tipo-documento");
+                        $datos['obras'] = $curlc->obtenerDatos("obra-social");
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];
                         break;
                     case 'newDB':                  
@@ -93,16 +102,19 @@
                         }
                         break;    
                     case 'update':
-                     $pm = new PacienteModelo();
-                     $paciente  = $pm->get_user($_GET['id']);
-                     $datos["paciente"] = $paciente;              
-                     if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
-                        $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
-                     else     
-                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
-                     $plantilla = 'paciente_update.twig.html';
-                       break;
-                      case 'updateDB':
+                         $pm = new PacienteModelo();
+                         $paciente  = $pm->get_user($_GET['id']);
+                         $curlc = new CURLController();
+                         $datos["docs"] = $curlc->obtenerDatos("tipo-documento");
+                         $datos['obras'] = $curlc->obtenerDatos("obra-social");
+                         $datos["paciente"] = $paciente;              
+                         if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
+                            $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
+                         else     
+                            $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                         $plantilla = 'paciente_update.twig.html';
+                         break;
+                    case 'updateDB':
                         $pm = new PacienteModelo(); 
                         $pm->editar($_POST);
                         $pacientesPag = $pm->listar($pagina, $filtro );
