@@ -30,11 +30,11 @@
          		$datos['error'] = 'Esta seccion es solo para usuarios registrados';	
          		$plantilla = 'login.twig.html';
          	}
-         	/*elseif (!$this->tienePermiso("paciente_" . $accion)) 
+         	elseif (!$this->tienePermiso("paciente_" . $accion)) 
          	{
          		$datos = $this->datosTwig(true);
          		$plantilla = 'noAutorizado.twig.html';
-         	}*/
+         	}
          	else
          	{
          		$datos = $this->datosTwig(true);
@@ -43,7 +43,13 @@
                 switch ($accion) {
          			case 'show':
              			$dm = new DemograficModel();
-                        $datos['demograficos']= $dm->showDemografic($_GET['id']);
+                        $demog = $dm->showDemografic($_GET['id']);
+                        $curlc = new CURLController();
+                        $demog['tipo_vivienda_id'] = $curlc->obtenerDato("tipo-vivienda/" . $demog['tipo_vivienda_id']);
+                        $demog['tipo_calefaccion_id'] = $curlc->obtenerDato("tipo-calefaccion/" . $demog['tipo_calefaccion_id']);
+                        $demog['tipo_agua_id'] = $curlc->obtenerDato("tipo-agua/" . $demog['tipo_agua_id']);
+                        $datos['demograficos']= $demog;
+                        
                         $datos['idusuario']= $_GET['id'];
                         $plantilla = 'demografic_show.twig.html';
                         break;
@@ -51,6 +57,10 @@
                         $plantilla = 'demografic_new.twig.html';
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];
                         $datos['paciente'] = $_GET['id'];
+                        $curlc = new CURLController();
+                        $datos['viviendas'] = $curlc->obtenerDatos("tipo-vivienda");
+                        $datos['aguas'] = $curlc->obtenerDatos("tipo-agua");
+                        $datos['calefacciones'] = $curlc->obtenerDatos("tipo-calefaccion");
                         break;
                     case 'newDB':                  
                         $dm = new DemograficModel();
@@ -61,19 +71,20 @@
                         $plantilla = "backend.twig.html";
                         break;    
                     case 'update':
-                     $dm = new DemograficModel();
-                     $datos['demografico']= $dm->showDemografic($_GET['id']);
-                     $datos['volver'] = $_SERVER['HTTP_REFERER'];
-                     $plantilla = 'demografic_update.twig.html';
-                       break;
-                      case 'updateDB':
+                        $dm = new DemograficModel();
+                        $datos['demografico']= $dm->showDemografic($_GET['id']);
+                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                        $curlc = new CURLController();
+                        $datos['viviendas'] = $curlc->obtenerDatos("tipo-vivienda");
+                        $datos['aguas'] = $curlc->obtenerDatos("tipo-agua");
+                        $datos['calefacciones'] = $curlc->obtenerDatos("tipo-calefaccion");
+                        $plantilla = 'demografic_update.twig.html';
+                        break;
+                    case 'updateDB':
                         $dm = new DemograficModel(); 
                         $dm->update($_POST);
                         $plantilla = "backend.twig.html";
-                        break; 
-                        case 'grafico':
-                        $plantilla = "grafico.twig.html";
-                        break;
+                        break;  
          			default:
          				# code...
          				

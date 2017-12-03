@@ -60,21 +60,21 @@
                         $datos['documentos'] = $curlc->obtenerDatos("tipo-documento"); 
                         break;
          			case 'show':
-         				
-                     $pm = new PacienteModelo();
-                   
-                     $paciente = $pm->get_user($_GET['id']);
-                     $curlc = new CURLController(); 
-                     $paciente["obraSocial"] = $curlc->obtenerDato("obra-social/" . $paciente['obraSocial']);
-                     $paciente["tipoDoc"] = $curlc->obtenerDato("tipo-documento/" . $paciente['tipoDoc']);
-                     $datos["paciente"] = $paciente;
-                     if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
-                        $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
-                     else     
-                        $datos['volver'] = $_SERVER['HTTP_REFERER'];
-                     
-                     $plantilla = 'paciente_show.twig.html';
-                     break;
+             				
+                         $pm = new PacienteModelo();
+                       
+                         $paciente = $pm->get_user($_GET['id']);
+                         $curlc = new CURLController(); 
+                         $paciente["obraSocial"] = $curlc->obtenerDato("obra-social/" . $paciente['obraSocial']);
+                         $paciente["tipoDoc"] = $curlc->obtenerDato("tipo-documento/" . $paciente['tipoDoc']);
+                         $datos["paciente"] = $paciente;
+                         if(strpos($_SERVER['HTTP_REFERER'], 'DB') !== false )
+                            $datos['volver'] = "index.php?seccion=userController&action=index&filtro=&page=1";
+                         else     
+                            $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                         
+                         $plantilla = 'paciente_show.twig.html';
+                         break;
                     case 'new':
                         $plantilla = 'paciente_new.twig.html';
                         $curlc = new CURLController();

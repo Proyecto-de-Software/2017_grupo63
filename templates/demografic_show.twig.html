@@ -1,13 +1,5 @@
 {% extends 'frontHabilitado.twig.html' %}
 
-{% block javaScript %}
-    {{ parent() }}
-    <script type="text/javascript" src ="js/ajax.js" ></script>
-    <script type="text/javascript" src ="js/cargarVivienda.js" ></script>
-    <script type="text/javascript" src ="js/cargarCalefaccion.js" ></script>
-    <script type="text/javascript" src ="js/cargarAgua.js" ></script>
-{% endblock %}
-
 {% block cuerpo %}
 
 
@@ -61,21 +53,19 @@
             <label class = "form-control-label col-sm-2"> Tipo de vivienda :</label>
             <div class = "col-sm-10">
               <input type = "hidden" value ="{{ demograficos.tipo_vivienda_id }}" id="casaPac">
-              <p class = "form-control-static" id = "tipoCasa"> hola</p>
+              <p class = "form-control-static" id = "tipoCasa"> {{demograficos.tipo_vivienda_id}}</p>
             </div>
         </div>
         <div class="form-group"> 
             <label class = "form-control-label col-sm-2" for="apellido"> Tipo calefaccion:</label>
-            <input type = "hidden" value ="{{ demograficos.tipo_calefaccion_id }}" id="calefaccionPac">
             <div class = "col-sm-10">
-              <p class = "form-control-static" id= "tipoCalefaccion"></p>
+              <p class = "form-control-static" id= "tipoCalefaccion">{{ demograficos.tipo_calefaccion_id }}</p>
             </div>
         </div>
       <div class="form-group"> 
             <label class = "form-control-label col-sm-2" for="apellido"> Tipo de agua :</label>
             <div class = "col-sm-10">
-            <input type = "hidden" value ="{{ demograficos.tipo_agua_id }}" id="aguaPac">
-              <p class = "form-control-static" id="tipoAgua"> </p>
+              <p class = "form-control-static" id="tipoAgua">{{ demograficos.tipo_agua_id }}</p>
             </div>
         </div>
 

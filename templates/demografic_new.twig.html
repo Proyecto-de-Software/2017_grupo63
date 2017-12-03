@@ -1,13 +1,5 @@
 {% extends 'frontHabilitado.twig.html' %}
 
-{% block javaScript %}
-    {{ parent() }}
-    <script type="text/javascript" src ="js/ajax.js" ></script>
-    <script type="text/javascript" src ="js/buscarVivienda.js" ></script>
-    <script type="text/javascript" src ="js/buscarCalefaccion.js" ></script>
-    <script type="text/javascript" src ="js/buscarAgua.js" ></script>
-{% endblock %}
-
 {% block cuerpo %}
     
 
@@ -39,24 +31,27 @@
              <label class="radio-inline"><input type="radio" value="0" name="radiomascota">No</label>
             
             <div class="form-group">
-                <div hidden id="viviendaPac"> {{demografico.tipo_vivienda_id}}</div>
                 <label for="sel1">Tipo de vivienda:</label>
                 <select class="form-control" name="opcionvivienda" id="sel1">
-                         
+                    {% for clave, vivienda in viviendas %}
+                        <option value= "{{clave}}" {% if (demografico.tipo_vivienda_id == clave) %} selected {% endif %}>{{vivienda}}</option>
+                    {% endfor %}         
                 </select>
             </div>
             <div class="form-group">
-                <div hidden id="calefaccionPac"> {{demografico.tipo_calefaccion_id}}</div>
                 <label for="sel2">Tipo de calefaccion:</label>
                 <select class="form-control" name="opcioncalefaccion" id="sel2">
-                         
+                    {% for clave, calefaccion in calefacciones %}
+                        <option value= "{{clave}}" {% if (demografico.tipo_calefaccion_id == clave) %} selected {% endif %}>{{calefaccion}}</option>
+                    {% endfor %}        
                 </select>
             </div>
             <div class="form-group">
-                <div hidden id="aguaPac"> {{demografico.tipo_agua_id}}</div>
                 <label for="sel3">Tipo de Agua:</label>
                 <select class="form-control" name="opcionagua" id="sel3">
-                         
+                    {% for clave, agua in aguas %}
+                        <option value= "{{clave}}" {% if (demografico.tipo_agua_id == clave) %} selected {% endif %}>{{agua}}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
