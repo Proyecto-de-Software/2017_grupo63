@@ -1,23 +1,19 @@
 <?php 
 	
-	require_once("controllers/twigClass.php");
+	require_once ("controllers/twigClass.php");
 	require_once ("controllers/controller.php");
 	require_once ("controllers/twigDatos.php");
+	require_once ("controllers/curl.php");
 	//require_once ("controllers/userController.php");
-	
-	
-
-	
-
 	require_once ("models/configDatos.php");
 	require_once ("models/conexionModelo.php");
 	require_once ("models/listables.php");
 	require_once ("models/pacienteModelo.php");
-	//require_once ("models/Usuario.php");
 	require_once ("models/usuarioModelo.php");
 	require_once ("models/consultaPag.php");
-	require_once("models/DemograficModel.php");
-	require_once("models/HistorialModel.php");
+	require_once ("models/DemograficModel.php");
+	require_once ("models/HistorialModel.php");
+	//require_once ("models/turnosModelo.php");
 
 	require_once("vendor/twig/twig/lib/Twig/Autoloader.php");
 	
@@ -37,7 +33,6 @@
 		if ( $seccion == '' && isset($_SESSION['usuario'])) $seccion = "registrado";
 		
 		switch ($seccion) {
-			
 			case 'historiaController':
 				# code...
 				require_once "controllers/historiaController.php";
