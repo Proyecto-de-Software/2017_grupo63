@@ -3,9 +3,6 @@
 {% block javaScript %}
     {{ parent() }}
     <script type="text/javascript" src ="js/confirmarBorrarP.js" ></script>
-    <script type="text/javascript" src ="js/ajax.js" ></script>
-    
-    
 {% endblock %}
 
 {% block cuerpo %}
@@ -114,12 +111,16 @@
 			<div class = "col-md-6">
 				{% include 'paginacion.twig.html' %}
 			</div>
-			<div class = "col-md-1 col-md-offset-5" >
+			<div class = "col-md-1 col-md-offset-4" >
+				<button class="btn btn-warning" onclick = "location.href= 'index.php?seccion=pacientes&amp;action=grafico' ">
+		         	Estadisticas
+		        </button> 
+			</div>	
+			<div class = "col-md-1" >
 				<button class="btn btn-success" onclick = "location.href= 'index.php?seccion=pacientes&amp;action=new' ">
 		         	NUEVO
 		        </button>
-		      
-			</div>	
+			</div>
 				
 		</div>
 		

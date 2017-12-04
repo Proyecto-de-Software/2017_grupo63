@@ -4,6 +4,7 @@
 	require_once '../models/turnosModelo.php';
 	require_once '../models/listables.php';
 	require_once '../models/pacienteModelo.php';
+	require_once '../models/DemograficModel.php';
 	require_once '../vendor/autoload.php';
 	require '../vendor/slim/slim/Slim/App.php';
 
@@ -66,6 +67,11 @@
 	$app->get('/graficos/{id}', function ($request, $response, $args) {
 		$pm = new PacienteModelo();
 		return $response->withJson($pm->datosGrafico($args['id']), 200);
+	});
+
+	$app->get('/estadistica', function ($request, $response, $args) {
+		$dm = new DemograficModel();
+		return $response->withJson($dm->estadistica(), 200);
 	});
 	
 	$app->run();
