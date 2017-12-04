@@ -138,7 +138,9 @@
                         
                         $plantilla = 'paciente_index.twig.html';
                         break;
-                        
+                    case 'grafico':
+                            $plantilla = "estadistica.twig.html";
+                            break;    
          			default:
          				# code...
          				
