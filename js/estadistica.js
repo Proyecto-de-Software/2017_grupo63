@@ -27,7 +27,7 @@ $(document).ready(function() {
         series: [{}]
     };
 
-    var url = 'http://localhost/grupo63/api/index.php/estadistica';
+    var url = '/api/index.php/estadistica';
     $.getJSON(url, function(data) {
         jQuery.each(data, function() {
             this.title = {
