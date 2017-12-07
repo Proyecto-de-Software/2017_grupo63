@@ -130,7 +130,7 @@
 		}
 
 		public function agregarDemografic($idPaciente, $idDemografico) {
-        $sql = ('UPDATE  paciente  SET id_historia = :demografic_id
+        $sql = ('UPDATE  paciente  SET datos_demograficos_id = :demografic_id
             WHERE id =:unId');
         $consulta = $this->base->prepare($sql);
         $consulta->bindParam(':demografic_id', $idDemografico[0], PDO::PARAM_INT, 256);
