@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     var options = {
         chart: {
+            height: 600,
             renderTo: 'estadistica',
             showInLegend: true,
         	type: 'pie'
@@ -26,7 +27,7 @@ $(document).ready(function() {
         series: [{}]
     };
 
-    var url = '/api/index.php/estadistica';
+    var url = 'http://localhost/grupo63/api/index.php/estadistica';
     $.getJSON(url, function(data) {
         jQuery.each(data, function() {
             this.title = {
