@@ -21,6 +21,20 @@
             
         }
 	
+        public function estadistica()
+        {
+            $dm = new DemograficModel();
+            $todos = array();
+            $todos[] = $dm->electricidad();
+            $todos[] = $dm->mascota();
+            $todos[] = $dm->heladera();
+            $curlc = new CURLController();
+            $todos[] = $dm->vivienda($curlc->obtenerDatos("tipo-vivienda"));
+            $todos[] = $dm->agua($curlc->obtenerDatos("tipo-agua"));
+            $todos[] = $dm->calefaccion($curlc->obtenerDatos("tipo-calefaccion"));
+            return $todos;
+        }
+
         public function trabajar($accion)
         {
 

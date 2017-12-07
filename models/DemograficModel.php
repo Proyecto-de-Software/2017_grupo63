@@ -71,13 +71,73 @@
        		return $final;
 		}
 		
+		private function porcentajesCurl($colum, $name, $tipos)
+		{
+			$args = array();
+			$sql = "SELECT CASE";
+			foreach ($tipos as $clave => $tipo) {
+				$sql = $sql . " WHEN $colum = $clave THEN ?";
+				$args[] = $tipo;
+			}
+			$sql = $sql . " END as tipo, COUNT($colum) as cant 
+			FROM datos_demograficos AS d INNER JOIN paciente AS p ON p.datos_demograficos_id = d.id WHERE borrado = 0 GROUP BY $colum";
+			$consulta = $this->base->prepare($sql);
+			$consulta->execute($args);
+			$result = $consulta->fetchAll();
+			$final = array();
+			foreach ($result as $value) {
+				$aux = array();
+				$aux['name'] = $value['tipo'];
+				$aux['y'] = (int)$value['cant']; 
+				$data[] = $aux;
+			}
+			$final["colorByPoint"] = true;
+			$final['data'] = $data;
+			$final['name'] = $name;
+       		return $final;
+		}
+		
+		public function vivienda($tipos)
+		{
+			$datos = $this->porcentajesCurl("tipo_vivienda_id", "Tipo de vivienda", $tipos); 
+			$aux = array();
+			$aux[] = "14%";
+			$aux[] = "75%"; //eje y
+			$datos['center'] = $aux;
+			$datos['size'] = 160;
+			return  $datos;
+		}
+
+		public function calefaccion($tipos)
+		{
+			$datos = $this->porcentajesCurl("tipo_calefaccion_id", "Tipo de calefaccion", $tipos); 
+			$aux = array();
+			$aux[] = "50%";
+			$aux[] = "75%"; //eje y
+			$datos['center'] = $aux;
+			$datos['size'] = 160;
+			return  $datos;
+		}
+
+		public function agua($tipos)
+		{
+			$datos = $this->porcentajesCurl("tipo_agua_id", "Tipo de agua", $tipos); 
+			$aux = array();
+			$aux[] = "85%";
+			$aux[] = "75%"; //eje y
+			$datos['center'] = $aux;
+			$datos['size'] = 160;
+			return  $datos;
+		}
+
 		public function electricidad()
 		{
 			$datos = $this->porcentajes("electricidad"); 
 			$aux = array();
-			$aux[] = "10%"; 
+			$aux[] = "14%"; 
+			$aux[] = "22%"; //eje y 
 			$datos['center'] = $aux;
-			$datos['size'] = 100;
+			$datos['size'] = 160;
 			return $datos ;
 		}
 
@@ -85,9 +145,10 @@
 		{
 			$datos = $this->porcentajes("mascota"); 
 			$aux = array();
-			$aux[] = "30%"; 
+			$aux[] = "50%"; //eje x
+			$aux[] = "22%"; //eje y 
 			$datos['center'] = $aux;
-			$datos['size'] = 100;
+			$datos['size'] = 160;
 			return $datos ;
 		}
 		
@@ -95,11 +156,13 @@
 		{
 			$datos = $this->porcentajes("heladera"); 
 			$aux = array();
-			$aux[] = "80%"; 
+			$aux[] = "85%";
+			$aux[] = "22%"; //eje y
 			$datos['center'] = $aux;
-			$datos['size'] = 100;
+			$datos['size'] = 160;
 			return  $datos;
 		}
+
 
 		public function estadistica()
 		{

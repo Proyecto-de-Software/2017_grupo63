@@ -5,6 +5,9 @@
 	require_once '../models/listables.php';
 	require_once '../models/pacienteModelo.php';
 	require_once '../models/DemograficModel.php';
+	require_once ("../controllers/curl.php");
+	require_once ("../controllers/controller.php");
+	require_once '../controllers/demografico.php';
 	require_once '../vendor/autoload.php';
 	require '../vendor/slim/slim/Slim/App.php';
 
@@ -70,8 +73,8 @@
 	});
 
 	$app->get('/estadistica', function ($request, $response, $args) {
-		$dm = new DemograficModel();
-		return $response->withJson($dm->estadistica(), 200);
+		$dc = Demografico::getInstance();// new DemograficModel();
+		return $response->withJson($dc->estadistica(), 200);
 	});
 	
 	$app->run();
