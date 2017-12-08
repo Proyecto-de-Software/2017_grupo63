@@ -117,12 +117,18 @@
                     case 'updateDB':
                         $pm = new PacienteModelo(); 
                         $pm->editar($_POST);
-                        $pacientesPag = $pm->listar($pagina, $filtro );
+                        $pacientesPag = $pm->listar($pagina, $filtro, $filtroDoc, $filtroDocNum);
                         $datos['pacientes'] = $pacientesPag->getDatos();
                         $datos['lastPage'] = $pacientesPag->getTotal();
-                        $datos['currentPage'] = $pagina;                        
+                        $datos['currentPage'] = $pagina;
+                        $datos['filtro'] = $filtro;
+                        $datos['filtroDoc'] = $filtroDoc;
+                        $datos['filtroDocNum'] = $filtroDocNum;                        
                         $datos['paginationPath'] = "index.php?seccion=pacientes&action=index&filtro=$filtro&page="; 
                         $plantilla = 'paciente_index.twig.html';
+                        $curlc = new CURLController();
+                        $datos['obras'] = $curlc->obtenerDatos("obra-social");
+                        $datos['documentos'] = $curlc->obtenerDatos("tipo-documento");
                         break;   
                     case 'destroy':
                         //var_dump($_GET['username']);

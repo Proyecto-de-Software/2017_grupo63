@@ -42,6 +42,7 @@
                 $desde = isset($_GET['desde']) ? $_GET['desde'] : "";
                 $hasta = isset($_GET['hasta']) ? $_GET['hasta'] : "";
                 $pacienteid = (isset($_GET['pacienteid'])) ? $_GET['pacienteid'] : "" ;
+                $tipo = (isset($_GET['tipo'])) ? $_GET['tipo'] : "" ;
                 switch ($accion) {
          			case 'index':
                         $hm = new HistorialModel();
@@ -129,7 +130,18 @@
                       case 'grafico':
                               $plantilla = 'curvaPeso.twig.html';
                               $datos['paciente'] = $pacienteid; 
-                              break;    
+                              switch ($tipo) {
+                                  case 'peso':
+                                      $plantilla = 'curvaPeso2.twig.html';
+                                      break;
+                                  case 'ppc':
+                                      $plantilla = 'curvaPPC.twig.html';
+                                      break;
+                                  case 'talla':
+                                      $plantilla = 'curvaTalla.twig.html';
+                                      break;  
+                              }
+                        break;    
          			default:
          				# code...
          				
