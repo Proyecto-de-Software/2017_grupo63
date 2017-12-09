@@ -72,6 +72,27 @@
 		return $response->withJson($pm->datosGrafico($args['id']), 200);
 	});
 
+	$app->get('/curvaPeso/{id}', function ($request, $response, $args) {
+		$pm = new PacienteModelo();
+		return $response->withJson($pm->curvaPeso($args['id']), 200);
+		//$response->getBody()->write($pm->curvaPeso($args['id']));
+		return $response;
+	});
+
+	$app->get('/curvaPPC/{id}', function ($request, $response, $args) {
+		$pm = new PacienteModelo();
+		return $response->withJson($pm->curvaPPC($args['id']), 200);
+		//$response->getBody()->write($pm->curvaPeso($args['id']));
+		return $response;
+	});
+
+	$app->get('/curvaTalla/{id}', function ($request, $response, $args) {
+		$pm = new PacienteModelo();
+		return $response->withJson($pm->curvaTalla($args['id']), 200);
+		//$response->getBody()->write($pm->curvaPeso($args['id']));
+		return $response;
+	});
+
 	$app->get('/estadistica', function ($request, $response, $args) {
 		$dc = Demografico::getInstance();// new DemograficModel();
 		return $response->withJson($dc->estadistica(), 200);
