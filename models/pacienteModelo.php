@@ -194,7 +194,7 @@
 				$arreglo = array();
 				$fechaJS = $this->sacarUnMes($dato['fecha']);
 				$arreglo[] = $fechaJS;
-				$arreglo[] = (int)$dato["$colum"];
+				$arreglo[] = (float)$dato["$colum"];
 				$datosJS[] = $arreglo;
 			}
 			return $datosJS;
