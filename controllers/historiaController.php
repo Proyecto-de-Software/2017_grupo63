@@ -83,13 +83,14 @@
                         $plantilla = 'historia_new.twig.html';
                         $datos['volver'] = $_SERVER['HTTP_REFERER'];
                         $datos['pacienteid'] = $pacienteid;
+                        $_SESSION['pacienteid'] = $pacienteid;
                         break;
                     case 'newDB':    
                         //var_dump($_POST['paciente']) ;die();             
                         $hm = new HistorialModel();
                         $_POST['usuarioCarga'] = (int)$_SESSION['userID'];
                         $hm->insertarHistoria($_POST);
-                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
+                        $historiasPag = $hm->listar($pagina, $_SESSION['pacienteid'], $desde, $hasta);  
                         $datos['historias'] = $historiasPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
                         $datos['lastPage'] = $historiasPag->getTotal();
@@ -110,6 +111,7 @@
                             $historia = $hm->get_historia($_GET['id']);
                             $datos['historia']= $hm->get_historia($_GET['id']); 
                             $datos['volver'] = $_SERVER['HTTP_REFERER'];
+                            $_SESSION['pacienteid'] = $pacienteid;
                             $plantilla = 'historia_update.twig.html';
                         }
                         
@@ -117,7 +119,7 @@
                       case 'updateDB':
                         $hm = new HistorialModel(); 
                         $hm->editar($_POST);
-                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
+                        $historiasPag = $hm->listar($pagina, $_SESSION['pacienteid'], $desde, $hasta);  
                         $datos['historias'] = $historiasPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
                         $datos['lastPage'] = $historiasPag->getTotal();
