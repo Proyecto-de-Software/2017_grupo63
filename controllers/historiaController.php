@@ -110,9 +110,9 @@
                             $plantilla = 'noAutorizado.twig.html';
                         } else {
                             $historia = $hm->get_historia($_GET['id']);
-                            $datos['historia']= $hm->get_historia($_GET['id']); 
+                            $datos['historia']= $historia; 
                             $datos['volver'] = $_SERVER['HTTP_REFERER'];
-                            $_SESSION['pacienteid'] = $pacienteid;
+                            $_SESSION['pacienteid'] = $historia['id_paciente'];
                             $plantilla = 'historia_update.twig.html';
                         }
                         
