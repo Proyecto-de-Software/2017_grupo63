@@ -48,7 +48,6 @@
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
                         $datos['currentPage'] = $usuariosPag->getActual();
-                        
                         $datos['filtro'] = $filtro; 
                         $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
                         $plantilla = 'usuario_index.twig.html';
@@ -101,11 +100,12 @@
                   case 'updateDB':
                         $um = new UsuarioModelo();   
                         $um->editar($_POST);
-                        $usuariosPag = $um->listar(1, '' );  
+                        $usuariosPag = $um->listar($pagina, $filtro, $filtroH );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
-                        $datos['currentPage'] = $usuariosPag->getActual();                        
-                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=&page="; 
+                        $datos['currentPage'] = $usuariosPag->getActual();
+                        $datos['filtro'] = $filtro; 
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
                         $plantilla = 'usuario_index.twig.html';
                         break;   
                   case 'newDB':                  
@@ -126,7 +126,7 @@
          					$usuariosPag = $um->listar($pagina, $filtro, $filtroH );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
-                        $datos['currentPage'] = $usuariosPag->getActual();                        
+                        $datos['currentPage'] = $usuariosPag->getActual();
                         $datos['filtro'] = $filtro; 
                         $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
                         $plantilla = 'usuario_index.twig.html';
