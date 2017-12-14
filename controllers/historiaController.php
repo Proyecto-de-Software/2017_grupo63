@@ -87,10 +87,11 @@
                         break;
                     case 'newDB':    
                         //var_dump($_POST['paciente']) ;die();             
+                        $pacienteid = $_SESSION['pacienteid'];
                         $hm = new HistorialModel();
                         $_POST['usuarioCarga'] = (int)$_SESSION['userID'];
                         $hm->insertarHistoria($_POST);
-                        $historiasPag = $hm->listar($pagina, $_SESSION['pacienteid'], $desde, $hasta);  
+                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
                         $datos['historias'] = $historiasPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
                         $datos['lastPage'] = $historiasPag->getTotal();
@@ -119,7 +120,8 @@
                       case 'updateDB':
                         $hm = new HistorialModel(); 
                         $hm->editar($_POST);
-                        $historiasPag = $hm->listar($pagina, $_SESSION['pacienteid'], $desde, $hasta);  
+                        $pacienteid = $_SESSION['pacienteid'];
+                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
                         $datos['historias'] = $historiasPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
                         $datos['lastPage'] = $historiasPag->getTotal();
