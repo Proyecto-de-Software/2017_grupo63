@@ -75,10 +75,10 @@
                         $um = new UsuarioModelo();              
                         $um->eliminar($_GET['id']);
                         $filtro = "";
-                        $usuariosPag = $um->listar(1, $filtro );  
+                        $usuariosPag = $um->listar($pagina, $filtro, $filtroH );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
-                        $datos['currentPage'] = 1;
+                        $datos['currentPage'] = $usuariosPag->getActual();
                         
                         $datos['filtro'] = $filtro; 
                         $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
@@ -123,12 +123,13 @@
          				}
          				else{
          					$um->insertar($_POST);
-         					$usuariosPag = $um->listar(1, '' );  
+         					$usuariosPag = $um->listar($pagina, $filtro, $filtroH );  
                         $datos['usuarios'] = $usuariosPag->getDatos();
                         $datos['lastPage'] = $usuariosPag->getTotal();
                         $datos['currentPage'] = $usuariosPag->getActual();                        
-                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=&page=";	
-							   $plantilla = 'usuario_index.twig.html';
+                        $datos['filtro'] = $filtro; 
+                        $datos['paginationPath'] = "index.php?seccion=userController&action=index&filtro=$filtro&page=";
+                        $plantilla = 'usuario_index.twig.html';
          				}
          				break;
          				  case 'demografic':

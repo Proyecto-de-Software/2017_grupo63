@@ -75,6 +75,7 @@
                         $datos['desde'] = $desde;
                         $datos['hasta'] = $hasta;
                         $datos['pacienteid'] = $pacienteid;
+                        $datos['usuarioId'] = $_SESSION['userID'];
                         $plantilla = 'historia_index.twig.html';
                         break;
                         
@@ -88,15 +89,15 @@
                         $hm = new HistorialModel();
                         $_POST['usuarioCarga'] = (int)$_SESSION['userID'];
                         $hm->insertarHistoria($_POST);
-                        $pacienteid = $_POST['pacienteid'];
-                        $pacientesPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
-                        $datos['historias'] = $pacientesPag->getDatos();
+                        $historiasPag = $hm->listar($pagina, $pacienteid, $desde, $hasta);  
+                        $datos['historias'] = $historiasPag->getDatos();
                         $datos['paginationPath'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page="; 
-                        $datos['lastPage'] = $pacientesPag->getTotal();
-                        $datos['currentPage'] = $pacientesPag->getActual();
+                        $datos['lastPage'] = $historiasPag->getTotal();
+                        $datos['currentPage'] = $historiasPag->getActual();
                         $datos['desde'] = $desde;
                         $datos['hasta'] = $hasta;
                         $datos['pacienteid'] = $pacienteid;
+                        $datos['usuarioId'] = $_SESSION['userID'];
                         $plantilla = 'historia_index.twig.html';
                         break; 
 
@@ -124,7 +125,7 @@
                         $datos['desde'] = $desde;
                         $datos['hasta'] = $hasta;
                         $datos['pacienteid'] = $pacienteid;
-                        $datos['volver'] = "index.php?seccion=historiaController&action=index&desde=$desde&hasta=$hasta&pacienteid=$pacienteid&page=$pagina";
+                        $datos['usuarioId'] = $_SESSION['userID'];
                         $plantilla = 'historia_index.twig.html';
                         break;
                       case 'grafico':
