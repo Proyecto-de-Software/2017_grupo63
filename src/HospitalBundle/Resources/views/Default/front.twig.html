@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Hospital Gutierres</title>
+	{% block estilo %} 
+	<link rel="stylesheet" type="text/css" href= "{{ asset('css/style.css') }}"> 
+	 
+	<link rel="stylesheet" type="text/css" href= "{{ asset('bootstrap/bootstrap.css') }}">
+	{% endblock %}
+	{% block javaScript %} 
+		<script type="text/javascript" src ="{{ asset('jquery/jquery.min.js') }}" ></script> 
+		<script type="text/javascript" src ="{{ asset('bootstrap/bootstrap.js') }}" ></script>				
+	{% endblock %}
+</head>
+<body>
+<div class = "container-fluid ">	
+	{% block contenido %}
+
+	{% endblock %}
+</div>	
+<div>
+	<footer class = "footer">
+		<div class = "container">	
+			<div class = "col-xs-12 col-sm-6 col-md-6 col-lg-6 white">
+				<p>Proyecto de Software 2017 - Hospital Dr. Ricardo Gutierrez </p> 
+			</div>
+			<div class = " white col-xs-12 col-sm-6 col-md-6 col-lg-6">	 
+				 <p class = "right">  {{data_vista.getMail()}}  </p> 
+			</div>
+		</div>	
+	</footer>
+</div>	
+</body>
+</html>

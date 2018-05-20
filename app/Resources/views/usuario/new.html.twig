@@ -1,0 +1,14 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <h1>Crear usuario</h1>
+    <div class="form-container table-container">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class = "row">
+                <input type="submit" value="Crear" class=" btn-success btn" />
+                <a href="{{ path('usuario_index') }}" class=" btn-warning btn" >Cancelar</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

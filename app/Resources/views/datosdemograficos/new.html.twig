@@ -1,0 +1,11 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <h1>Datosdemografico creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Agregar" />
+    {{ form_end(form) }}
+
+{% endblock %}

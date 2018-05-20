@@ -1,0 +1,45 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+
+{% block content %}
+    {% block fos_user_content %} 
+    	<form class = "form-signin"  action="/check" method='post'>
+	    	<input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.refreshToken('authenticate') }}" />	
+		    <div class="center">
+				<div class="form-group">
+			         <label for="usuario" class="control-label">Nombre de usuario</label>: 
+			        <div class = "row">
+			        	<div class = "col-md-4 col-sm-3"></div>
+				        <div class = "col-md-4 col-sm-6">
+			        		<input type="text" id="username" name="_username" value="" class = "form-control" required>
+			    		</div>
+			        	<div class = "col-md-4 col-sm-3"></div>	
+			    	</div>
+			    </div>
+			    <div class="form-group">   
+			        <label for="contrasena" class="control-label">Contraseña</label>:
+			        <div class = "row">
+				        <div class = "col-md-4 col-sm-3"></div>
+				        <div class = "col-md-4 col-sm-6">
+				        	<input type="password" id="password" name="_password" class = "form-control" required>
+				    	</div>	
+				    	<div class = "col-md-4 col-sm-3"></div>
+				        
+			    	</div>
+			    </div>
+			    <div class="checkbox">
+		            <label>
+		                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+		                <label for="remember_me">Recuerdame</label>
+		            </label>
+		        </div>    
+			    <div >
+			      	<button type="submit" class="btn btn-success ">Ingresar</button>
+		    		<input type="button"  value="Cancelar" class="btn btn-warning" onClick="location.href = '/'" >		
+		    	</div>
+		    </div>
+	  		{% if error %}
+	  			<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+	  		{% endif %}
+	    </form>
+    {% endblock %}
+{% endblock %}

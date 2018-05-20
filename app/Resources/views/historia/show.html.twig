@@ -1,0 +1,89 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <h1>Ver control medico</h1>
+    <div class="form-container table-container"> 
+        <form  class="form-horizontal" action='val' method='POST'>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="fecha">Fecha :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {% if historium.fecha %}{{ historium.fecha|date('d-m-Y') }}{% endif %}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="peso">Peso :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.peso }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="vacunas">Vacunas completas :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {% if historium.vacunas %}Si{% else %}No{% endif %}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="vacunasOb">Vacunas observaciones :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.vacunasOb }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="vacunas">Maduracion acorde :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {% if historium.maduracion %}Si{% else %}No{% endif %}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="maduracionOb">Maduracion observaciones :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.maduracionOb }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="fisico">Examen fisico normal :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {% if historium.fisico %}Si{% else %}No{% endif %}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="fisicoOb">Examen fisico obs :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.fisicoOb }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="observacion">Observaciones generales :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.observacion }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="alimentacion">Alimentacion :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.alimentacion }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="talla">Talla :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.talla }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="pc">Percentilo cefálico (PC) :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.pc }}</p>
+                </div>
+            </div>
+            <div class="form-group"> 
+                <label class = "form-control-label col-sm-2" for="ppc">Percentilo perímetro cefálico (PPC) :</label>
+                <div class = "col-sm-10">
+                  <p class = "form-control-static"> {{ historium.ppc }}</p>
+                </div>
+            </div>
+            <a class="btn btn-primary btn-md col-md-1" href="{{ path('historia_index', { 'paciente': historium.paciente.id }) }}">VOLVER</a>
+            <a href="{{ path('historia_edit', { 'id': historium.id }) }}" class="btn btn-success btn-md col-md-1 col-md-offset-1">EDITAR</a>
+        </form>
+    </div>        
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="{{ absolute_url(asset('js/confirmarBorrarH.js')) }}" ></script>
+{% endblock %}
+{% block cuerpo %}
+    <div class = "row" > 
+        <div class = "col-md-1 col-md-offset-5" >
+            <button class="btn btn-success" onclick="location.href= '{{ path('historia_new') }}' ">
+                NUEVO
+            </button>
+        </div>  
+    </div>
+    <h1>Historia Medica</h1>
+
+    <div class = "table-responsive" >
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Pediatra a cargo</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for historia in pagination %}
+                <tr>
+                    <td>{% if historia.fecha %}{{ historia.fecha|date('d-m-Y')  }}{% endif %}</td>
+                    <td>{{ historia.usuario.username }}</td>
+                    {% if (is_granted('ROLE_PED') or true) %}
+                        <td>   
+                            <a href="{{ path('historia_show', { 'id': historia.id }) }}"> 
+                                <img class = "icono" src='{{ absolute_url(asset('images/ver.jpeg')) }}' alt="Ver paciente">
+                            </a>
+                        </td>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>    
+                            <form action="{{ path('historia_delete', { 'id': historia.id }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(deleteForms[historia.id]) }}
+                                <input type="image" src="{{ absolute_url(asset('images/borrar.jpeg')) }}" class="icono borrar"/>
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+    </div>    
+{% endblock %}

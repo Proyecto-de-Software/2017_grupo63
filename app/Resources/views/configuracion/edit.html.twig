@@ -1,0 +1,10 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <h1>Editar Configuracion</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Editar" class="btn btn-success btn-md col-md-1" />
+    {{ form_end(edit_form) }}
+{% endblock %}

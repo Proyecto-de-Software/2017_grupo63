@@ -1,0 +1,14 @@
+En framework elegido para la realizacion del trabajo es Symfony dado que: 
+- tiene twig como motor de plantillas (permitiendo reutilizar los temlates de la cursada).
+- permite separar el codigo en capas.
+- hay bastante documentacionen la web.
+Se utilizara en su version 2.8 porque a partir de las siguientes versiones utiliza php7.
+Tanto para la seguridad como para el ruteo se utilizaran anotaciones
+
+Para llevar a cabo el login se utilizo el FOSUserBundle, ya que implementa un sistema de login
+mucho más seguro que el diseñado en la cursada. 
+
+Al poner el sitio en modo mantenimiento, los usuarios con rol de administrador podran seguir navegando.
+Para verificar que el sitio se puso en modo mantenimiento se debe ingresar con una nueva ventana de
+incognito. O cerrar la sesion y luego volver a habilitar el sitio desde la base poniendo en 1 la columna
+habilitado de la tabla configuracion.

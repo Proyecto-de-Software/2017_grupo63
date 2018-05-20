@@ -1,0 +1,11 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <h1>Historium creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="CREAR" />
+    {{ form_end(form) }}
+
+{% endblock %}

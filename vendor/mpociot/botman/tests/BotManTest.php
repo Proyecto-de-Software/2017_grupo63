@@ -12,8 +12,10 @@ use Mpociot\BotMan\Conversation;
 use Mpociot\BotMan\BotManFactory;
 use Mpociot\BotMan\DriverManager;
 use Mpociot\BotMan\Cache\ArrayCache;
+use Mpociot\BotMan\Drivers\FakeDriver;
 use Mpociot\BotMan\Drivers\NullDriver;
 use Mpociot\BotMan\Drivers\SlackDriver;
+use Mpociot\BotMan\Attachments\Location;
 use Mpociot\BotMan\Drivers\FacebookDriver;
 use Mpociot\BotMan\Drivers\TelegramDriver;
 use Mpociot\BotMan\Interfaces\UserInterface;
@@ -438,6 +440,26 @@ class BotManTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_allows_unicode_regular_expressions()
+    {
+        $called = false;
+
+        $botman = $this->getBot([
+            'event' => [
+                'user' => 'U0X12345',
+                'text' => 'Какая погода в Минске',
+            ],
+        ]);
+
+        $botman->hears('какая\s+погода\s+в\s+([а-яa-z0-9]+)\s*', function ($bot, $city) use (&$called) {
+            $called = true;
+            $this->assertSame('Минске', $city);
+        });
+        $botman->listen();
+        $this->assertTrue($called);
+    }
+
+    /** @test */
     public function it_allows_regular_expressions_with_range_quantifier()
     {
         $called = false;
@@ -598,6 +620,48 @@ class BotManTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($GLOBALS['answer']->isInteractiveMessageReply());
         $this->assertSame('Hello again', $GLOBALS['answer']->getText());
         $this->assertTrue($GLOBALS['called']);
+    }
+
+    /** @test */
+    public function it_does_not_pick_up_conversations_with_bots()
+    {
+        $GLOBALS['answer'] = '';
+        $GLOBALS['called'] = false;
+        $botman = $this->getBot([
+            'token' => 'foo',
+            'event' => [
+                'user' => 'UX12345',
+                'channel' => 'general',
+                'text' => 'Hi Julia',
+            ],
+        ]);
+
+        $botman->hears('Hi Julia', function () {
+        });
+        $botman->listen();
+
+        $conversation = new TestConversation();
+
+        $botman->storeConversation($conversation, function (Answer $answer) use (&$called) {
+            $GLOBALS['answer'] = $answer;
+            $GLOBALS['called'] = true;
+        });
+
+        /*
+         * Now that the first message is saved, fake a reply
+         */
+        $botman = $this->getBot([
+            'token' => 'foo',
+            'event' => [
+                'bot_id' => '1234',
+                'user' => 'UX12345',
+                'channel' => 'general',
+                'text' => 'Hello again',
+            ],
+        ]);
+        $botman->listen();
+
+        $this->assertFalse($GLOBALS['called']);
     }
 
     /** @test */
@@ -1152,6 +1216,8 @@ class BotManTest extends PHPUnit_Framework_TestCase
         $botman->setDriver($driver);
 
         $botman->reply('foo', []);
+
+        DriverManager::unloadDriver(TestDriver::class);
     }
 
     /** @test */
@@ -1168,6 +1234,8 @@ class BotManTest extends PHPUnit_Framework_TestCase
         $botman->setDriver($driver);
 
         $botman->dummyMethod('bar', 'baz');
+
+        DriverManager::unloadDriver(TestDriver::class);
     }
 
     /** @test */
@@ -1484,5 +1552,132 @@ class BotManTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Conversation::class, $GLOBALS['conversation']);
         $this->assertFalse($GLOBALS['answer']->isInteractiveMessageReply());
         $this->assertSame('Great!', $GLOBALS['answer']->getText());
+    }
+
+    /** @test */
+    public function it_does_not_allow_sendRequest_method()
+    {
+        $botman = $this->getBot([]);
+        $botman->setDriver(new FakeDriver());
+        $this->expectException(\BadMethodCallException::class);
+        $botman->sendRequest('foo', []);
+    }
+
+    /** @test */
+    public function it_returns_images_as_second_argument()
+    {
+        $called = false;
+
+        $message = new Message(BotMan::IMAGE_PATTERN, '', '');
+        $message->setImages([
+            'http://foo.com/bar.png',
+        ]);
+
+        $botman = $this->getBot([]);
+
+        $driver = m::mock(FakeDriver::class)->makePartial();
+        $driver->shouldReceive('getMessages')
+            ->andReturn([
+                $message,
+            ]);
+
+        $botman->setDriver($driver);
+
+        $botman->receivesImages(function ($bot, $data) use (&$called) {
+            $called = true;
+            $this->assertCount(1, $data);
+            $this->assertSame(['http://foo.com/bar.png'], $data);
+        });
+        $botman->listen();
+        $this->assertTrue($called);
+    }
+
+    /** @test */
+    public function it_returns_videos_as_second_argument()
+    {
+        $called = false;
+
+        $message = new Message(BotMan::VIDEO_PATTERN, '', '');
+        $message->setVideos([
+            'http://foo.com/bar.png',
+        ]);
+
+        $botman = $this->getBot([]);
+
+        $driver = m::mock(FakeDriver::class)->makePartial();
+        $driver->shouldReceive('getMessages')
+            ->andReturn([
+                $message,
+            ]);
+
+        $botman->setDriver($driver);
+
+        $botman->receivesVideos(function ($bot, $data) use (&$called) {
+            $called = true;
+            $this->assertCount(1, $data);
+            $this->assertSame(['http://foo.com/bar.png'], $data);
+        });
+        $botman->listen();
+        $this->assertTrue($called);
+    }
+
+    /** @test */
+    public function it_returns_audio_as_second_argument()
+    {
+        $called = false;
+
+        $message = new Message(BotMan::AUDIO_PATTERN, '', '');
+        $message->setAudio([
+            'http://foo.com/bar.png',
+        ]);
+
+        $botman = $this->getBot([]);
+
+        $driver = m::mock(FakeDriver::class)->makePartial();
+        $driver->shouldReceive('getMessages')
+            ->andReturn([
+                $message,
+            ]);
+
+        $botman->setDriver($driver);
+
+        $botman->receivesAudio(function ($bot, $data) use (&$called) {
+            $called = true;
+            $this->assertCount(1, $data);
+            $this->assertSame(['http://foo.com/bar.png'], $data);
+        });
+        $botman->listen();
+        $this->assertTrue($called);
+    }
+
+    /** @test */
+    public function it_returns_location_as_second_argument()
+    {
+        $called = false;
+        $lat = 41.123;
+        $lng = -12.123;
+
+        $location = new Location($lat, $lng);
+
+        $message = new Message(BotMan::LOCATION_PATTERN, '', '');
+        $message->setLocation($location);
+
+        $botman = $this->getBot([]);
+
+        $driver = m::mock(FakeDriver::class)->makePartial();
+        $driver->shouldReceive('getMessages')
+            ->andReturn([
+                $message,
+            ]);
+
+        $botman->setDriver($driver);
+
+        $botman->receivesLocation(function ($bot, $data) use (&$called, $location) {
+            $called = true;
+            $this->assertInstanceOf(Location::class, $data);
+            $this->assertSame($location, $data);
+        });
+        $botman->listen();
+        $this->assertTrue($called);
     }
 }

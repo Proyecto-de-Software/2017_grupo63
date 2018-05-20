@@ -1,0 +1,81 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <div class = "row" > 
+        <div class = "col-md-1 col-md-offset-5" >
+            <button class="btn btn-success" onclick="location.href= '{{ path('usuario_new') }}' ">
+                NUEVO
+            </button>
+        </div>  
+    </div>
+    {% if pagination is empty %}
+        <label>NO se encontraron usuarios</label>   
+    {% else %}
+        
+        <div class="row">    
+            <div class="col-xs-8 col-xs-offset-2">
+                <form method = "get" action = "{{ path('usuario_index') }}">
+                    <div class="input-group">         
+                        <input type="text" class="form-control" name="filtro" value = "" placeholder=" buscar ">
+                        <input type="hidden" class="form-control" name="page" value = "1">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                        <SELECT name = "habilitadoFil" id = "estadoFiltro" class = "form-control col-md-1"> 
+                            <option value= "2"> Seleccione un estado</option>
+                            <option value= "1"> Habilitado </option>
+                            <option value= "0"> Bloqueado </option>                                   
+                        </SELECT>
+                </form>
+            </div>
+        </div>
+        <div class = "table-responsive">
+            <table class="table">
+                <thead>
+                  <tr>               
+                    <th>Nombre de usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo electronico</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in pagination %}
+                        <tr>
+                            
+                            <td> {{ usuario.username }} </td>
+                            <td> {{ usuario.getFirstname() }} </td>
+                            <td> {{ usuario.getLastname() }} </td>
+                            <td> {{ usuario.email }} </td>
+                            <td> 
+                                {% if usuario.isEnabled() %} 
+                                    activo
+                                {% else %}
+                                    bloqueado
+                                {% endif %}     
+                            </td>
+                        
+                            <td>
+                                <p>
+                                    <a href="/usuario/{{usuario.id}}" > 
+                                        <img class='icono' src="{{ absolute_url(asset('images/ver.jpeg')) }}" alt="ver registro">
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    
+                    {% endfor %}    
+                </tbody>        
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        
+    {% endif %} 
+{% endblock %}
+

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Configuracion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ configuracion.id }}</td>
+            </tr>
+            <tr>
+                <th>Titulo</th>
+                <td>{{ configuracion.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ configuracion.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ configuracion.mail }}</td>
+            </tr>
+            <tr>
+                <th>Paginado</th>
+                <td>{{ configuracion.paginado }}</td>
+            </tr>
+            <tr>
+                <th>Habilitado</th>
+                <td>{% if configuracion.habilitado %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configuracion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('configuracion_edit', { 'id': configuracion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

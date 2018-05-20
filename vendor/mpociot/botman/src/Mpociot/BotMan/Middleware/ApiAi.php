@@ -16,8 +16,14 @@ class ApiAi implements MiddlewareInterface
     /** @var HttpInterface */
     protected $http;
 
+    /** @var stdClass */
+    protected $response;
+
     /** @var string */
-    protected $apiUrl = 'https://api.api.ai/v1/query';
+    protected $lastResponseHash;
+
+    /** @var string */
+    protected $apiUrl = 'https://api.api.ai/v1/query?v=20150910';
 
     /** @var bool */
     protected $listenForAction = false;
@@ -56,6 +62,31 @@ class ApiAi implements MiddlewareInterface
     }
 
     /**
+     * Perform the API.ai API call and cache it for the message.
+     * @param  Message $message
+     * @return stdClass
+     */
+    protected function getResponse(Message $message)
+    {
+        $lastResponseHash = md5($message->getMessage());
+        if ($this->lastResponseHash !== $lastResponseHash) {
+            $response = $this->http->post($this->apiUrl, [], [
+                'query' => [$message->getMessage()],
+                'sessionId' => md5($message->getChannel()),
+                'lang' => 'en',
+            ], [
+                'Authorization: Bearer '.$this->token,
+                'Content-Type: application/json; charset=utf-8',
+            ], true);
+
+            $this->response = json_decode($response->getContent());
+            $this->lastResponseHash = $lastResponseHash;
+        }
+
+        return $this->response;
+    }
+
+    /**
      * Handle / modify the message.
      *
      * @param Message $message
@@ -63,23 +94,17 @@ class ApiAi implements MiddlewareInterface
      */
     public function handle(Message &$message, DriverInterface $driver)
     {
-        $response = $this->http->post($this->apiUrl, [], [
-            'query' => [$message->getMessage()],
-            'sessionId' => md5($message->getChannel()),
-            'lang' => 'en',
-        ], [
-            'Authorization: Bearer '.$this->token,
-            'Content-Type: application/json; charset=utf-8',
-        ], true);
+        $response = $this->getResponse($message);
 
-        $response = json_decode($response->getContent());
-        $reply = isset($response->result->speech) ? $response->result->speech : '';
+        $reply = isset($response->result->fulfillment->speech) ? $response->result->fulfillment->speech : '';
         $action = isset($response->result->action) ? $response->result->action : '';
+        $actionIncomplete = isset($response->result->actionIncomplete) ? (bool) $response->result->actionIncomplete : false;
         $intent = isset($response->result->metadata->intentName) ? $response->result->metadata->intentName : '';
         $parameters = isset($response->result->parameters) ? (array) $response->result->parameters : [];
 
         $message->addExtras('apiReply', $reply);
         $message->addExtras('apiAction', $action);
+        $message->addExtras('apiActionIncomplete', $actionIncomplete);
         $message->addExtras('apiIntent', $intent);
         $message->addExtras('apiParameters', $parameters);
     }
@@ -94,7 +119,9 @@ class ApiAi implements MiddlewareInterface
     public function isMessageMatching(Message $message, $test, $regexMatched)
     {
         if ($this->listenForAction) {
-            return $message->getExtras()['apiAction'] === $test;
+            $pattern = '/^'.$test.'$/i';
+
+            return (bool) preg_match($pattern, $message->getExtras()['apiAction']);
         }
 
         return true;

@@ -1,0 +1,96 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block javaScript %}
+    {{ parent() }}
+    <script type="text/javascript" src ="{{ absolute_url(asset('js/confirmarBorrarP.js')) }}" ></script>
+{% endblock %}
+
+{% block cuerpo %}
+    <div class = "row" > 
+        <div class = "col-md-1 col-md-offset-5" >
+            <button class="btn btn-success" onclick="location.href= '{{ path('paciente_new') }}' ">
+                NUEVO
+            </button>
+        </div>  
+    </div>
+    <div class="row">    
+            <div class="col-xs-6 col-xs-offset-3">
+                <form method = "get" action = "{{ path('paciente_index') }}" class="form-horizontal">
+                    <div class="input-group">         
+                        <input type="text" class="form-control" name="filtro" value = "" placeholder=" nombre o apellido ">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <SELECT name = "tipoDocFiltro" id = "tipoDocFiltro" class = "form-control col-xs-6"> 
+                            <option value= "0"> Seleccione un tipo de documento</option>
+                            {% for key,value in docs %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endfor %}                                   
+                        </SELECT>
+                        <input type="text" name="documento" placeholder="Numero de documento" class = "form-control col-md-6">
+                    </div>
+                </form>
+            </div>
+        </div>
+    <h1>Pacientes</h1>
+    <div class = "table-responsive" >
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Genero</th>
+                    <th>Tipo de documento</th>
+                    <th>Numero de documento</th>
+                    <th>Domicilio</th>
+                    <th>Telefono</th>
+                    <th>Obra social</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for paciente in pagination %}
+                <tr>
+                    <td>{{ paciente.apellido }}</td>
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{% if paciente.nacimiento %}{{ paciente.nacimiento|date('d-m-Y') }}{% endif %}</td>
+                    <td>{{ paciente.genero }}</td>
+                    <td>{{docs[paciente.tipoDoc]}}</td>
+                    <td>{{ paciente.numDoc }}</td>
+                    <td>{{ paciente.domicilio }}</td>
+                    <td>{{ paciente.telefono }}</td>
+                    <td>{{ obras[paciente.obraSocial] }}</td>
+                    {% if (is_granted('ROLE_PED') or is_granted('ROLE_REC') or true) %}
+                        <td>   
+                            <a href="{{ path('paciente_show', { 'id': paciente.id }) }}"> 
+                                <img class = "icono" src='{{ absolute_url(asset('images/ver.jpeg')) }}' alt="Ver paciente">
+                            </a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('historia_index', { 'paciente': paciente.id }) }}"> 
+                                <img class = "icono" src='{{ absolute_url(asset('images/historia.jpg')) }}' alt="Ver historial">
+                        </a>
+                    </td>    
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>    
+                            <form action="{{ path('paciente_delete', { 'id': paciente.id }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(deleteForms[paciente.id]) }}
+                                <input type="image" src="{{ absolute_url(asset('images/borrar.jpeg')) }}" class="icono borrar"/>
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+    </div>        
+{% endblock %}

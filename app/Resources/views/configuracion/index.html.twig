@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Configuracions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Mail</th>
+                <th>Paginado</th>
+                <th>Habilitado</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for configuracion in configuracions %}
+            <tr>
+                <td><a href="{{ path('configuracion_show', { 'id': configuracion.id }) }}">{{ configuracion.id }}</a></td>
+                <td>{{ configuracion.titulo }}</td>
+                <td>{{ configuracion.descripcion }}</td>
+                <td>{{ configuracion.mail }}</td>
+                <td>{{ configuracion.paginado }}</td>
+                <td>{% if configuracion.habilitado %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('configuracion_show', { 'id': configuracion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('configuracion_edit', { 'id': configuracion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('configuracion_new') }}">Create a new configuracion</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -9,17 +9,10 @@ use Mpociot\BotMan\Question;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Mpociot\BotMan\Messages\Message as IncomingMessage;
 
 class WeChatDriver extends Driver
 {
-    /** @var Collection|ParameterBag */
-    protected $payload;
-
-    /** @var Collection */
-    protected $event;
-
     const DRIVER_NAME = 'WeChat';
 
     /**
@@ -39,23 +32,13 @@ class WeChatDriver extends Driver
     }
 
     /**
-     * Return the driver name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return self::DRIVER_NAME;
-    }
-
-    /**
      * Determine if the request is for this driver.
      *
      * @return bool
      */
     public function matchesRequest()
     {
-        return ! is_null($this->event->get('MsgType')) && ! is_null($this->event->get('MsgId'));
+        return ! is_null($this->event->get('MsgType')) && ! is_null($this->event->get('MsgId')) && $this->event->get('MsgType') === 'text';
     }
 
     /**
@@ -116,7 +99,7 @@ class WeChatDriver extends Driver
      */
     public function reply($message, $matchingMessage, $additionalParameters = [])
     {
-        $parameters = array_merge([
+        $parameters = array_merge_recursive([
             'touser' => $matchingMessage->getChannel(),
             'msgtype' => 'text',
         ], $additionalParameters);
@@ -153,5 +136,18 @@ class WeChatDriver extends Driver
     public function isConfigured()
     {
         return ! is_null($this->config->get('wechat_app_id')) && ! is_null($this->config->get('wechat_app_key'));
+    }
+
+    /**
+     * Low-level method to perform driver specific API requests.
+     *
+     * @param string $endpoint
+     * @param array $parameters
+     * @param Message $matchingMessage
+     * @return Response
+     */
+    public function sendRequest($endpoint, array $parameters, Message $matchingMessage)
+    {
+        return $this->http->post('https://api.wechat.com/cgi-bin/'.$endpoint.'?access_token='.$this->getAccessToken(), [], $parameters, [], true);
     }
 }

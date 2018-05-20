@@ -14,12 +14,6 @@ use Mpociot\BotMan\Messages\Message as IncomingMessage;
 
 class BotFrameworkDriver extends Driver
 {
-    /** @var Collection|ParameterBag */
-    protected $payload;
-
-    /** @var Collection */
-    protected $event;
-
     const DRIVER_NAME = 'BotFramework';
 
     /**
@@ -29,16 +23,6 @@ class BotFrameworkDriver extends Driver
     {
         $this->payload = new ParameterBag((array) json_decode($request->getContent(), true));
         $this->event = Collection::make($this->payload->all());
-    }
-
-    /**
-     * Return the driver name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return self::DRIVER_NAME;
     }
 
     /**
@@ -57,8 +41,8 @@ class BotFrameworkDriver extends Driver
      */
     public function getConversationAnswer(Message $message)
     {
-        if (strstr($message->getMessage(), '<botman value="') !== false) {
-            preg_match('/<botman value="(.*)"\/>/', $message->getMessage(), $matches);
+        if (false !== strpos($message->getMessage(), '<botman value="')) {
+            preg_match('/<botman value="(.*)"><\/botman>/', $message->getMessage(), $matches);
 
             return Answer::create($message->getMessage())
                 ->setInteractiveReply(true)
@@ -141,7 +125,7 @@ class BotFrameworkDriver extends Driver
      */
     public function reply($message, $matchingMessage, $additionalParameters = [])
     {
-        $parameters = array_merge([
+        $parameters = array_merge_recursive([
             'type' => 'message',
         ], $additionalParameters);
         /*
@@ -185,7 +169,8 @@ class BotFrameworkDriver extends Driver
             'Authorization:Bearer '.$this->getAccessToken(),
         ];
 
-        $apiURL = Collection::make($matchingMessage->getPayload())->get('serviceUrl', Collection::make($additionalParameters)->get('serviceUrl'));
+        $payload = is_null($matchingMessage->getPayload()) ? [] : $matchingMessage->getPayload()->all();
+        $apiURL = Collection::make($payload)->get('serviceUrl', Collection::make($additionalParameters)->get('serviceUrl'));
 
         if (strstr($apiURL, 'webchat.botframework')) {
             $parameters['from'] = [
@@ -202,5 +187,25 @@ class BotFrameworkDriver extends Driver
     public function isConfigured()
     {
         return ! is_null($this->config->get('microsoft_app_id')) && ! is_null($this->config->get('microsoft_app_key'));
+    }
+
+    /**
+     * Low-level method to perform driver specific API requests.
+     *
+     * @param string $endpoint
+     * @param array $parameters
+     * @param Message $matchingMessage
+     * @return Response
+     */
+    public function sendRequest($endpoint, array $parameters, Message $matchingMessage)
+    {
+        $headers = [
+            'Content-Type:application/json',
+            'Authorization:Bearer '.$this->getAccessToken(),
+        ];
+
+        $apiURL = Collection::make($matchingMessage->getPayload())->get('serviceUrl', Collection::make($parameters)->get('serviceUrl'));
+
+        return $this->http->post($apiURL.'/v3/'.$endpoint, [], $parameters, $headers, true);
     }
 }

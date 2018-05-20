@@ -1,0 +1,11 @@
+{% extends 'HospitalBundle:Default:frontHabilitado.twig.html' %}
+
+{% block cuerpo %}
+    <h1>Editar control medico</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="EDITAR" class="btn btn-success btn-md col-md-1" />
+    {{ form_end(edit_form) }}
+    <a class="btn btn-primary btn-md col-md-1 col-md-offset-1" href="{{ path('historia_show', { 'id': historium.id }) }}">VOLVER</a>
+{% endblock %}

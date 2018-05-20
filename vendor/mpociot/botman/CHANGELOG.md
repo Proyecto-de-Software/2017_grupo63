@@ -1,6 +1,59 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.5.8]
+### Added
+- Fixes an issue with Facebook attachment detection. (#463)
+- Allow adding of plain array buttons on Element class (#448)
+- Added Authentication to RedisStorage (#439)
+
+### Fixed
+- Fixes an issue with Facebook attachment detection. (#463)
+
+## [1.5.7]
+### Added
+- Added support for Symfony 3.3
+
+## [1.5.6]
+### Fixed
+Custom drivers now get loaded first.
+Fixed an error with Slack crashing with unknown attachment types (#371)
+
+## [1.5.5]
+### Fixed
+Fix botframework not using shorthand closing tags (#345)
+
+## [1.5.4]
+### Fixed
+Fix error when originating MS Bot Framework messages - fixes (#324)
+
+## [1.5.3]
+### Fixed
+Fixed an issue with the SlackRTM driver in combination with regular file uploads (#323)
+
+## [1.5.2]
+### Changed
+- Added unicode support
+- Added support for Telegram voice messages
+
+## [1.5.1]
+### Changed
+- Additional parameters for `say`, `reply` and `ask` methods now recursively merge the parameters.
+
+## [1.5.0]
+
+### Added
+- Added `askForImages`, `askForVideos`, `askForAudio`, `askForLocation`.
+- Added support for receiving images, videos, audio files and locations.
+- Added `sendRequest` method to perform low-level driver API requests.
+- Allow regular expressions in API.ai middleware
+- Added fake driver for testing
+- Allow typing indicators for Slack RTM driver
+
+### Changed
+- Cache API.ai calls
+- Cache Wit.AI calls
+
 ## [1.4.1]
 ### Added
 - Added on-the-fly mini-conversations using `$botman->ask($question, Closure $next, $additionalParameters = [])`.

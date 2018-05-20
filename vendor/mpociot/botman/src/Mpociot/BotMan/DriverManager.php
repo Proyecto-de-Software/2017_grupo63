@@ -12,10 +12,24 @@ use Mpociot\BotMan\Drivers\HipChatDriver;
 use Mpociot\BotMan\Drivers\FacebookDriver;
 use Mpociot\BotMan\Drivers\TelegramDriver;
 use Mpociot\BotMan\Interfaces\HttpInterface;
+use Mpociot\BotMan\Drivers\WeChatPhotoDriver;
+use Mpociot\BotMan\Drivers\WeChatVideoDriver;
 use Symfony\Component\HttpFoundation\Request;
 use Mpociot\BotMan\Drivers\BotFrameworkDriver;
 use Mpociot\BotMan\Interfaces\DriverInterface;
+use Mpociot\BotMan\Drivers\FacebookAudioDriver;
+use Mpociot\BotMan\Drivers\FacebookImageDriver;
+use Mpociot\BotMan\Drivers\FacebookOptinDriver;
+use Mpociot\BotMan\Drivers\FacebookVideoDriver;
+use Mpociot\BotMan\Drivers\TelegramAudioDriver;
+use Mpociot\BotMan\Drivers\TelegramPhotoDriver;
+use Mpociot\BotMan\Drivers\TelegramVideoDriver;
+use Mpociot\BotMan\Drivers\WeChatLocationDriver;
+use Mpociot\BotMan\Drivers\FacebookLocationDriver;
 use Mpociot\BotMan\Drivers\FacebookPostbackDriver;
+use Mpociot\BotMan\Drivers\TelegramLocationDriver;
+use Mpociot\BotMan\Drivers\BotFrameworkImageDriver;
+use Mpociot\BotMan\Drivers\BotFrameworkAttachmentDriver;
 
 class DriverManager
 {
@@ -25,11 +39,25 @@ class DriverManager
     protected static $drivers = [
         SlackDriver::class,
         FacebookDriver::class,
+        FacebookImageDriver::class,
+        FacebookVideoDriver::class,
+        FacebookAudioDriver::class,
         FacebookPostbackDriver::class,
+        FacebookOptinDriver::class,
+        FacebookLocationDriver::class,
+        TelegramPhotoDriver::class,
+        TelegramVideoDriver::class,
+        TelegramLocationDriver::class,
+        TelegramAudioDriver::class,
         TelegramDriver::class,
+        BotFrameworkImageDriver::class,
+        BotFrameworkAttachmentDriver::class,
         BotFrameworkDriver::class,
         NexmoDriver::class,
         HipChatDriver::class,
+        WeChatPhotoDriver::class,
+        WeChatLocationDriver::class,
+        WeChatVideoDriver::class,
         WeChatDriver::class,
     ];
 
@@ -121,7 +149,19 @@ class DriverManager
      */
     public static function loadDriver($driver)
     {
-        self::$drivers[] = $driver;
+        array_unshift(self::$drivers, $driver);
+    }
+
+    /**
+     * Remove a driver from the list of loadable drivers.
+     *
+     * @param string $driver Driver class name
+     */
+    public static function unloadDriver($driver)
+    {
+        foreach (array_keys(self::$drivers, $driver) as $key) {
+            unset(self::$drivers[$key]);
+        }
     }
 
     /**
