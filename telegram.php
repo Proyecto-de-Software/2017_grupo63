@@ -12,7 +12,7 @@
 	$botman = BotManFactory::create($config);
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
-		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos/". $fecha);
+		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/turnos/". $fecha);
 		$temporal = json_decode($turnos);
 		if (!is_null($temporal)) {
 			 $turnos = json_decode($turnos, true);
@@ -55,7 +55,7 @@
 			$respuesta	= $e->getMessage();
 		}
 	    $bot->reply($respuesta);*/
-	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos');
+	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/turnos');
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
