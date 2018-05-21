@@ -30,7 +30,8 @@
         "symfony/symfony": "2.8.*",
         "symfony/var-dumper": "^3.4",
         "twig/twig": "^1.0||^2.0",
-        "mpociot/botman": "^1.4"
+        "mpociot/botman": "^1.4",
+        "slim/slim": "^3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
