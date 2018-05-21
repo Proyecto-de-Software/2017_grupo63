@@ -5,9 +5,6 @@
 	require_once '../models/listables.php';
 	require_once '../models/pacienteModelo.php';
 	require_once '../models/DemograficModel.php';
-	require_once ("../controllers/curl.php");
-	require_once ("../controllers/controller.php");
-	require_once '../controllers/demografico.php';
 	require_once '../vendor/autoload.php';
 	require '../vendor/slim/slim/Slim/App.php';
 
