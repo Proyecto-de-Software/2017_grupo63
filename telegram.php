@@ -15,10 +15,11 @@
           'http'=>array(
             'method'=>"GET",
             'header'=>"Content-Type: application/json\r\n" .
-                      "Accept: application/json\r\n"  
+                      "Accept: */*\r\n" .
+                      "Connection: Keep-Alive"
           )
         );
-        $context = stream_context_create($opts);
+        $context = stream_context_create($options);
 		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/web/app.php/turnos/". $fecha, false, $context);
 		$temporal = json_decode($turnos);
 		if (!is_null($temporal)) {
