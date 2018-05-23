@@ -11,7 +11,15 @@
 	$botman = BotManFactory::create($config);
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
-		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/web/app.php/turnos/". $fecha);
+		$options = array(
+          'http'=>array(
+            'method'=>"GET",
+            'header'=>"Content-Type: application/json\r\n" .
+                      "Accept: application/json\r\n"  
+          )
+        );
+        $context = stream_context_create($opts);
+		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/web/app.php/turnos/". $fecha, false, $context);
 		$temporal = json_decode($turnos);
 		if (!is_null($temporal)) {
 			 $turnos = json_decode($turnos, true);
