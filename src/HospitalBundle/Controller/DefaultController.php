@@ -17,7 +17,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $this->botAction();
         $usuario = $this->getUser();
         if (!is_null($usuario)) {
             $datos['usuario'] = $usuario;
