@@ -3,12 +3,13 @@
 	$bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
 	use Mpociot\BotMan\BotManFactory;
 	use Mpociot\BotMan\BotMan;
+	use Mpociot\BotMan\Cache\DoctrineCache;
 	$config = [
 	   'telegram_token' => $bot_api_key,
 	];
 
 	// create an instance
-	$botman = BotManFactory::create($config);
+	$botman = BotManFactory::create($config, new DoctrineCache($doctrineCacheDriver);
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
 		$options = array(
