@@ -25,8 +25,8 @@ class SecurityController extends BaseController
     	return $response;
     }
 
-	/*
-     * @Route("/check", name="security_check")	
+	/**
+     * @Route("/check")	
      */
 	public function checkAction()
     {
