@@ -4,7 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../app/bootstrap.php.cache';
-require_once __DIR__.'/../telegram.php';
+//require_once __DIR__.'/../telegram.php';
 
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
