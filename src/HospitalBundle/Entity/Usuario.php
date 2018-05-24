@@ -61,21 +61,6 @@ class Usuario extends BaseUser
      */
     private $created_at;
     
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="HospitalBundle\Entity\Rol")
-     * @ORM\JoinTable(name="usuario_tiene_rol",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="rol_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    protected $groups;
-    
     public function getId()
     {
         return $this->id;
@@ -146,7 +131,7 @@ class Usuario extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
