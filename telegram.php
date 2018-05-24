@@ -1,6 +1,6 @@
 <?php
-	require_once  'vendor/autoload.php';
 	$bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
+	require_once  'vendor/autoload.php';
 	use Mpociot\BotMan\BotManFactory;
 	use Mpociot\BotMan\BotMan;
 	use Mpociot\BotMan\Cache\DoctrineCache;
@@ -8,8 +8,7 @@
 	   'telegram_token' => $bot_api_key,
 	];
 
-	// create an instance
-	$botman = BotManFactory::create($config, new DoctrineCache($doctrineCacheDriver);
+	$botman = BotManFactory::create($config, new DoctrineCache($doctrineCacheDriver));
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
 		$options = array(
@@ -37,7 +36,6 @@
 					 	else{$respuesta .= ".";}	
 					 }
 			  	}
-			  	 	
 		}
 		else{$respuesta = $turnos;}	    
 	    $bot->reply($respuesta);
@@ -45,25 +43,6 @@
 
 	$botman->hears('reservar {dni} {fecha} {hora}', function ($bot, $dni, $fecha, $hora) {
 		$data = array ('dni' => $dni, 'fecha' => $fecha, 'hora' => $hora);
-		/*$data = http_build_query($data);
-		$opciones = array(
-		  'http'=>array(
-		    'method'=>"POST",
-		    'header'=> "Content-type: application/x-www-form-urlencoded",
-		    'content'=>$data
-		  )
-		);
-		$contexto = stream_context_create($opciones);
-		try {
-			$idTurno = fopen('https://grupo63.proyecto2017.linti.unlp.edu.ar/api/index.php/turnos', 'r', false, $contexto);
-			fpassthru($idTurno);
-			$respuesta = $idTurno;
-			fclose($idTurno);	    
-			
-		} catch (Exception $e) {
-			$respuesta	= $e->getMessage();
-		}
-	    $bot->reply($respuesta);*/
 	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/turnos');
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -74,29 +53,6 @@
 	});
 
 	$botman->listen();
-	/*$bot_username = 'Grupo63bot';
-	$bot = new \TelegramBot\Api\Client($bot_api_key);
-
-	$bot->command('start', function ($message) use ($bot) {
-	    $answer = 'hola soy Grupo63.';
-	    $bot->sendMessage($message->getChat()->getId(), $answer);
-
-	});
-
-	$bot->command('turnos', function ($message) use ($bot) {
-	    $answer = 'hola soy Grupo63.';
-	    $bot->sendMessage($message->getChat()->getId(), $answer);
-
-	});
-	
-	$bot->command('command1', function ($message) use ($bot) {
-	    $answer = 'hola soy Grupo64.';
-	    $bot->sendMessage($message->getChat()->getId(), $answer);
-	}); 
-
-	
-	$bot->run();*/
-
 ?>
 
 
