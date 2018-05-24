@@ -20,7 +20,7 @@
           )
         );
         $context = stream_context_create($options);
-		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/web/app.php/turnos/". $fecha, false, $context);
+		$turnos = file_get_contents("https://grupo63.proyecto2017.linti.unlp.edu.ar/turnos/". $fecha, false, $context);
 		$temporal = json_decode($turnos);
 		if (!is_null($temporal)) {
 			 $turnos = json_decode($turnos, true);
@@ -63,7 +63,7 @@
 			$respuesta	= $e->getMessage();
 		}
 	    $bot->reply($respuesta);*/
-	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/web/app.php/turnos');
+	    $ch = curl_init('https://grupo63.proyecto2017.linti.unlp.edu.ar/turnos');
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
