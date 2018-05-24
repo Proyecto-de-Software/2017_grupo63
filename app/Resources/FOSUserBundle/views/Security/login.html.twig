@@ -2,7 +2,7 @@
 
 {% block content %}
     {% block fos_user_content %} 
-    	<form class = "form-signin"  action="/check" method='post'>
+    	<form class = "form-signin"  action="{{ path('security_check') }}" method='post'>
 	    	<input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.refreshToken('authenticate') }}" />	
 		    <div class="center">
 				<div class="form-group">

@@ -26,7 +26,7 @@ class SecurityController extends BaseController
     }
 
 	/**
-     * @Route("/check")	
+     * @Route("/check", name="security_check")	
      */
 	public function checkAction()
     {
