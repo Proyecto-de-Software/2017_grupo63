@@ -25,7 +25,10 @@ class DefaultController extends Controller
         return $this->render('HospitalBundle:Default:frontHabilitado.twig.html');
     }
 
-    public function bot()
+    /**
+     * @Route("/bot", name="default_bot")
+     */
+    public function botAction()
     {
         $bot_api_key  = '363828343:AAE_DQ4D5Mdcb10UqHWCQ5ZRQiAiILFe2fE';
         $config = [
