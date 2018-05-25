@@ -3,12 +3,12 @@
 	require_once  '../vendor/autoload.php';
 	use Mpociot\BotMan\BotManFactory;
 	use Mpociot\BotMan\BotMan;
-	use Mpociot\BotMan\Cache\DoctrineCache;
+
 	$config = [
 	   'telegram_token' => $bot_api_key,
 	];
 
-	$botman = BotManFactory::create($config, new DoctrineCache($doctrineCacheDriver));
+	$botman = BotManFactory::create($config);
 
 	$botman->hears('turnos {fecha}', function ($bot, $fecha) {
 		$options = array(

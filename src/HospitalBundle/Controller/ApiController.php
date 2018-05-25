@@ -13,7 +13,9 @@ use HospitalBundle\Entity\Turno;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\View\View;
-
+use Mpociot\BotMan\BotManFactory;
+use Mpociot\BotMan\BotMan;
+use Mpociot\BotMan\Cache\DoctrineCache;
 /*
  * 
 */
@@ -43,6 +45,15 @@ class ApiController extends FOSRestController
         $turnos = $em->getRepository(Turno::class)->getTurnos($fecha);
         $view = $this->view($turnos, 200);
         return $view;
+    }
+
+    /**
+     * 
+     * @Get("/bot")
+     */
+    public function botAction()
+    {
+        # code...
     }
 
     /**
