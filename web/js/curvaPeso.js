@@ -5,11 +5,11 @@ $(document).ready(function() {
             renderTo: 'curvaPeso',
         },
         title: {
-            text: 'Evolucion'
+            text: 'Curva de Peso'
         },
         yAxis: {
             title: {
-                text: 'valor'
+                text: 'Peso (kg)'
             }
         },
         legend: {
@@ -31,10 +31,9 @@ $(document).ready(function() {
     };
 
     var paciente = document.getElementById("paciente");
-    console.log(paciente.innerHTML);
     paciente = paciente.innerHTML;
-    var url = 'http://localhost/grupo63/api/index.php/graficos/';
-    console.log(url.concat(paciente.toString()));
+    var url = 'http://localhost/grupo63/api/index.php/curvaPeso/';
+    //console.log(url.concat(paciente.toString()));
     $.getJSON(url.concat(paciente.toString()), function(data) {
         var datajs = [];
         options.series = [];
@@ -46,6 +45,7 @@ $(document).ready(function() {
             newseries.name = this.name;
             newseries.data = acomodar(this.data);
             options.series.push(newseries);
+            //console.log(newseries);
         });
         var chart = new Highcharts.Chart(options);
     });

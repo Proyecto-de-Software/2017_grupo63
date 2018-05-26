@@ -157,4 +157,18 @@ class PacienteController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * 
+     *
+     * @Route("/curvaPeso/{id}", name="paciente_curva_peso")
+     * @Method("GET")
+     */
+    public function curvaPesoAction(Paciente $paciente)
+    {
+         return $this->render('paciente/curvaPeso.html.twig', array(
+            'paciente' => $paciente,
+        ));
+    }
+
 }

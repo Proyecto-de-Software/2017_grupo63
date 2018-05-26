@@ -10,27 +10,17 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use HospitalBundle\Entity\Turno;
+use HospitalBundle\Entity\Paciente;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\View\View;
-use Mpociot\BotMan\BotManFactory;
-use Mpociot\BotMan\BotMan;
-use Mpociot\BotMan\Cache\DoctrineCache;
+
 /*
  * 
 */
 class ApiController extends FOSRestController
 {
-	public function getApiAction($fecha)
-    {
-        $data = array('hello' => 'world');
-        //$serializer = $this->getSerializer();
-        //return new JsonResponse (json_decode($serializer->serialize($data, 'json')));
-        $em = $this->getDoctrine()->getManager();
-        $turnos = $em->getRepository(Turno::class)->getTurnos("20-12-2017");
-        $view = $this->view($turnos, 200);
-        return $view;
-    }
+	
     /**
      * GET Route annotation.
      * @Get("/turnos/{fecha}", defaults={"_format"="json"})
@@ -45,15 +35,6 @@ class ApiController extends FOSRestController
         $turnos = $em->getRepository(Turno::class)->getTurnos($fecha);
         $view = $this->view($turnos, 200);
         return $view;
-    }
-
-    /**
-     * 
-     * @Get("/bot")
-     */
-    public function botAction()
-    {
-        # code...
     }
 
     /**
@@ -102,6 +83,19 @@ class ApiController extends FOSRestController
         return $view;
     }
 
+    /**
+     * GET Route annotation.
+     * @Get("/curvaPeso/{paciente}", defaults={"_format"="json"})
+     */
+    public function getCurvaPesoAction($paciente)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dataCurva = $em->getRepository(Paciente::class)->curvaPeso($paciente);
+        $view = $this->view($dataCurva, 200);
+        return $view;
+    }
+
+
     public function verificarFecha($date)
 	{
 		$fecha = explode("-", $date);
@@ -142,4 +136,5 @@ class ApiController extends FOSRestController
             $fecha = Date($fecha);
             return strtotime($hoy) >= strtotime($fecha);
     }
-}	
+} 
+?>

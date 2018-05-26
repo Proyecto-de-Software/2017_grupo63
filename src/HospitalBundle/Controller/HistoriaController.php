@@ -69,7 +69,7 @@ class HistoriaController extends Controller
             $em->flush();            
             $this->get('session')->getFlashBag()->add(
                 'notice',
-                'Su informe medico ha sido creado exitosamente!'
+                'El informe medico ha sido creado exitosamente!'
             );
             return $this->redirectToRoute('historia_index', array('paciente' => $paciente->getId()));
         }
