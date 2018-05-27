@@ -30,27 +30,24 @@ $(document).ready(function() {
         series: [{}]
     };
 
-    var paciente = document.getElementById("paciente");
-    paciente = paciente.innerHTML;
-    var url = 'http://localhost/grupo63/api/index.php/curvaPeso/';
-    //console.log(url.concat(paciente.toString()));
-    $.getJSON(url.concat(paciente.toString()), function(data) {
-        var datajs = [];
-        options.series = [];
-        jQuery.each(data, function() {
-            var newseries = {
-                name: '',
-                data: []
-            };
-            newseries.name = this.name;
-            newseries.data = acomodar(this.data);
-            options.series.push(newseries);
-            //console.log(newseries);
-        });
-        var chart = new Highcharts.Chart(options);
-    });
-
     
+    //console.log(url.concat(paciente.toString()));
+    var data = document.getElementById("dataCurva");
+    data = data.innerHTML;
+    data = $.parseJSON(data);
+    var datajs = [];
+    options.series = [];
+    jQuery.each( data, function() {
+        var newseries = {
+            name: '',
+            data: []
+        };
+        newseries.name = this.name;
+        newseries.data = acomodar(this.data);
+        options.series.push(newseries);
+        //console.log(newseries);
+    });
+    var chart = new Highcharts.Chart(options);
 });
 
 function acomodar (data) {

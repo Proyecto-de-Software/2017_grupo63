@@ -20,6 +20,7 @@ class UsuarioController extends Controller
     /**
      * Lists all usuario entities.
      *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/", name="usuario_index")
      * @Method("GET")
      */
@@ -45,6 +46,7 @@ class UsuarioController extends Controller
     /**
      * Creates a new usuario entity.
      *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/new", name="usuario_new")
      * @Method({"GET", "POST"})
      */
@@ -67,7 +69,11 @@ class UsuarioController extends Controller
             $usuario->setPlainPassword($usuario->getPassword());
             $userManager->updateUser($usuario);
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'El usuario ha sido creado exitosamente!'
+            );
+            return $this->redirectToRoute('usuario_index');
         }
 
         return $this->render('usuario/new.html.twig', array(
@@ -79,6 +85,7 @@ class UsuarioController extends Controller
     /**
      * Finds and displays a usuario entity.
      *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}", name="usuario_show")
      * @Method("GET")
      */
@@ -94,7 +101,8 @@ class UsuarioController extends Controller
 
     /**
      * Displays a form to edit an existing usuario entity.
-     *
+     * 
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}/edit", name="usuario_edit")
      * @Method({"GET", "POST"})
      */
@@ -107,8 +115,11 @@ class UsuarioController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('usuario_edit', array('id' => $usuario->getId()));
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'El usuario ha sido modificado exitosamente!'
+            );
+            return $this->redirectToRoute('usuario_index');
         }
 
         return $this->render('usuario/edit.html.twig', array(
@@ -120,7 +131,7 @@ class UsuarioController extends Controller
 
     /**
      * Deletes a usuario entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}", name="usuario_delete")
      * @Method("DELETE")
      */

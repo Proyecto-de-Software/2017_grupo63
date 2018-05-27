@@ -12,6 +12,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  * Configuracion controller.
  *
@@ -25,6 +27,7 @@ class ConfiguracionController extends Controller
     /**
      * Displays a form to edit an existing configuracion entity.
      *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}/edit", name="configuracion_edit")
      * @Method({"GET", "POST"})
      */

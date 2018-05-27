@@ -42,7 +42,7 @@
                 <tr>
                     <td>{% if historia.fecha %}{{ historia.fecha|date('d-m-Y')  }}{% endif %}</td>
                     <td>{{ historia.usuario.username }}</td>
-                    {% if (is_granted('ROLE_PED') or true) %}
+                    {% if (is_granted('ROLE_PED')) %}
                         <td>   
                             <a href="{{ path('historia_show', { 'id': historia.id }) }}"> 
                                 <img class = "icono" src='{{ absolute_url(asset('images/ver.jpeg')) }}' alt="Ver control">

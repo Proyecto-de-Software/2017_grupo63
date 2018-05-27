@@ -27,20 +27,21 @@ $(document).ready(function() {
         series: [{}]
     };
 
-    var url = 'http://localhost/grupo63/api/index.php/estadistica';
-    $.getJSON(url, function(data) {
-        jQuery.each(data, function() {
-            this.title = {
-		        format: '<b>{name}</b>',
-		        verticalAlign: 'top',
-		        y: -40
-		    };
-            options.series.push(this);
-        });
-        console.log(options.series);
-        //options.series = (data);
-        var chart = new Highcharts.Chart(options);
+    var data = document.getElementById("dataEstadistica");
+    data = data.innerHTML;
+    data = $.parseJSON(data);
+    jQuery.each(data, function() {
+        this.title = {
+	        format: '<b>{name}</b>',
+	        verticalAlign: 'top',
+	        y: -40
+	    };
+        options.series.push(this);
     });
+    //console.log(options.series);
+    //options.series = (data);
+    var chart = new Highcharts.Chart(options);
+    
 
     
 });

@@ -17,8 +17,31 @@ use HospitalBundle\Model\CurlClase;
 class DatosDemograficosController extends Controller
 {
     /**
-     * Creates a new datosDemografico entity.
+     * 
      *
+     * @Route("/estadistica", name="datos_demograficos_estadistica")
+     * @Method("GET")
+     */
+    public function estadisticaAction()
+    {
+         $em = $this->getDoctrine()->getManager();
+         $curlc = new CurlClase();
+         $todos = array();
+         $repository = $em->getRepository(DatosDemograficos::class); 
+         $todos[] = $repository->vivienda($curlc->obtenerDatos("tipo-vivienda"));
+         $todos[] = $repository->calefaccion($curlc->obtenerDatos("tipo-calefaccion"));
+         $todos[] = $repository->agua($curlc->obtenerDatos("tipo-agua"));
+         $todos[] = $repository->electricidad();
+         $todos[] = $repository->mascota();
+         $todos[] = $repository->heladera();
+         return $this->render('datosdemograficos/estadistica.html.twig', array(
+            'dataEstadistica' => $todos
+        ));
+    }
+
+    /**
+     * Creates a new datosDemografico entity.
+     * @Security("has_role('ROLE_REC') or has_role('ROLE_PED')")
      * @Route("/new/{paciente}", name="datosdemograficos_new")
      * @Method({"GET", "POST"})
      */
@@ -53,7 +76,7 @@ class DatosDemograficosController extends Controller
 
     /**
      * Finds and displays a datosDemografico entity.
-     *
+     * @Security("has_role('ROLE_REC') or has_role('ROLE_PED')")
      * @Route("/{paciente}", name="datosdemograficos_show")
      * @Method("GET")
      */
@@ -75,7 +98,7 @@ class DatosDemograficosController extends Controller
 
     /**
      * Displays a form to edit an existing datosDemografico entity.
-     *
+     * @Security("has_role('ROLE_REC') or has_role('ROLE_PED')")
      * @Route("/{id}/edit/{paciente}", name="datosdemograficos_edit")
      * @Method({"GET", "POST"})
      */
@@ -103,7 +126,7 @@ class DatosDemograficosController extends Controller
 
     /**
      * Deletes a datosDemografico entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}", name="datosdemograficos_delete")
      * @Method("DELETE")
      */
@@ -136,4 +159,5 @@ class DatosDemograficosController extends Controller
             ->getForm()
         ;
     }
+
 }

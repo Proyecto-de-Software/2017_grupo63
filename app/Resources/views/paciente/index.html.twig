@@ -7,10 +7,15 @@
 
 {% block cuerpo %}
     <div class = "row" > 
-        <div class = "col-md-1 col-md-offset-5" >
+        <div class = "col-md-1 col-md-offset-3" >
             <button class="btn btn-success" onclick="location.href= '{{ path('paciente_new') }}' ">
                 NUEVO
             </button>
+        </div>
+        <div class = "col-md-1 col-md-offset-4" >
+            <a class="btn btn-info" href= "{{ path('datos_demograficos_estadistica') }}" >
+                Estadisticas
+            </a>
         </div>  
     </div>
     <div class="row">    
@@ -64,7 +69,7 @@
                     <td>{{ paciente.domicilio }}</td>
                     <td>{{ paciente.telefono }}</td>
                     <td>{{ obras[paciente.obraSocial] }}</td>
-                    {% if (is_granted('ROLE_PED') or is_granted('ROLE_REC') or true) %}
+                    {% if (is_granted('ROLE_PED') or is_granted('ROLE_REC')) %}
                         <td>   
                             <a href="{{ path('paciente_show', { 'id': paciente.id }) }}"> 
                                 <img class = "icono" src='{{ absolute_url(asset('images/ver.jpeg')) }}' alt="Ver paciente">

@@ -51,7 +51,7 @@ class HistoriaController extends Controller
 
     /**
      * Creates a new historium entity.
-     *
+     * @Security("has_role('ROLE_PED')")
      * @Route("/new", name="historia_new")
      * @Method({"GET", "POST"})
      */
@@ -82,7 +82,7 @@ class HistoriaController extends Controller
 
     /**
      * Finds and displays a historium entity.
-     *
+     * @Security("has_role('ROLE_PED')")
      * @Route("/{id}", name="historia_show")
      * @Method("GET")
      */
@@ -97,7 +97,7 @@ class HistoriaController extends Controller
 
     /**
      * Displays a form to edit an existing historium entity.
-     *
+     * @Security("has_role('ROLE_PED')")
      * @Route("/{id}/edit", name="historia_edit")
      * @Method({"GET", "POST"})
      */
@@ -125,7 +125,7 @@ class HistoriaController extends Controller
 
     /**
      * Deletes a historium entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}", name="historia_delete")
      * @Method("DELETE")
      */

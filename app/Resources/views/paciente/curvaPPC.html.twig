@@ -5,12 +5,12 @@
     <script src="{{ absolute_url(asset('code/highcharts.js')) }}"></script>
     <script src="{{ absolute_url(asset('code/modules/series-label.js')) }}"></script>
     <script src="{{ absolute_url(asset('code/modules/exporting.js')) }}"></script>
-    <script type="text/javascript" src ="{{ absolute_url(asset('js/curvaPeso.js')) }}" ></script>
+    <script type="text/javascript" src ="{{ absolute_url(asset('js/curvaPPC.js')) }}" ></script>
     
 {% endblock %}
 
 {% block cuerpo %}
         <div id="paciente" hidden >{{paciente.id}}</div>
         <dir id= "dataCurva" hidden>{{ dataCurva | json_encode }}</dir>
-        <div id="curvaPeso"></div>
+        <div id="curvaPPC"></div>
 {% endblock %}

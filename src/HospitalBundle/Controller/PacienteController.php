@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use HospitalBundle\Model\CurlClase;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  
 /**
  * Paciente controller.
@@ -55,7 +56,8 @@ class PacienteController extends Controller
 
     /**
      * Creates a new paciente entity.
-     *
+     * 
+     * @Security("has_role('ROLE_REC') or has_role('ROLE_PED')")
      * @Route("/new", name="paciente_new")
      * @Method({"GET", "POST"})
      */
@@ -82,6 +84,7 @@ class PacienteController extends Controller
     /**
      * Finds and displays a paciente entity.
      *
+     * @Security("has_role('ROLE_REC') or has_role('ROLE_PED')")
      * @Route("/{id}", name="paciente_show")
      * @Method("GET")
      */
@@ -100,6 +103,7 @@ class PacienteController extends Controller
     /**
      * Displays a form to edit an existing paciente entity.
      *
+     * @Security("has_role('ROLE_REC') or has_role('ROLE_PED')")
      * @Route("/{id}/edit", name="paciente_edit")
      * @Method({"GET", "POST"})
      */
@@ -124,7 +128,7 @@ class PacienteController extends Controller
 
     /**
      * Deletes a paciente entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/{id}", name="paciente_delete")
      * @Method("DELETE")
      */
@@ -166,8 +170,43 @@ class PacienteController extends Controller
      */
     public function curvaPesoAction(Paciente $paciente)
     {
+         $em = $this->getDoctrine()->getManager();
+         $dataCurva = $em->getRepository(Paciente::class)->curvaPeso($paciente->getId());
          return $this->render('paciente/curvaPeso.html.twig', array(
             'paciente' => $paciente,
+            'dataCurva' => $dataCurva
+        ));
+    }
+
+    /**
+     * 
+     *
+     * @Route("/curvaTalla/{id}", name="paciente_curva_talla")
+     * @Method("GET")
+     */
+    public function curvaTallaAction(Paciente $paciente)
+    {
+         $em = $this->getDoctrine()->getManager();
+         $dataCurva = $em->getRepository(Paciente::class)->curvaTalla($paciente->getId());
+         return $this->render('paciente/curvaTalla.html.twig', array(
+            'paciente' => $paciente,
+            'dataCurva' => $dataCurva
+        ));
+    }
+
+    /**
+     * 
+     *
+     * @Route("/curvaPPC/{id}", name="paciente_curva_ppc")
+     * @Method("GET")
+     */
+    public function curvaPPCAction(Paciente $paciente)
+    {
+         $em = $this->getDoctrine()->getManager();
+         $dataCurva = $em->getRepository(Paciente::class)->curvaPPC($paciente->getId());
+         return $this->render('paciente/curvaPPC.html.twig', array(
+            'paciente' => $paciente,
+            'dataCurva' => $dataCurva
         ));
     }
 
