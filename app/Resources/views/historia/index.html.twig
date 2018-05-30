@@ -6,11 +6,13 @@
 {% endblock %}
 {% block cuerpo %}
     <div class = "row" >
-        <div class = "col-md-1 col-md-offset-1" >
-            <button class="btn btn-success" onclick="location.href= '{{ path('historia_new') }}' ">
-                NUEVO
-            </button>
-        </div>  
+        {% if (is_granted('ROLE_PED') %}
+            <div class = "col-md-1 col-md-offset-1" >
+                <button class="btn btn-success" onclick="location.href= '{{ path('historia_new') }}' ">
+                    NUEVO
+                </button>
+            </div>
+        {% endif %}      
         {% if  not pagination is empty %}
                 <div class = "col-md-2 col-md-offset-2" >
                     <button class="btn btn-warning" onclick = "location.href= 'index.php?seccion=historiaController&amp;action=grafico&amp;pacienteid={{paciente.Id}}&amp;tipo=ppc ' ">
