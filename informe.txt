@@ -6,28 +6,37 @@ Se utilizara en su version 2.8 porque a partir de las siguientes versiones utili
 Tanto para la seguridad como para el ruteo se utilizaron anotaciones
 
 Para llevar a caba el trabajo se decidio manejar todo el sitio con un solo bundle (forma de organiar el codigo
-en symfony) llamado hospitalBundle alocado en la carpeta src. 
+en symfony para poder ser tambien por terceros) llamado hospitalBundle alocado en la carpeta src. 
 En la carpeta controller se encuentran los controladores para manejar los requerimientos http. Ademas de los realizados
 durante la cursada se agrego un controlador extra que atiende llamadas REST (es a donde llegan los comandos del bot de telegram).
+Esta api fue realizada con en REST bundle de friends of symfony (https://symfony.com/doc/master/bundles/FOSRestBundle/index.html).
+
 En la carpeta Entity se encuentran las entidades (clases php planas con anotaciones) que las usa el ORM para mapearlas en la base de datos.
-El ORM utilizado es Doctrine, dado que viene por defecto con symfony (aunque tambien permite usar PDO).
-En la Repository se encunetran los repositorios de algunas clases que requieren consultas con cierto grado dificultad.
-La combinacion de las dos últimas carpetas cumpliria la misma funcion que las clases del modelo realizadas en la cursada.
+El ORM utilizado es Doctrine, dado que viene por defecto con symfony (aunque tambien permite usar PDO o cualquier otro ORM).
+En la Repository se encuentran los repositorios de algunas clases que requieren consultas con cierto grado dificultad. Ademas en algunos (Turnos y DatosDemograficos) se le hace un tratamiento a los datos para darselos ya preparados al controler. Esa logica se pudo aprovechar de la entrega de la cursada.
+En DQL hay una clase que permite que permite utilizar la funcion date_format de mysql en doctrine 2, sacada de https://medium.com/@narven/add-mysql-function-date-format-to-symfony-doctrine-dql-288ac51941c2.  
+La combinacion de las tres últimas carpetas cumpliria la misma funcion que las clases del modelo realizadas en la cursada.
+
 En EventListener hay una clase que intercepta todas los requerimientos al kernel de symfony y si el sitio se encuentra en estado de
-mantenimiento muestra el template que lo indica ubicado en app/Resources/TwigBundle/views/Exception/error403.html.twig.
+mantenimiento muestra el template que lo informa ubicado en app/Resources/TwigBundle/views/Exception/error403.html.twig.
+
 En la carpeta Form se encuentran los formularios que utilizan los controladores para realizar las altas y modificaciones.
 El PacienteType y DatosDemograficos type ademas realizan los llamados a la api de referencias de la catedra por medio de la clase que se explica en el siguiente punto.
-En el directorio Model se halla la clase que se encarga de realizar las llamadas CURL a la a api de la catedra y los acomoda para que el controlador se los pase 
-a la vista correspondiente. Esta clase se reuso del a entrega de la cursada.
-En resources se encuentran los templates del DefaultController. Las vistas de los demas controladores se encuentran en el directorio /app/resources/views/{nombre_controlador} 
+En el directorio Model se halla la clase que se encarga de realizar las llamadas CURL a la a api de la catedra y los acomoda para que el controlador se los pase a la vista correspondiente. Esta clase se reuso del a entrega de la cursada.
+
+En resources se encuentran los templates del DefaultController. Las vistas de los demas controladores se encuentran en el directorio /app/resources/views/{nombre_controlador_sin_controlleral_final}. Se encuentran ahi por que la estructura que usa symfony al crear CRUDs mediante comandos.
+
+
 En service se alocan los servicios, que son clases que se pueden inyectar en los controladores y en otros servicios. Su definición se encuentra en /app/config/services.yml.
-En particular este servicios se usa para pasarle los parametros de configuración a todos los templates y no buscarlos cada vez que se quiere mostrar un template.
-En /web se encuentra el bot de telegram que es practicamente el mismo que se realizó en la cursada con la salvedad que en lugar de consumir la api de
-slim consume una hecha en symfony.
+En particular este servicios se usa para pasarle los parametros de la configuración del sitio a todos los templates y no buscarlos cada vez que se quiere mostrar un template.
+
+En /web se encuentra el bot de telegram que es practicamente el mismo que se realizó en la cursada con la salvedad que en lugar de consumir la api de slim consume una hecha en symfony.
 Ademas en /web se encuentran todos los scripts que se ejecutan del lado del cliente y las imagenes que muestra el navegador. 
 
 Para llevar a cabo el login se utilizo el FOSUserBundle, ya que implementa un sistema de login
 mucho más seguro que el diseñado en la cursada.
+
+Para realizar los paginados se utilizo knp-paginator-bundle (https://github.com/KnpLabs/KnpPaginatorBundle).
 
 La mayor fuente de referencia para realizar el trabajo fue la pagina oficial de Symfony (http://symfony.com/doc/current/index.html).
 Tambien se consulto en algunas respuestas de stackoverflow e issues del github oficial de symfony (https://github.com/symfony/symfony).
