@@ -15,17 +15,13 @@
         {% endif %}      
         {% if  not pagination is empty %}
                 <div class = "col-md-2 col-md-offset-2" >
-                    <button class="btn btn-warning" onclick = "location.href= 'index.php?seccion=historiaController&amp;action=grafico&amp;pacienteid={{paciente.Id}}&amp;tipo=ppc ' ">
-                        Curva de PPC
-                    </button>
+                    <a class="btn btn-warning" href="{{ path('paciente_curva_ppc', { 'id': paciente.id }) }}">Curva PPC</a>
                 </div>
                 <div class = "col-md-2 " >
                     <a class="btn btn-warning" href="{{ path('paciente_curva_peso', { 'id': paciente.id }) }}">Curva Peso</a>
                 </div>
                 <div class = "col-md-2 " >
-                    <button class="btn btn-warning" onclick = "location.href= 'index.php?seccion=historiaController&amp;action=grafico&amp;pacienteid={{paciente.Id}}&amp;tipo=talla' ">
-                        Curva de talla
-                    </button>
+                    <a class="btn btn-warning" href="{{ path('paciente_curva_talla', { 'id': paciente.id }) }}">Curva Talla</a>
                 </div>
         {% endif %} 
     </div>
