@@ -10,3 +10,7 @@ incognito. O cerrar la sesion y luego volver a habilitar el sitio desde la base 
 habilitado de la tabla configuracion.
 
 El paciente llamado grafico tiene reportes medicos cargados para verificar las curvas.
+
+El bot de telegram se llama Grupo63 y los comandos que acepta son:
+	- Para pedir los turnos disponibles para una fecha: turnos dd-mm-aaaa
+	- para reservar un turno : reservar dni dd-mm-aaaa hh:mm
