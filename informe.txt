@@ -3,10 +3,10 @@ En framework elegido para la realizacion del trabajo es Symfony dado que:
 - permite separar el codigo en capas.
 - hay bastante documentacionen la web.
 Se utilizara en su version 2.8 porque a partir de las siguientes versiones utiliza php7.
-Tanto para la seguridad como para el ruteo se utilizaron anotaciones
+Tanto para la seguridad como para el ruteo se utilizaron anotaciones brindadas por symfony (security) combinado con el manejo de roles de FOSUserBundle. 
 
 Para llevar a caba el trabajo se decidio manejar todo el sitio con un solo bundle (forma de organiar el codigo
-en symfony para poder ser tambien por terceros) llamado hospitalBundle alocado en la carpeta src. 
+en symfony para poder ser tambien utilizado por terceros) llamado HospitalBundle alocado en la carpeta src. 
 En la carpeta controller se encuentran los controladores para manejar los requerimientos http. Ademas de los realizados
 durante la cursada se agrego un controlador extra que atiende llamadas REST (es a donde llegan los comandos del bot de telegram).
 Esta api fue realizada con en REST bundle de friends of symfony (https://symfony.com/doc/master/bundles/FOSRestBundle/index.html).
@@ -33,8 +33,7 @@ En particular este servicios se usa para pasarle los parametros de la configurac
 En /web se encuentra el bot de telegram que es practicamente el mismo que se realizó en la cursada con la salvedad que en lugar de consumir la api de slim consume una hecha en symfony.
 Ademas en /web se encuentran todos los scripts que se ejecutan del lado del cliente y las imagenes que muestra el navegador. 
 
-Para llevar a cabo el login se utilizo el FOSUserBundle, ya que implementa un sistema de login
-mucho más seguro que el diseñado en la cursada.
+Para llevar a cabo el modulo de usuarios se utilizo el FOSUserBundle (https://symfony.com/doc/2.0/bundles/FOSUserBundle/index.html), ya que implementa un sistema de login y manejo de usuarios mucho más seguro y completo que el diseñado en la cursada.
 
 Para realizar los paginados se utilizo knp-paginator-bundle (https://github.com/KnpLabs/KnpPaginatorBundle).
 
