@@ -28,4 +28,6 @@ Ademas en /web se encuentran todos los scripts que se ejecutan del lado del clie
 
 Para llevar a cabo el login se utilizo el FOSUserBundle, ya que implementa un sistema de login
 mucho más seguro que el diseñado en la cursada.
- 
+
+La mayor fuente de referencia para realizar el trabajo fue la pagina oficial de Symfony (http://symfony.com/doc/current/index.html).
+Tambien se consulto en algunas respuestas de stackoverflow e issues del github oficial de symfony (https://github.com/symfony/symfony).
