@@ -6,7 +6,7 @@
 {% endblock %}
 {% block cuerpo %}
     <div class = "row" >
-        {% if (is_granted('ROLE_PED') %}
+        {% if (is_granted('ROLE_PED')) %}
             <div class = "col-md-1 col-md-offset-1" >
                 <button class="btn btn-success" onclick="location.href= '{{ path('historia_new') }}' ">
                     NUEVO
